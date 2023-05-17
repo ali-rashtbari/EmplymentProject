@@ -79,6 +79,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اطلاعات وارد شده صحیح نمی باشد.-8.
+        /// </summary>
+        public static string InvalidSignInInformation {
+            get {
+                return ResourceManager.GetString("InvalidSignInInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز با موفقیت ویرایش شد.-7.
         /// </summary>
         public static string PasswordChanged {
@@ -93,6 +102,24 @@ namespace Employment.Common {
         public static string PasswordIsInCurrect {
             get {
                 return ResourceManager.GetString("PasswordIsInCurrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد.-9.
+        /// </summary>
+        public static string TokenCreatedSuccessfuly {
+            get {
+                return ResourceManager.GetString("TokenCreatedSuccessfuly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است.-10.
+        /// </summary>
+        public static string UserNameExistInDataBase {
+            get {
+                return ResourceManager.GetString("UserNameExistInDataBase", resourceCulture);
             }
         }
         

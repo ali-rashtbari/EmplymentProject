@@ -125,6 +125,10 @@
     <value>شماره مبایل وارد شده اشتباه است.-5</value>
     <comment>InCurrect Mobile Number.</comment>
   </data>
+  <data name="InvalidSignInInformation" xml:space="preserve">
+    <value>اطلاعات وارد شده صحیح نمی باشد.-8</value>
+    <comment>The Entered informations for signing in is incurrect.</comment>
+  </data>
   <data name="PasswordChanged" xml:space="preserve">
     <value>رمز با موفقیت ویرایش شد.-7</value>
     <comment>Password Successfuly changed.</comment>
@@ -132,6 +136,14 @@
   <data name="PasswordIsInCurrect" xml:space="preserve">
     <value>اطلاعات وارد شده نادرست است.-1</value>
     <comment>Password is InCurrect</comment>
+  </data>
+  <data name="TokenCreatedSuccessfuly" xml:space="preserve">
+    <value>عملیات ورود با موفقیت انجام شد.-9</value>
+    <comment>Successful token createion.</comment>
+  </data>
+  <data name="UserNameExistInDataBase" xml:space="preserve">
+    <value>کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است.-10</value>
+    <comment>There is a user in the database with the given Eamil or UserName</comment>
   </data>
   <data name="UserNameNotFound" xml:space="preserve">
     <value>اطلاعات وارد شده نادرست است.-2</value>

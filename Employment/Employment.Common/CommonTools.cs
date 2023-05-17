@@ -1,4 +1,5 @@
 ﻿using Employment.Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -22,6 +23,12 @@ namespace Employment.Common
             return new JsonResult(result);
         }
 
+        public static IActionResult ReturnResultAsJson<T>(string message, HttpStatusCode statusCode, T data)
+        {
+            _splitMessage(message);
+            var result = new ApiResultAsJson(message: _message, statusCode: statusCode, code: _code);
+            return new JsonResult(new { Value = result, Data = data });
+        }
 
         /// <summary>
         /// split api result message and seprate the message and the message code.

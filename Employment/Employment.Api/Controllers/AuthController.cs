@@ -1,9 +1,12 @@
 ﻿using Employment.Api.ActionFilters;
 using Employment.Api.Models.AuthModels;
+using Employment.Api.Services.JWTServices;
+using Employment.Api.Services.JWTServices.Dtos;
 using Employment.Common;
 using Employment.Common.Constants;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +14,20 @@ using System.Net;
 
 namespace Employment.Api.Controllers
 {
+ 
     [Route("api/[controller]/")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IJwtService _jwtService;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _jwtService = jwtService;
         }
 
         [HttpPost("SignIn")]
@@ -30,7 +36,7 @@ namespace Employment.Api.Controllers
         {
             try
             {
-                var user = await _userManager.FindByEmailAsync(signinViewModel.Email);
+                var user = await _userManager.FindByNameAsync(signinViewModel.Email);
                 if (user == null) ExceptionHelper.ThrowException(ApplicationMessages.UserNameNotFound, statusCode: HttpStatusCode.BadRequest);
 
                 var isPasswordCurrect = await _userManager.CheckPasswordAsync(user, signinViewModel.Password);
@@ -38,7 +44,13 @@ namespace Employment.Api.Controllers
 
                 await _signInManager.SignInAsync(user, signinViewModel.IsRemember);
 
-                return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignInSuccessfuly, HttpStatusCode.OK);
+                var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
+                {
+                    Email = signinViewModel.Email,
+                    Password = signinViewModel.Password,
+                });
+
+                return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignInSuccessfuly, HttpStatusCode.OK, data: token);
             }
             catch (MainException ex)
             {
@@ -54,7 +66,11 @@ namespace Employment.Api.Controllers
         {
             try
             {
-                var userName = String.IsNullOrWhiteSpace(signUpViewModel.UserName) == true ? signUpViewModel.Email : signUpViewModel.UserName;
+                if(await _userManager.FindByNameAsync(signUpViewModel.Email) != null)
+                {
+                    ExceptionHelper.ThrowException(ApplicationMessages.UserNameExistInDataBase, HttpStatusCode.BadRequest);
+                }
+
                 var user = new User()
                 {
                     Email = signUpViewModel.Email,
@@ -64,7 +80,7 @@ namespace Employment.Api.Controllers
                     LastName = signUpViewModel.LastName,
                     Mobile = signUpViewModel.Mobile,
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    NormalizedUserName = userName.ToUpper(),
+                    NormalizedUserName = signUpViewModel.Email.ToUpper(),
                     SecurityStamp = Guid.NewGuid().ToString(),
                 };
 
@@ -86,7 +102,13 @@ namespace Employment.Api.Controllers
                     ExceptionHelper.ThrowException(ApplicationMessages.UserNameNotFound, HttpStatusCode.BadRequest);
                 }
 
-                return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignedUpSuccessfuly, HttpStatusCode.OK);
+                var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
+                {
+                    Email = signUpViewModel.Email,
+                    Password = signUpViewModel.Password
+                });
+
+                return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignedUpSuccessfuly, HttpStatusCode.OK, data: token);
             }
             catch (MainException ex)
             {
@@ -94,6 +116,33 @@ namespace Employment.Api.Controllers
             }
         }
 
+        [HttpPost("GetToken")]
+        [ServiceFilter(typeof(ModelValidationFilterAttribute))]
+        public async Task<IActionResult> GetToken(RequestTokenRequestDto requestTokenDto)
+        {
+            try
+            {
+                var token = await _jwtService.GetTokenAsync(requestTokenDto);
+
+                var result = new RequestTokenResultDto()
+                {
+                    UserName = requestTokenDto.Email,
+                    UserToken = token.UserToken,
+                    RefreshToken = token.RefreshToken,
+                    RefreshTokenExpiration = token.RefreshTokenExpiration,
+                    TokenExpiration = token.TokenExpiration
+                };
+
+                return CommonTools.ReturnResultAsJson<RequestTokenResultDto>(ApplicationMessages.TokenCreatedSuccessfuly, HttpStatusCode.OK, data: result);
+
+            }
+            catch (MainException ex)
+            {
+                return ExceptionHelper.CatchException(ex);
+            }
+        }
+
+        [Authorize]
         [HttpPut("ChangePassword")]
         [ServiceFilter(typeof(ModelValidationFilterAttribute))]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel changePasswordViewModel)
@@ -108,6 +157,14 @@ namespace Employment.Api.Controllers
             {
                 return ExceptionHelper.CatchException(ex);
             }
+        }
+
+        [Authorize]
+        [HttpGet("SignOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok();
         }
 
 

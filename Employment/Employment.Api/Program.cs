@@ -1,5 +1,6 @@
 using Employment.Api;
 using Employment.Api.ActionFilters;
+using Employment.Api.Services.JWTServices;
 using Employment.Domain;
 using Employment.Persistance;
 using Employment.Persistance.Context;
@@ -22,7 +23,9 @@ Configure(app);
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
     services.PersistanceServiceRegistration(configuration);
-    services.EndPointServiceRegistration();
+    services.EndPointServiceRegistration(configuration);
+
+
 
     services.AddControllers()
         .AddNewtonsoftJson(options =>
@@ -45,6 +48,19 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
                 Name = "ali",
             },
         });
+
+        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+        });
+
+       
+
     });
 
     // --- cors --- //

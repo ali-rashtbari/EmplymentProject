@@ -49,15 +49,16 @@ namespace Employment.Persistance.ExtensionMethods
                 Id = Guid.NewGuid().ToString(),
                 FirstName = "Ali",
                 LastName = "Rashtbari",
-                UserName = "admin",
-                Email = "admin@hexashop.com",
+                UserName = "admin@employment.com",
+                Email = "admin@employment.com",
                 NormalizedUserName = "admin".ToUpper(),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 SecurityStamp = Guid.NewGuid().ToString(),
+                Mobile = "09917586411"
             };
 
             var passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "123456789");
+            user.PasswordHash = passwordHasher.HashPassword(user, "123456789@Ali");
 
             dbContext.Users.Add(user);
             dbContext.SaveChanges();

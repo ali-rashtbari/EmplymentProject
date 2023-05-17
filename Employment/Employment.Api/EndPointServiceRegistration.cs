@@ -1,15 +1,20 @@
 ﻿using Employment.Api.ActionFilters;
+using Employment.Api.Models.AuthModels;
+using Employment.Api.Services.JWTServices;
 using Employment.Domain;
 using Employment.Persistance.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Runtime;
+using System.Text;
 
 namespace Employment.Api
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection EndPointServiceRegistration(this IServiceCollection services)
+        public static IServiceCollection EndPointServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
 
             services.AddIdentity<User, Role>(options =>
@@ -27,9 +32,36 @@ namespace Employment.Api
             }).AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+            var section = configuration.GetSection("JwtOptions");
+            services.Configure<JwtOptions>(section);
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = false;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = configuration["JwtOptions:Issuer"],
+                    ValidAudience = configuration["JwtOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtOptions:Key"]))
+                };
+            });
+
 
             // --- action filters --- //
             services.AddScoped<ModelValidationFilterAttribute>();
+            services.AddScoped<IJwtService, JwtService>();
+
 
             services.ConfigureApplicationCookie(options =>
             {
