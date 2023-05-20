@@ -24,6 +24,17 @@ namespace Employment.Persistance.ModelConfigurations
             builder.Property(u => u.Mobile)
                 .IsRequired(true)
                 .HasMaxLength(11);
+
+
+            #region Relations 
+
+            builder.HasOne(u => u.Profile)
+                .WithOne(p => p.User)
+                .HasForeignKey<User>(u => u.ProfileId)
+                .IsRequired(true)
+                .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
+
+            #endregion
         }
     }
 }

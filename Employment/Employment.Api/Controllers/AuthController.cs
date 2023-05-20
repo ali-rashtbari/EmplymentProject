@@ -82,8 +82,13 @@ namespace Employment.Api.Controllers
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     NormalizedUserName = signUpViewModel.Email.ToUpper(),
                     SecurityStamp = Guid.NewGuid().ToString(),
+                    Profile = new Profile()
+                    {
+                        Biography = null
+                    }
                 };
 
+                
                 var passwordHasher = new PasswordHasher<User>();
                 user.PasswordHash = passwordHasher.HashPassword(user, signUpViewModel.Password);
 

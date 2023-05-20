@@ -15,5 +15,14 @@ namespace Employment.Domain
         public string Mobile { get; set; }
         [NotMapped]
         public string FullName => FirstName + " " + LastName;
+
+
+        #region Relations 
+
+        public virtual Profile Profile { get; set; }
+        [ForeignKey(nameof(Profile))]
+        public int ProfileId { get; set; }
+
+        #endregion
     }
 }

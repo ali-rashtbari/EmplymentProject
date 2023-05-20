@@ -19,6 +19,13 @@ namespace Employment.Persistance.Context
 
         }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Resume> Rsumes { get; set; }
+        public DbSet<EducationHistory> EducationHistories { get; set; }
+        public DbSet<Link> Links { get; set; }
+        public DbSet<Major> Majors { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
