@@ -20,8 +20,6 @@ namespace Employment.Domain
         #region Relations 
 
         public virtual Profile Profile { get; set; }
-        [ForeignKey(nameof(Profile))]
-        public int ProfileId { get; set; }
 
         #endregion
     }

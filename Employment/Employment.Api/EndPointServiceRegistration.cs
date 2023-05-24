@@ -1,12 +1,14 @@
 ﻿using Employment.Api.ActionFilters;
 using Employment.Api.Models.AuthModels;
 using Employment.Api.Services.JWTServices;
+using Employment.Application.MapperProfiles;
 using Employment.Domain;
 using Employment.Persistance.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Runtime;
 using System.Text;
 
@@ -75,6 +77,9 @@ namespace Employment.Api
                 options.LogoutPath = new PathString("/api/auth/signOut");
                 options.Cookie.Name = "EmploymentCookies";  
             });
+
+            // auto mapper ---
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }

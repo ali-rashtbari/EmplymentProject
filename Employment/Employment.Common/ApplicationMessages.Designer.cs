@@ -106,6 +106,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to کاربر پروفایلی ندارد یا چنین پروفایلی یافت نشد.-11.
+        /// </summary>
+        public static string ProfileNotFound {
+            get {
+                return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد.-9.
         /// </summary>
         public static string TokenCreatedSuccessfuly {

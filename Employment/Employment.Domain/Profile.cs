@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Employment.Common.Enums;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,11 @@ namespace Employment.Domain
     {
         public string Biography { get; set; }
         public bool IsCompleted { get; set; }
+        public Gender? Gender { get; set; }
+        public MaritalStatus? MaritalStatus { get; set; }
+        public string Address { get; set; }
+        public DateTime? BirthDate { get; set; }
+
         #region Relations 
 
 
@@ -19,8 +25,7 @@ namespace Employment.Domain
 
 
         public virtual Resume Resume { get; set; }
-        [ForeignKey(nameof(Resume))]
-        public int? ResumeId { get; set; }
+        
 
 
         #endregion

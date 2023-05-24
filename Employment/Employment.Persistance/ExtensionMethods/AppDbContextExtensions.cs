@@ -54,7 +54,11 @@ namespace Employment.Persistance.ExtensionMethods
                 NormalizedUserName = "admin".ToUpper(),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 SecurityStamp = Guid.NewGuid().ToString(),
-                Mobile = "09917586411"
+                Mobile = "09917586411",
+                Profile = new Profile()
+                {
+                    Gender = Common.Enums.Gender.Male
+                }
             };
 
             var passwordHasher = new PasswordHasher<User>();

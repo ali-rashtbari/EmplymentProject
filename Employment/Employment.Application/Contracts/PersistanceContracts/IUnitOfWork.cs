@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Contracts.PersistanceContracts
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
         void Commit();
         Task CommitAsync();
@@ -18,5 +18,15 @@ namespace Employment.Application.Contracts.PersistanceContracts
         bool IsBeganTransaction();
         Task<int> SaveChangesAsync();
         int SaveChanges();
+
+
+
+        #region Repositories
+
+        public IProfileRepository ProfileRepository { get; }
+
+        #endregion
+
+
     }
 }

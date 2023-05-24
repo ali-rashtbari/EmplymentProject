@@ -33,5 +33,36 @@ namespace Employment.Persistance.Context
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
+            {
+                entry.Entity.DateModified = DateTime.Now;
+
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.DateCreated = DateTime.Now;
+                }
+
+            }
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
+            {
+                entry.Entity.DateModified = DateTime.Now;
+
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.DateCreated = DateTime.Now;
+                }
+
+            }
+            return base.SaveChangesAsync();
+        }
+
+
     }
 }

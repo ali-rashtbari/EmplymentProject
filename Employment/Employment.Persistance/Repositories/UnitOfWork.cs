@@ -18,8 +18,6 @@ namespace Employment.Persistance.Repositories
         }
 
 
-
-
         #region Methods
         public IDbContextTransaction BeginTransaction()
         {
@@ -62,42 +60,23 @@ namespace Employment.Persistance.Repositories
 
         public Task<int> SaveChangesAsync()
         {
-
-            foreach (var entry in _dbContext.ChangeTracker.Entries<DomainBaseEntity>())
-            {
-                entry.Entity.DateModified = DateTime.Now;
-
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.DateCreated = DateTime.Now;
-                }
-
-            }
             return _dbContext.SaveChangesAsync();
         }
 
         public int SaveChanges()
         {
-            foreach (var entry in _dbContext.ChangeTracker.Entries<DomainBaseEntity>())
-            {
-                entry.Entity.DateModified = DateTime.Now;
-
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.DateCreated = DateTime.Now;
-                }
-
-            }
             return _dbContext.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            this.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
         #endregion Methods
+
+
+        #region Repositoreis
+
+        private readonly IProfileRepository _profileRepository;
+        public IProfileRepository ProfileRepository => _profileRepository ?? new ProfileRepository(_dbContext);
+
+        #endregion
 
 
     }

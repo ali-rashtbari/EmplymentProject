@@ -1,5 +1,7 @@
-﻿using Employment.Domain;
+﻿using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Domain;
 using Employment.Persistance.Context;
+using Employment.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,8 @@ namespace Employment.Persistance
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
 

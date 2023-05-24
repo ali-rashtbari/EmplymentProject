@@ -1,12 +1,10 @@
 using Employment.Api;
-using Employment.Api.ActionFilters;
-using Employment.Api.Services.JWTServices;
-using Employment.Domain;
+using Employment.Application;
 using Employment.Persistance;
 using Employment.Persistance.Context;
 using Employment.Persistance.ExtensionMethods;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,14 +22,17 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 {
     services.PersistanceServiceRegistration(configuration);
     services.EndPointServiceRegistration(configuration);
+    services.ApplicationServiceRegistration();
 
 
 
     services.AddControllers()
-        .AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        });
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+
+
 
     services.AddEndpointsApiExplorer();
 
@@ -59,7 +60,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
             Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
         });
 
-       
+
 
     });
 

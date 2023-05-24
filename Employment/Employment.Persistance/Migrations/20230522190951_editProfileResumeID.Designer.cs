@@ -4,6 +4,7 @@ using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522190951_editProfileResumeID")]
+    partial class editProfileResumeID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,14 +164,14 @@ namespace Employment.Persistance.Migrations
                     b.Property<int?>("MaritalStatus")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ResumeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -288,6 +291,9 @@ namespace Employment.Persistance.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -307,6 +313,9 @@ namespace Employment.Persistance.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -447,23 +456,23 @@ namespace Employment.Persistance.Migrations
                     b.Navigation("Resume");
                 });
 
-            modelBuilder.Entity("Employment.Domain.Profile", b =>
-                {
-                    b.HasOne("Employment.Domain.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("Employment.Domain.Profile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Employment.Domain.Resume", b =>
                 {
                     b.HasOne("Employment.Domain.Profile", "Profile")
                         .WithOne("Resume")
                         .HasForeignKey("Employment.Domain.Resume", "ProfleId")
                         .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Employment.Domain.User", b =>
+                {
+                    b.HasOne("Employment.Domain.Profile", "Profile")
+                        .WithOne("User")
+                        .HasForeignKey("Employment.Domain.User", "ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Profile");
@@ -527,7 +536,9 @@ namespace Employment.Persistance.Migrations
 
             modelBuilder.Entity("Employment.Domain.Profile", b =>
                 {
-                    b.Navigation("Resume")
+                    b.Navigation("Resume");
+
+                    b.Navigation("User")
                         .IsRequired();
                 });
 
@@ -536,12 +547,6 @@ namespace Employment.Persistance.Migrations
                     b.Navigation("EducationHistories");
 
                     b.Navigation("Links");
-                });
-
-            modelBuilder.Entity("Employment.Domain.User", b =>
-                {
-                    b.Navigation("Profile")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
