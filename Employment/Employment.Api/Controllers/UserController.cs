@@ -26,6 +26,7 @@ namespace Employment.Api.Controllers
             try
             {
                 await _servicesPool.ProfileService.EditAsync(editProfileDto);
+                
                 return Ok();
             }
             catch (MainException ex)

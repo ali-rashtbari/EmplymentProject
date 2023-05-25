@@ -3,6 +3,7 @@ using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Domain;
 using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Employment.Persistance.Repositories
 {
@@ -18,7 +19,12 @@ namespace Employment.Persistance.Repositories
 
         public async Task CheckCompleteness(Profile profile)
         {
-  
+            var resume = _dbContext.Entry(profile).Reference(p => p.Resume);
+            if(!resume.IsLoaded)
+            {
+                await resume.LoadAsync();
+            }
+
             var isCompleted = profile.Gender.HasValue &&
                               profile.Address.Any() &&
                               profile.Biography.Any() &&
@@ -26,8 +32,15 @@ namespace Employment.Persistance.Repositories
                               profile.MaritalStatus.HasValue ? true : false;
 
             profile.IsCompleted = isCompleted;
-            await UpdateAsync(profile);
 
+            if(isCompleted && profile.Resume == null)
+            {
+                profile.Resume = new Resume()
+                {
+
+                };
+            }
+            await UpdateAsync(profile);
             await Task.CompletedTask;
         }
 

@@ -1,5 +1,7 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Persistance.Context;
+using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,22 +46,23 @@ namespace Employment.Persistance.Repositories
             _dbContext.SaveChanges();
         }
 
-        public T Get(int id)
+        public T Get(int id, List<string> includes = null)
         {
             var entity = _dbContext.Set<T>().Find(id);
-            return entity;
+            return GetAsQueryable(includes).FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(List<string> includes = null)
         {
             var entiteis = _dbContext.Set<T>().AsEnumerable();
-            return entiteis;
+            return GetAsQueryable(includes).AsEnumerable();
         }
 
-        public async Task<T> GetAsync(int id)
+        public async Task<T> GetAsync(int id, List<string> includes = null)
         {
             var entity = await _dbContext.Set<T>().FindAsync(id);
-            return entity;
+
+            return await GetAsQueryable(includes).FirstOrDefaultAsync();
         }
 
         public void Update(T entity)
@@ -72,6 +75,20 @@ namespace Employment.Persistance.Repositories
         {
             _dbContext.Entry<T>(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+        }
+
+
+        private IQueryable<T> GetAsQueryable(List<string> includes = null)
+        {
+            var entity = _dbContext.Set<T>().AsQueryable();
+            if(includes.Any())
+            {
+                foreach (var include in includes)
+                {
+                    entity.Include(include);
+                }
+            }
+            return entity;
         }
     }
 }
