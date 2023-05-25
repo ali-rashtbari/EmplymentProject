@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\Validations\AddLinkDtoValidator.cs\**" />
+    <EmbeddedResource Remove="Dtos\Validations\AddLinkDtoValidator.cs\**" />
+    <None Remove="Dtos\Validations\AddLinkDtoValidator.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />

@@ -29,7 +29,7 @@ namespace Employment.Application.Services.ApplicationServices
             var validationResult = await validator.ValidateAsync(request);
             if (!validationResult.IsValid) ExceptionHelper.ThrowException(validationResult.Errors.FirstOrDefault().ErrorMessage, System.Net.HttpStatusCode.BadRequest);
             
-            var profile = await _unitOfWork.ProfileRepository.GetAsync(request.Id, includes: new List<string>()
+            var profile = _unitOfWork.ProfileRepository.Get(request.Id, includes: new List<string>()
             {
                 "Resume"
             });

@@ -11,9 +11,8 @@ namespace Employment.Application.Contracts.PersistanceContracts
 
 
         // get ---
-        IEnumerable<T> GetAll(List<string> includes = null);
-        T Get(int id, List<string> includes = null);
-        Task<T> GetAsync(int id, List<string> includes = null);
+        IEnumerable<T> GetAll(List<string>? includes = null);
+        T Get(int id, List<string>? includes = null);
 
         // update ---
         Task UpdateAsync(T entity);

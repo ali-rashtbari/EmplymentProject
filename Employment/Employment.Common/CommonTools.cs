@@ -1,6 +1,7 @@
 ﻿using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace Employment.Common
@@ -50,5 +51,19 @@ namespace Employment.Common
                 }
             });
         }
+
+
+        public static Expression<Func<T, bool>> GetLambdaExpression<T, Param>(string leftParam, Param rightParam)
+        {
+            // This expression is lambad : e => e.Id == id
+            var parameter = Expression.Parameter(typeof(T));
+            var left = Expression.Property(parameter, leftParam);
+            var right = Expression.Constant(rightParam);
+            var equal = Expression.Equal(left, right);
+            var lambdaExpression = Expression.Lambda<Func<T, bool>>(equal, parameter);
+
+            return lambdaExpression;
+        }
+
     }
 }

@@ -90,6 +90,8 @@ void Configure(WebApplication app)
 
     }
 
+    app.ConfigureExceptionHandlerMiddleware();
+
     app.UseHttpsRedirection();
 
     app.UseAuthentication();

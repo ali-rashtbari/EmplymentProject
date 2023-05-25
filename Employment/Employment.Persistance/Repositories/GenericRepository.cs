@@ -1,10 +1,12 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Common;
 using Employment.Persistance.Context;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,23 +48,15 @@ namespace Employment.Persistance.Repositories
             _dbContext.SaveChanges();
         }
 
-        public T Get(int id, List<string> includes = null)
+        public T Get(int id, List<string>? includes = null)
         {
-            var entity = _dbContext.Set<T>().Find(id);
-            return GetAsQueryable(includes).FirstOrDefault();
+            var expression = CommonTools.GetLambdaExpression<T, int>("Id", id);
+            return GetAsQueryable(expression, includes: includes).FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(List<string> includes = null)
+        public IEnumerable<T> GetAll(List<string>? includes = null)
         {
-            var entiteis = _dbContext.Set<T>().AsEnumerable();
-            return GetAsQueryable(includes).AsEnumerable();
-        }
-
-        public async Task<T> GetAsync(int id, List<string> includes = null)
-        {
-            var entity = await _dbContext.Set<T>().FindAsync(id);
-
-            return await GetAsQueryable(includes).FirstOrDefaultAsync();
+            return GetAsQueryable(expression: null, includes: includes);
         }
 
         public void Update(T entity)
@@ -78,17 +72,21 @@ namespace Employment.Persistance.Repositories
         }
 
 
-        private IQueryable<T> GetAsQueryable(List<string> includes = null)
+        private IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? expression = null, List<string>? includes = null)
         {
-            var entity = _dbContext.Set<T>().AsQueryable();
-            if(includes.Any())
+            var entities = _dbContext.Set<T>().AsQueryable();
+            if(expression is not null)
+            {
+                entities = entities.Where(expression);
+            }
+            if(includes != null && includes.Any())
             {
                 foreach (var include in includes)
                 {
-                    entity.Include(include);
+                    entities.Include(include);
                 }
             }
-            return entity;
+            return entities;
         }
     }
 }

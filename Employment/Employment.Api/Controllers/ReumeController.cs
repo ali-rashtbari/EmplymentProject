@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
+using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,11 +22,25 @@ namespace Employment.Api.Controllers
             _mapper = mapper;
         }
 
-        //[HttpPost("Create")]
-        //public async Task<IActionResult> Create([FromBody] )
-        //{
+        [HttpPost("AddLink")]
+        public async Task<IActionResult> AddLink([FromBody] AddLinkDto addLinkDto)
+        {
+            var validationResult = await new AddLinkDtoValidator().ValidateAsync(addLinkDto);
+            if(!validationResult.IsValid)
+            {
+                throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+            }
 
-        //}
+            var prof = _unitOfWork.ProfileRepository.Get(addLinkDto.ResumeId);
+
+            if(prof is null)
+            {
+                throw new NotFoundException("prof not found.", nameof(Profile), addLinkDto.ResumeId.ToString());
+            }
+
+            return Ok();
+
+        }
 
     }
 }
