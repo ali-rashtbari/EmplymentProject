@@ -1,5 +1,7 @@
-﻿using System.Net;
-using System.Text.Json;
+﻿using Employment.Common.Exceptions;
+using Microsoft.IdentityModel.Tokens;
+using System.Net;
+using System.Net.Http;
 
 namespace Employment.Api.MIddleWares
 {
@@ -14,24 +16,51 @@ namespace Employment.Api.MIddleWares
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext httpContent)
+        public async Task InvokeAsync(HttpContext httpContext)
         {
+            Exception exception = null;
+
             try
             {
-                await _next(httpContent);
+                await _next(httpContext);
+            }
+            catch (NotFoundException ex)
+            {
+                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+                exception = ex;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something was Wrong : {ex}");
-                await HandleExceptionAsync(httpContent, ex);
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                exception = ex;
             }
+            finally
+            {
+                await LogThenHandleException(exception, httpContext);
+            }
+        }
+
+
+        private async Task LogThenHandleException(Exception ex, HttpContext httpContext)
+        {
+
+            //httpContext.Response.StatusCode = ex switch
+            //{
+            //    NotFoundException => StatusCodes.Status404NotFound,
+            //    InvalidModelException => StatusCodes.Status400BadRequest,
+            //    _ => StatusCodes.Status500InternalServerError
+            //};
+
+            _logger.LogError($"Something was Wrong : {ex}");
+            await HandleExceptionAsync(httpContext, ex);
+            await Task.CompletedTask;
         }
 
 
         private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            //httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             await httpContext.Response.WriteAsync(new ExceptionDetails()
             {
@@ -42,17 +71,6 @@ namespace Employment.Api.MIddleWares
         }
 
 
-    }
-
-    public class ExceptionDetails
-    {
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
-
-        public override string ToString()
-        {
-            return JsonSerializer.Serialize(this);
-        }
     }
 
 }

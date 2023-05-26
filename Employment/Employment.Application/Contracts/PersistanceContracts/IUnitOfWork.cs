@@ -24,6 +24,8 @@ namespace Employment.Application.Contracts.PersistanceContracts
         #region Repositories
 
         public IProfileRepository ProfileRepository { get; }
+        public IResumeRepository ResumeRepository { get; }
+        public ILinkRepository LinkRepository { get; }
 
         #endregion
 

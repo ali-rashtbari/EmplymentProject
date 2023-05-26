@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Common.Exceptions
 {
-    public class InvalidModelException : ApplicationException
+    public class InvalidModelException : Exception
     {
         public InvalidModelException(string message) : base($"Invalid Model Error with Message : {message}")
         {

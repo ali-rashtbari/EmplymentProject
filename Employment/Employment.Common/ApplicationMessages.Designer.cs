@@ -106,7 +106,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کاربر پروفایلی ندارد یا چنین پروفایلی یافت نشد.-11.
+        ///   Looks up a localized string similar to پروفایل یافت نشد.-11.
         /// </summary>
         public static string ProfileNotFound {
             get {

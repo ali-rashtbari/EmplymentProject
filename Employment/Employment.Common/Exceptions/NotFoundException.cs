@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Employment.Common.Exceptions
 {
-    public class NotFoundException : ApplicationException
+    public class NotFoundException : Exception
     {
-        public NotFoundException(string message, string resourceName, string resourceIdentifier) : base($"Resource not Found with Message : {message} - Resource Name : {resourceName} - wiht Identifier : {resourceIdentifier}")
-        {
-            
+        public NotFoundException(string msg, string entity, string id) : base($"Resource '{entity}' with Identifier '{id}' not Found. Message : '{msg}'")
+        {  
         }
     }
 }

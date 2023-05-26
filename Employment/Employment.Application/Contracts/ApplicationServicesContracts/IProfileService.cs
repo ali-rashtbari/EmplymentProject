@@ -1,4 +1,5 @@
 ﻿using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Common.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 {
     public interface IProfileService
     {
-        Task EditAsync(EditProfileDto request);
+        Task<CommandResule> EditAsync(EditProfileDto request);
     }
 }

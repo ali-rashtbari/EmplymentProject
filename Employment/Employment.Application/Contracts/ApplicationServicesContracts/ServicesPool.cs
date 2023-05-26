@@ -23,5 +23,11 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 
         private readonly IProfileService _profileService;
         public IProfileService ProfileService => _profileService ?? new ProfileService(_unitOfWork, _mapper);
+
+        private readonly IResumeService _resumeService;
+        public IResumeService ResumeService => _resumeService ?? new ResumeService();
+
+        private readonly ILinkService _linkService;
+        public ILinkService LinkService => _linkService ?? new LinkService();
     }
 }

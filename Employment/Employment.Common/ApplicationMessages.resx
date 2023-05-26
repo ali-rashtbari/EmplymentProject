@@ -138,7 +138,7 @@
     <comment>Password is InCurrect</comment>
   </data>
   <data name="ProfileNotFound" xml:space="preserve">
-    <value>کاربر پروفایلی ندارد یا چنین پروفایلی یافت نشد.-11</value>
+    <value>پروفایل یافت نشد.-11</value>
     <comment>there is no profile with the given id</comment>
   </data>
   <data name="TokenCreatedSuccessfuly" xml:space="preserve">

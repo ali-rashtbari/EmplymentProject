@@ -1,6 +1,8 @@
-﻿using Employment.Application.Contracts.ApplicationServicesContracts;
+﻿using Azure.Core;
+using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
 using Employment.Application.MapperProfiles;
 using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -23,17 +25,11 @@ namespace Employment.Api.Controllers
         [HttpPost("EditProfile")]
         public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto)
         {
-            try
-            {
-                await _servicesPool.ProfileService.EditAsync(editProfileDto);
-                
-                return Ok();
-            }
-            catch (MainException ex)
-            {
-                return ExceptionHelper.CatchException(ex);
-            }
-
+            var validator = new EditProfileDtoValidator();
+            var validationResult = await validator.ValidateAsync(editProfileDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+            var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto);
+            return Ok(editResult.ToString());
         }
 
     }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Contracts.ApplicationServicesContracts
 {
-    public interface IServicesPool
+    public interface ILinkService
     {
-        public IProfileService ProfileService { get; }
-        public IResumeService ResumeService { get; }
-        public ILinkService LinkService { get; }
+      
     }
 }

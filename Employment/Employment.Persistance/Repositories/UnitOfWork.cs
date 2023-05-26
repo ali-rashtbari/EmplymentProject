@@ -76,6 +76,12 @@ namespace Employment.Persistance.Repositories
         private readonly IProfileRepository _profileRepository;
         public IProfileRepository ProfileRepository => _profileRepository ?? new ProfileRepository(_dbContext);
 
+        private readonly IResumeRepository _resumeRepository;
+        public IResumeRepository ResumeRepository => _resumeRepository ?? new ResumeRepository(_dbContext);
+
+        private readonly ILinkRepository _linkRepository;
+        public ILinkRepository LinkRepository => _linkRepository ?? new LinkRepository(_dbContext);
+
         #endregion
 
 
