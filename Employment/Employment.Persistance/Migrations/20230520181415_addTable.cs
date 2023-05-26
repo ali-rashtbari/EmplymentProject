@@ -39,7 +39,7 @@ namespace Employment.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rsumes",
+                name: "Resumes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -106,7 +106,7 @@ namespace Employment.Persistance.Migrations
                     table.ForeignKey(
                         name: "FK_EducationHistories_Rsumes_ResumeId",
                         column: x => x.ResumeId,
-                        principalTable: "Rsumes",
+                        principalTable: "Resumes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -127,7 +127,7 @@ namespace Employment.Persistance.Migrations
                     table.ForeignKey(
                         name: "FK_Links_Rsumes_ResumeId",
                         column: x => x.ResumeId,
-                        principalTable: "Rsumes",
+                        principalTable: "Resumes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -153,7 +153,7 @@ namespace Employment.Persistance.Migrations
                     table.ForeignKey(
                         name: "FK_Profiles_Rsumes_ResumeId",
                         column: x => x.ResumeId,
-                        principalTable: "Rsumes",
+                        principalTable: "Resumes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -383,7 +383,7 @@ namespace Employment.Persistance.Migrations
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "Rsumes");
+                name: "Resumes");
         }
     }
 }

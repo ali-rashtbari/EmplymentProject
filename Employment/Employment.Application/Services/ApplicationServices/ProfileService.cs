@@ -32,7 +32,7 @@ namespace Employment.Application.Services.ApplicationServices
             });
 
             //if (profile is null) throw new ArgumentNullException(nameof(profile));
-            if (profile is null) throw new NotFoundException(message: ApplicationMessages.ProfileNotFound, resourceName: nameof(profile), resourceIdentifier: request.Id.ToString());
+            if (profile is null) throw new NotFoundException(msg: ApplicationMessages.ProfileNotFound, entity: nameof(profile), id: request.Id.ToString());
             _mapper.Map(request, profile);
             await _unitOfWork.ProfileRepository.UpdateAsync(profile);
 
@@ -42,7 +42,7 @@ namespace Employment.Application.Services.ApplicationServices
             return new CommandResule()
             {
                 IsSuccess = true,
-                Message = "Profile edited.",
+                Message = ApplicationMessages.ProfileEditedSuccessfuly,
             };
         }
     }

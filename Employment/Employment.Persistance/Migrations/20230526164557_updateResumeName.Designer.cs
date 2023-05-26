@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230520184704_addResumeLinkEducationHistoryMajorTables")]
-    partial class addResumeLinkEducationHistoryMajorTables
+    [Migration("20230526164557_updateResumeName")]
+    partial class updateResumeName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,9 +130,16 @@ namespace Employment.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
                     b.Property<string>("Biography")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -143,6 +150,9 @@ namespace Employment.Persistance.Migrations
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsCompleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -151,14 +161,17 @@ namespace Employment.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ResumeId")
-                        .HasColumnType("int");
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -278,9 +291,6 @@ namespace Employment.Persistance.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -300,9 +310,6 @@ namespace Employment.Persistance.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("ProfileId")
-                        .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -443,23 +450,23 @@ namespace Employment.Persistance.Migrations
                     b.Navigation("Resume");
                 });
 
+            modelBuilder.Entity("Employment.Domain.Profile", b =>
+                {
+                    b.HasOne("Employment.Domain.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("Employment.Domain.Profile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Employment.Domain.Resume", b =>
                 {
                     b.HasOne("Employment.Domain.Profile", "Profile")
                         .WithOne("Resume")
                         .HasForeignKey("Employment.Domain.Resume", "ProfleId")
                         .OnDelete(DeleteBehavior.ClientNoAction)
-                        .IsRequired();
-
-                    b.Navigation("Profile");
-                });
-
-            modelBuilder.Entity("Employment.Domain.User", b =>
-                {
-                    b.HasOne("Employment.Domain.Profile", "Profile")
-                        .WithOne("User")
-                        .HasForeignKey("Employment.Domain.User", "ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Profile");
@@ -523,9 +530,7 @@ namespace Employment.Persistance.Migrations
 
             modelBuilder.Entity("Employment.Domain.Profile", b =>
                 {
-                    b.Navigation("Resume");
-
-                    b.Navigation("User")
+                    b.Navigation("Resume")
                         .IsRequired();
                 });
 
@@ -534,6 +539,12 @@ namespace Employment.Persistance.Migrations
                     b.Navigation("EducationHistories");
 
                     b.Navigation("Links");
+                });
+
+            modelBuilder.Entity("Employment.Domain.User", b =>
+                {
+                    b.Navigation("Profile")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

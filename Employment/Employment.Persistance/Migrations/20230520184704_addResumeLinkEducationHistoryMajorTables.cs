@@ -51,7 +51,7 @@ namespace Employment.Persistance.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rsumes_ProfleId",
-                table: "Rsumes",
+                table: "Resumes",
                 column: "ProfleId",
                 unique: true);
 
@@ -65,7 +65,7 @@ namespace Employment.Persistance.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Rsumes_Profiles_ProfleId",
-                table: "Rsumes",
+                table: "Resumes",
                 column: "ProfleId",
                 principalTable: "Profiles",
                 principalColumn: "Id");
@@ -80,11 +80,11 @@ namespace Employment.Persistance.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Rsumes_Profiles_ProfleId",
-                table: "Rsumes");
+                table: "Resumes");
 
             migrationBuilder.DropIndex(
                 name: "IX_Rsumes_ProfleId",
-                table: "Rsumes");
+                table: "Resumes");
 
             migrationBuilder.AlterColumn<string>(
                 name: "DisplayName",
@@ -132,7 +132,7 @@ namespace Employment.Persistance.Migrations
                 name: "FK_Profiles_Rsumes_ResumeId",
                 table: "Profiles",
                 column: "ResumeId",
-                principalTable: "Rsumes",
+                principalTable: "Resumes",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

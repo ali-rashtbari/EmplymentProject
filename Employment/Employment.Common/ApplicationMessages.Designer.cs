@@ -61,6 +61,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است.-15.
+        /// </summary>
+        public static string CantAddMoreLinks {
+            get {
+                return ResourceManager.GetString("CantAddMoreLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز وارد شده صیحیح نمی باشد.-6.
         /// </summary>
         public static string InCurrectPassword {
@@ -88,6 +97,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لینک با موفقیت به رزومه اضافه شد.-14.
+        /// </summary>
+        public static string LinkAddedToResume {
+            get {
+                return ResourceManager.GetString("LinkAddedToResume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز با موفقیت ویرایش شد.-7.
         /// </summary>
         public static string PasswordChanged {
@@ -106,11 +124,29 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to پروفایل با موفقیت ویرایش شد.-12.
+        /// </summary>
+        public static string ProfileEditedSuccessfuly {
+            get {
+                return ResourceManager.GetString("ProfileEditedSuccessfuly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to پروفایل یافت نشد.-11.
         /// </summary>
         public static string ProfileNotFound {
             get {
                 return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رزومه با این مشخصات یافت نشد.-13.
+        /// </summary>
+        public static string ResumeNotFound {
+            get {
+                return ResourceManager.GetString("ResumeNotFound", resourceCulture);
             }
         }
         

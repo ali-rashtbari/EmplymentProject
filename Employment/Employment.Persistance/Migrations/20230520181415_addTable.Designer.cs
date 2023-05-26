@@ -189,7 +189,7 @@ namespace Employment.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rsumes");
+                    b.ToTable("Resumes");
                 });
 
             modelBuilder.Entity("Employment.Domain.Role", b =>

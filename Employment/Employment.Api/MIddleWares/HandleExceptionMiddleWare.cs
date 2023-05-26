@@ -36,7 +36,10 @@ namespace Employment.Api.MIddleWares
             }
             finally
             {
-                await LogThenHandleException(exception, httpContext);
+                if(exception is not null)
+                {
+                    await LogThenHandleException(exception, httpContext);
+                }
             }
         }
 

@@ -12,15 +12,11 @@ namespace Employment.Common.Dtos
         public string Message { get; set; }
         public bool IsSuccess { get; set; }
 
-        public override string ToString()
-        {
-            return JsonSerializer.Serialize(this);
-        }
-
     }
 
     public class CommandResule<T> : CommandResule
     {
-        public T Data { get; set; } 
+        public T Data { get; set; }
+
     }
 }

@@ -83,7 +83,7 @@ namespace Employment.Persistance.Repositories
             {
                 foreach (var include in includes)
                 {
-                    entities.Include(include);
+                    entities = entities.Include(include);
                 }
             }
             return entities;

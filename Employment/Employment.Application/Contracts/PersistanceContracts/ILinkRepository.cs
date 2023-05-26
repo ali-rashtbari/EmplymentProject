@@ -9,5 +9,7 @@ namespace Employment.Application.Contracts.PersistanceContracts
 {
     public interface ILinkRepository : IGenericRepository<Link>
     {
+        void AddToResume(Link link, Resume resume);
+        Task AddToResumeAsync(int linkId, int resumeId);
     }
 }

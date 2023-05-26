@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.Validations;
@@ -10,16 +11,16 @@ namespace Employment.Api.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    public class ReumeController : ControllerBase
+    public class ResumeController : ControllerBase
     {
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IServicesPool _servicesPool;
         private readonly IMapper _mapper;
 
-        public ReumeController(IUnitOfWork unitOfWork, IMapper mapper)
+        public ResumeController(IMapper mapper, IServicesPool servicesPool)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _servicesPool = servicesPool;
         }
 
         [HttpPost("AddLink")]
@@ -30,16 +31,8 @@ namespace Employment.Api.Controllers
             {
                 throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             }
-
-            var prof = _unitOfWork.ProfileRepository.Get(addLinkDto.ResumeId);
-
-            if(prof is null)
-            {
-                throw new NotFoundException("prof not found.", nameof(Profile), addLinkDto.ResumeId.ToString());
-            }
-
-            return Ok();
-
+            var addLinkResult = await _servicesPool.LinkService.AddAsync(addLinkDto);
+            return Ok(addLinkResult.Message);
         }
 
     }

@@ -205,7 +205,7 @@ namespace Employment.Persistance.Migrations
                     b.HasIndex("ProfleId")
                         .IsUnique();
 
-                    b.ToTable("Rsumes");
+                    b.ToTable("Resumes");
                 });
 
             modelBuilder.Entity("Employment.Domain.Role", b =>

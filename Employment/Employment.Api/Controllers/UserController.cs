@@ -29,7 +29,7 @@ namespace Employment.Api.Controllers
             var validationResult = await validator.ValidateAsync(editProfileDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto);
-            return Ok(editResult.ToString());
+            return Ok(editResult.Message);
         }
 
     }

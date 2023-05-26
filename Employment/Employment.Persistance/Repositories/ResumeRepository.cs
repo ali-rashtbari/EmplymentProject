@@ -1,6 +1,7 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Domain;
 using Employment.Persistance.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace Employment.Persistance.Repositories
         {
             _dbContext = appDbContext;
         }
+
     }
 }

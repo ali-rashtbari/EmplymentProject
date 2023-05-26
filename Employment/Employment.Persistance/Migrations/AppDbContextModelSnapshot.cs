@@ -147,8 +147,8 @@ namespace Employment.Persistance.Migrations
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCompleted")
                         .ValueGeneratedOnAdd()
@@ -158,8 +158,8 @@ namespace Employment.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MaritalStatus")
-                        .HasColumnType("int");
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -201,7 +201,7 @@ namespace Employment.Persistance.Migrations
                     b.HasIndex("ProfleId")
                         .IsUnique();
 
-                    b.ToTable("Rsumes");
+                    b.ToTable("Resumes");
                 });
 
             modelBuilder.Entity("Employment.Domain.Role", b =>

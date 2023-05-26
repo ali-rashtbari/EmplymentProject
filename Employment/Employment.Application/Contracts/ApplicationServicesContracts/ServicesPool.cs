@@ -28,6 +28,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IResumeService ResumeService => _resumeService ?? new ResumeService();
 
         private readonly ILinkService _linkService;
-        public ILinkService LinkService => _linkService ?? new LinkService();
+        public ILinkService LinkService => _linkService ?? new LinkService(_unitOfWork, _mapper);
     }
 }
