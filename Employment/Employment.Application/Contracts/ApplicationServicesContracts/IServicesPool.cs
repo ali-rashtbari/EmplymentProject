@@ -11,5 +11,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IProfileService ProfileService { get; }
         public IResumeService ResumeService { get; }
         public ILinkService LinkService { get; }
+        public IMajorService MajorService { get; }
     }
 }

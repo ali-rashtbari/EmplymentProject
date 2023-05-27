@@ -4,6 +4,7 @@ using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.AspNetCore.Hosting;
+using FluentValidation.Validators;
 
 namespace Employment.Persistance.Repositories
 {
@@ -81,6 +82,12 @@ namespace Employment.Persistance.Repositories
 
         private readonly ILinkRepository _linkRepository;
         public ILinkRepository LinkRepository => _linkRepository ?? new LinkRepository(_dbContext);
+
+        private readonly IEducationHistoryRepository _educationHistoryRepository;
+        public IEducationHistoryRepository EducationHistoryRepository => _educationHistoryRepository ?? new EducationHistoryRepository(_dbContext);
+
+        private readonly IMajorRepository _majorRepository;
+        public IMajorRepository MajorRepository => _majorRepository ?? new MajorRepository(_dbContext);
 
         #endregion
 

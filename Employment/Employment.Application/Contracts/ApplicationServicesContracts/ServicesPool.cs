@@ -29,5 +29,8 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 
         private readonly ILinkService _linkService;
         public ILinkService LinkService => _linkService ?? new LinkService(_unitOfWork, _mapper);
+
+        private readonly IMajorService _majorService;
+        public IMajorService MajorService => _majorService ?? new MajorService(_unitOfWork);
     }
 }

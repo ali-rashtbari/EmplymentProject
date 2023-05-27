@@ -35,5 +35,10 @@ namespace Employment.Api.Controllers
             return Ok(addLinkResult.Message);
         }
 
+        //public async Task<Task<IActionResult>> AddEducationHistory([FromBody] AddEducationHistoryDto addEducationHistoryDto)
+        //{
+
+        //}
+
     }
 }
