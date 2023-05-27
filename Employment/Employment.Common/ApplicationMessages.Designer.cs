@@ -79,6 +79,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سابقه تحصیلی اضافه شد.-19.
+        /// </summary>
+        public static string EducationHistoryAdded {
+            get {
+                return ResourceManager.GetString("EducationHistoryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز وارد شده صیحیح نمی باشد.-6.
         /// </summary>
         public static string InCurrectPassword {
@@ -120,6 +129,15 @@ namespace Employment.Common {
         public static string MajorAdded {
             get {
                 return ResourceManager.GetString("MajorAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رشته تحصیلی یافت نشد.-18.
+        /// </summary>
+        public static string MajorNotFound {
+            get {
+                return ResourceManager.GetString("MajorNotFound", resourceCulture);
             }
         }
         

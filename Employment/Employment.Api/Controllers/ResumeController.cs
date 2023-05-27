@@ -32,13 +32,17 @@ namespace Employment.Api.Controllers
                 throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             }
             var addLinkResult = await _servicesPool.LinkService.AddAsync(addLinkDto);
-            return Ok(addLinkResult.Message);
+            return Ok(addLinkResult);
         }
 
-        //public async Task<Task<IActionResult>> AddEducationHistory([FromBody] AddEducationHistoryDto addEducationHistoryDto)
-        //{
-
-        //}
+        [HttpPost("AddEducationHistory")]
+        public async Task<IActionResult> AddEducationHistory([FromBody] AddEducationHistoryDto addEducationHistoryDto)
+        {
+            var validationResult = await new AddEducationHistoryDtoValidator().ValidateAsync(addEducationHistoryDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(message: validationResult.Errors.FirstOrDefault().ErrorMessage);
+            var addResult = await _servicesPool.EducationHistoryService.AddAsync(addEducationHistoryDto);
+            return Ok(addResult);
+        }
 
     }
 }

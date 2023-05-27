@@ -32,5 +32,8 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 
         private readonly IMajorService _majorService;
         public IMajorService MajorService => _majorService ?? new MajorService(_unitOfWork);
+
+        private readonly IEducationHistoryService _educationHistoryService;
+        public IEducationHistoryService EducationHistoryService => _educationHistoryService ?? new EducationHistoryService(_unitOfWork, _mapper);
     }
 }

@@ -125,6 +125,10 @@
     <value>رشته تحصیلی ای با این اسم قبلا اضافه شده.-16</value>
     <comment>you cannt add duplciate major names.</comment>
   </data>
+  <data name="EducationHistoryAdded" xml:space="preserve">
+    <value>سابقه تحصیلی اضافه شد.-19</value>
+    <comment>education history added.</comment>
+  </data>
   <data name="InCurrectPassword" xml:space="preserve">
     <value>رمز وارد شده صیحیح نمی باشد.-6</value>
     <comment>InCurrect password entered.</comment>
@@ -144,6 +148,10 @@
   <data name="MajorAdded" xml:space="preserve">
     <value>رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد.-17-</value>
     <comment>major added.</comment>
+  </data>
+  <data name="MajorNotFound" xml:space="preserve">
+    <value>رشته تحصیلی یافت نشد.-18</value>
+    <comment>major not found.</comment>
   </data>
   <data name="PasswordChanged" xml:space="preserve">
     <value>رمز با موفقیت ویرایش شد.-7</value>
