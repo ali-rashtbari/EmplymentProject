@@ -35,5 +35,8 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 
         private readonly IEducationHistoryService _educationHistoryService;
         public IEducationHistoryService EducationHistoryService => _educationHistoryService ?? new EducationHistoryService(_unitOfWork, _mapper);
+
+        public readonly ICountryService _countryService;
+        public ICountryService CountryService => _countryService ?? new CountryService(_unitOfWork);    
     }
 }

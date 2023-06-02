@@ -13,5 +13,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public ILinkService LinkService { get; }
         public IMajorService MajorService { get; }
         public IEducationHistoryService EducationHistoryService { get; }
+        public ICountryService CountryService { get; }
     }
 }

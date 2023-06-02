@@ -89,6 +89,9 @@ namespace Employment.Persistance.Repositories
         private readonly IMajorRepository _majorRepository;
         public IMajorRepository MajorRepository => _majorRepository ?? new MajorRepository(_dbContext);
 
+        public readonly ICountryRepository _countryRepository;
+        public ICountryRepository CountryRepository => _countryRepository ?? new CountryRepository(_dbContext);
+
         #endregion
 
 

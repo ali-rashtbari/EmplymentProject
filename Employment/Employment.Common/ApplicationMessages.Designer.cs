@@ -70,6 +70,24 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to کشور جدید با موفقیت ایجاد شد.-21.
+        /// </summary>
+        public static string CountryAdded {
+            get {
+                return ResourceManager.GetString("CountryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چنین کشوری قبلا ایجاد شده.-20.
+        /// </summary>
+        public static string DuplicateCountryAdding {
+            get {
+                return ResourceManager.GetString("DuplicateCountryAdding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رشته تحصیلی ای با این اسم قبلا اضافه شده.-16.
         /// </summary>
         public static string DuplicateMajor {

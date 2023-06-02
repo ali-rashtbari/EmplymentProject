@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Employment.Persistance.Context
 {
@@ -25,6 +26,13 @@ namespace Employment.Persistance.Context
         public DbSet<EducationHistory> EducationHistories { get; set; }
         public DbSet<Link> Links { get; set; }
         public DbSet<Major> Majors { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Industry> Inductries { get; set; }
+        public DbSet<JobExperience> JobExperience { get; set; }
+        public DbSet<JobCategory> JobCategories { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<JobSeniorityLevel> JobSeniorityLevels { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

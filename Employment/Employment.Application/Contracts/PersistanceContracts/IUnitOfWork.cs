@@ -28,6 +28,7 @@ namespace Employment.Application.Contracts.PersistanceContracts
         public ILinkRepository LinkRepository { get; }
         public IEducationHistoryRepository EducationHistoryRepository { get; }
         public IMajorRepository MajorRepository { get; }
+        public ICountryRepository CountryRepository { get; }
 
         #endregion
 
