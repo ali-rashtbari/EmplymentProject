@@ -92,6 +92,9 @@ namespace Employment.Persistance.Repositories
         public readonly ICountryRepository _countryRepository;
         public ICountryRepository CountryRepository => _countryRepository ?? new CountryRepository(_dbContext);
 
+        private readonly IProvinceRepository _provinceRepository;
+        public IProvinceRepository ProvinceRepository => _provinceRepository ?? new ProvinceRepository(_dbContext);
+
         #endregion
 
 

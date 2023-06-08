@@ -125,13 +125,21 @@
     <value>کشور جدید با موفقیت ایجاد شد.-21</value>
     <comment>new country added successfuly</comment>
   </data>
-  <data name="DuplicateCountryAdding" xml:space="preserve">
+  <data name="CountryNotFound" xml:space="preserve">
+    <value>کشور یافت نشد.-24</value>
+    <comment>country not found.</comment>
+  </data>
+  <data name="DuplicateCountry" xml:space="preserve">
     <value>چنین کشوری قبلا ایجاد شده.-20</value>
     <comment>country name is duplicate</comment>
   </data>
   <data name="DuplicateMajor" xml:space="preserve">
     <value>رشته تحصیلی ای با این اسم قبلا اضافه شده.-16</value>
     <comment>you cannt add duplciate major names.</comment>
+  </data>
+  <data name="DuplicateProvince" xml:space="preserve">
+    <value>استانی با این اسم قبلا ایجاد شده.-22</value>
+    <comment>province name is duplicate.</comment>
   </data>
   <data name="EducationHistoryAdded" xml:space="preserve">
     <value>سابقه تحصیلی اضافه شد.-19</value>
@@ -176,6 +184,14 @@
   <data name="ProfileNotFound" xml:space="preserve">
     <value>پروفایل یافت نشد.-11</value>
     <comment>there is no profile with the given id</comment>
+  </data>
+  <data name="ProvinceAdded" xml:space="preserve">
+    <value>استان جدید اضافه شد.-23</value>
+    <comment>new province added successfuly.</comment>
+  </data>
+  <data name="ProvinceAddedToCountry" xml:space="preserve">
+    <value>استان به کشور اضافه شد.-25</value>
+    <comment>province added to country.</comment>
   </data>
   <data name="ResumeNotFound" xml:space="preserve">
     <value>رزومه با این مشخصات یافت نشد.-13</value>

@@ -9,5 +9,6 @@ namespace Employment.Application.Contracts.PersistanceContracts
 {
     public interface IProvinceRepository : IGenericRepository<Province>
     {
+        bool IsExists(string name);
     }
 }

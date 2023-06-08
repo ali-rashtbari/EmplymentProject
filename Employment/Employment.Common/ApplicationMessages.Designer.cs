@@ -79,11 +79,20 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to کشور یافت نشد.-24.
+        /// </summary>
+        public static string CountryNotFound {
+            get {
+                return ResourceManager.GetString("CountryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to چنین کشوری قبلا ایجاد شده.-20.
         /// </summary>
-        public static string DuplicateCountryAdding {
+        public static string DuplicateCountry {
             get {
-                return ResourceManager.GetString("DuplicateCountryAdding", resourceCulture);
+                return ResourceManager.GetString("DuplicateCountry", resourceCulture);
             }
         }
         
@@ -93,6 +102,15 @@ namespace Employment.Common {
         public static string DuplicateMajor {
             get {
                 return ResourceManager.GetString("DuplicateMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to استانی با این اسم قبلا ایجاد شده.-22.
+        /// </summary>
+        public static string DuplicateProvince {
+            get {
+                return ResourceManager.GetString("DuplicateProvince", resourceCulture);
             }
         }
         
@@ -192,6 +210,24 @@ namespace Employment.Common {
         public static string ProfileNotFound {
             get {
                 return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to استان جدید اضافه شد.-23.
+        /// </summary>
+        public static string ProvinceAdded {
+            get {
+                return ResourceManager.GetString("ProvinceAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to استان به کشور اضافه شد.-25.
+        /// </summary>
+        public static string ProvinceAddedToCountry {
+            get {
+                return ResourceManager.GetString("ProvinceAddedToCountry", resourceCulture);
             }
         }
         

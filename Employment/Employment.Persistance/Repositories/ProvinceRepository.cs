@@ -18,7 +18,9 @@ namespace Employment.Persistance.Repositories
             _appDbContext = dbContext;
         }
 
-
-
+        public bool IsExists(string name)
+        {
+            return _appDbContext.Provinces.FirstOrDefault(p => p.Name.Trim().ToLower() == name.Trim().ToLower()) != null;
+        }
     }
 }

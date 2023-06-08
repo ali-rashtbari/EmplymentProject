@@ -11,6 +11,5 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     public interface IProvinceService
     {
         Task<CommandResule<int>> AddAsync(AddProvinceDto addProvinceDto);
-        Task AddToCountry(int countryId, int provinceId);
     }
 }

@@ -18,7 +18,11 @@ namespace Employment.Application.Dtos.Validations
                 .Must(value => value.Length > 3).WithMessage("{PropertyName} باید حداقل دارای 3 حرف باشد.")
                 .MaximumLength(50).WithErrorCode("{PropertyName} نمی تواند بیشتر از 50 حرف داشته باشد.");
 
-           
+            RuleFor(p => p.CountryId)
+                .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
+                .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
+
+
         }
     }
 }

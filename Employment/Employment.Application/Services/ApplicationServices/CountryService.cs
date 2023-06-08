@@ -24,7 +24,7 @@ namespace Employment.Application.Services.ApplicationServices
 
         public async Task<CommandResule<int>> AddAsync(AddCountryDto addCountryDto)
         {
-            if (_unitOfWork.CountryRepository.IsExists(addCountryDto.Name)) throw new ArgumentException(ApplicationMessages.DuplicateCountryAdding);
+            if (_unitOfWork.CountryRepository.IsExists(addCountryDto.Name)) throw new ArgumentException(ApplicationMessages.DuplicateCountry);
             var country = new Country()
             {
                 Name = addCountryDto.Name,
