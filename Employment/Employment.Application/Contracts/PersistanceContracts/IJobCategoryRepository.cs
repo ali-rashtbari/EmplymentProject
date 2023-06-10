@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Contracts.PersistanceContracts
 {
-    public interface IJobSeniorityLevelRepository : IGenericRepository<JobSeniorityLevel>
+    public interface IJobCategoryRepository : IGenericRepository<JobCategory>
     {
         bool IsExists(string name);
     }

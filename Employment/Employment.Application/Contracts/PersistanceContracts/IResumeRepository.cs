@@ -9,5 +9,6 @@ namespace Employment.Application.Contracts.PersistanceContracts
 {
     public interface IResumeRepository : IGenericRepository<Resume>
     {
+        int GetLinksCount(int resumeId);
     }
 }

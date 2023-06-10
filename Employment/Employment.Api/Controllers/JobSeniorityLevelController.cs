@@ -7,23 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Employment.Api.Controllers
 {
-    [Route("api/[controller]/")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ProvinceController : ControllerBase
+    public class JobSeniorityLevelController : ControllerBase
     {
         private readonly IServicesPool _servicesPool;
-
-        public ProvinceController(IServicesPool servicesPool)
+        public JobSeniorityLevelController(IServicesPool servicesPool)
         {
             _servicesPool = servicesPool;
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] AddProvinceDto addProvinceDto)
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AddJobSeniorityLevelDto addJobSeniorityLevelDto)
         {
-            var addResult = await _servicesPool.ProvinceService.AddAsync(addProvinceDto);
-            return Ok(addResult);
+            var addJobSeniorityLevelResult = await _servicesPool.JobSeniorityLevelService.AddAsync(addJobSeniorityLevelDto);
+            return Ok(addJobSeniorityLevelResult);
         }
-
     }
 }

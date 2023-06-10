@@ -21,8 +21,6 @@ namespace Employment.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] AddMajorDto addMajorDto)
         {
-            var validationResult = await new AddMajorDtoValidator().ValidateAsync(addMajorDto);
-            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var addResult = await _servicesPool.MajorService.AddAsync(addMajorDto);
             return Ok(addResult);
         }

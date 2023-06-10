@@ -17,9 +17,9 @@ namespace Employment.Persistance.Repositories
             _appDbContext = dbContext;
         }
 
-        public bool IsExistsWithName(string displayName)
+        public bool IsExists(string displayName)
         {
-            return _appDbContext.Majors.FirstOrDefault(m => m.DisplayName.ToLower() == displayName) != null;
+            return _appDbContext.Majors.Any(m => m.DisplayName.ToLower() == displayName);
         }
     }
 }

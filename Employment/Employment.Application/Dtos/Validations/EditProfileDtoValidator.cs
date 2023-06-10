@@ -1,4 +1,6 @@
-﻿using Employment.Application.Dtos.ApplicationServicesDtos;
+﻿using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Common;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -10,12 +12,17 @@ namespace Employment.Application.Dtos.Validations
 {
     public class EditProfileDtoValidator : AbstractValidator<EditProfileDto>
     {
-        public EditProfileDtoValidator()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public EditProfileDtoValidator(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
+
             RuleFor(e => e.Id)
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .GreaterThan(0).WithMessage("برای {PropertyName} مقدار درستی وارد نشده است.");
+                .GreaterThan(0).WithMessage("برای {PropertyName} مقدار درستی وارد نشده است.")
+                .Must(value => _isProfileExists(value)).WithMessage(ApplicationMessages.ProfileNotFound);
 
             When(e => !string.IsNullOrWhiteSpace(e.Address), () =>
             {
@@ -42,8 +49,12 @@ namespace Employment.Application.Dtos.Validations
             });
 
 
-
-
         }
+
+        private bool _isProfileExists(int profileId)
+        {
+            return _unitOfWork.ProfileRepository.Get(profileId) != null;
+        }
+
     }
 }

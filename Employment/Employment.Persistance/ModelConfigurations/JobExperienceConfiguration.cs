@@ -15,7 +15,7 @@ namespace Employment.Persistance.ModelConfigurations
         {
             builder.Property(je => je.JobTitle)
                 .IsRequired(true)
-                .HasMaxLength(1200);
+                .HasMaxLength(100);
 
             builder.Property(je => je.StartDate)
                 .IsRequired(true);

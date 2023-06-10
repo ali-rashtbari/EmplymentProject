@@ -8,35 +8,34 @@ using Employment.Common.Exceptions;
 using Employment.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class CountryService : ICountryService
+    public class CityService : ICityService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CountryService(IUnitOfWork unitOfWork)
+        public CityService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<CommandResule<int>> AddAsync(AddCountryDto addCountryDto)
+        public async Task<CommandResule<int>> AddAsync(AddCityDto addCityDto)
         {
-            var validationResult = await new AddCountryDtoValidator(_unitOfWork).ValidateAsync(addCountryDto);
-            var country = new Country()
+            var validationResult = await new AddCityDtoValidator(_unitOfWork).ValidateAsync(addCityDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+            var city = new City()
             {
-                Name = addCountryDto.Name,
+                Name = addCityDto.Name,
+                ProvinceId = addCityDto.ProvinceId,
             };
-            await _unitOfWork.CountryRepository.AddAsync(country);
+            await _unitOfWork.CityRepository.AddAsync(city);
             return new CommandResule<int>()
             {
                 IsSuccess = true,
-                Message = ApplicationMessages.CountryAdded,
-                Data = country.Id
+                Message = ApplicationMessages.CityAdded,
+                Data = city.Id
             };
         }
     }

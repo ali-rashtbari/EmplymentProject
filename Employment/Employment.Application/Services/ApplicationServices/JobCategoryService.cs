@@ -8,35 +8,35 @@ using Employment.Common.Exceptions;
 using Employment.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class CountryService : ICountryService
+    public class JobCategoryService : IJobCategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CountryService(IUnitOfWork unitOfWork)
+        public JobCategoryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CommandResule<int>> AddAsync(AddCountryDto addCountryDto)
+        public async Task<CommandResule<int>> AddAsync(AddJobCategoryDto addJobCategoryDto)
         {
-            var validationResult = await new AddCountryDtoValidator(_unitOfWork).ValidateAsync(addCountryDto);
-            var country = new Country()
+            var validationResult = await new AddJobCategoryDtoValidator(_unitOfWork).ValidateAsync(addJobCategoryDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+
+            var jobCategory = new JobCategory()
             {
-                Name = addCountryDto.Name,
+                Name = addJobCategoryDto.Name,
             };
-            await _unitOfWork.CountryRepository.AddAsync(country);
+            await _unitOfWork.IJobCategoryRepository.AddAsync(jobCategory);
             return new CommandResule<int>()
             {
                 IsSuccess = true,
-                Message = ApplicationMessages.CountryAdded,
-                Data = country.Id
+                Message = ApplicationMessages.JobCategoryAdded,
+                Data = jobCategory.Id
             };
         }
     }

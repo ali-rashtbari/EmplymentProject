@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,10 @@ namespace Employment.Application.Contracts.PersistanceContracts
         public IMajorRepository MajorRepository { get; }
         public ICountryRepository CountryRepository { get; }
         public IProvinceRepository ProvinceRepository { get; }
+        public IIndustryRepository IndustryRepository { get; }
+        public IJobCategoryRepository IJobCategoryRepository { get; }
+        public IJobSeniorityLevelRepository JobSeniorityLevelRepository { get; }
+        public ICityRepository CityRepository { get; }
 
         #endregion
 

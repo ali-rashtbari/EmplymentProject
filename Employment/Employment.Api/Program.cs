@@ -90,7 +90,7 @@ void Configure(WebApplication app)
 
     }
 
-    app.ConfigureExceptionHandlerMiddleware();
+    app.ConfigureCustomeMiddlewares();
 
     app.UseHttpsRedirection();
 

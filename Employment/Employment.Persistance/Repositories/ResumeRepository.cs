@@ -19,5 +19,9 @@ namespace Employment.Persistance.Repositories
             _dbContext = appDbContext;
         }
 
+        public int GetLinksCount(int resumeId)
+        {
+            return _dbContext.Resumes.Include(r => r.Links).FirstOrDefault(r => r.Id == resumeId).Links.Count();
+        }
     }
 }

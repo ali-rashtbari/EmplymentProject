@@ -118,103 +118,139 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantAddMoreLinks" xml:space="preserve">
-    <value>تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است.-15</value>
+    <value>تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است.</value>
     <comment>links count error.</comment>
   </data>
+  <data name="CityAdded" xml:space="preserve">
+    <value>شهر اضافه شد.</value>
+    <comment>city added</comment>
+  </data>
   <data name="CountryAdded" xml:space="preserve">
-    <value>کشور جدید با موفقیت ایجاد شد.-21</value>
+    <value>کشور جدید با موفقیت ایجاد شد.</value>
     <comment>new country added successfuly</comment>
   </data>
   <data name="CountryNotFound" xml:space="preserve">
-    <value>کشور یافت نشد.-24</value>
+    <value>کشور یافت نشد.</value>
     <comment>country not found.</comment>
   </data>
+  <data name="DuplicateCity" xml:space="preserve">
+    <value>چنین شهری اضافه شده.</value>
+    <comment>Duplicate city name </comment>
+  </data>
   <data name="DuplicateCountry" xml:space="preserve">
-    <value>چنین کشوری قبلا ایجاد شده.-20</value>
+    <value>چنین کشوری قبلا ایجاد شده.</value>
     <comment>country name is duplicate</comment>
   </data>
+  <data name="DuplicateIndustry" xml:space="preserve">
+    <value>آیتمی با این اسم قبلا ایجاد شده.</value>
+    <comment>duplicate industry</comment>
+  </data>
+  <data name="DuplicateJobCategory" xml:space="preserve">
+    <value>چنین دسته بندی شغلی ای قبلا ایجاد شده.</value>
+    <comment>duplicate joc category</comment>
+  </data>
+  <data name="DuplicateJobSeniorityLevel" xml:space="preserve">
+    <value>رده سازمانی ای با این اسم قبلا ایجاد شده.</value>
+    <comment>duplicate job seniority level.</comment>
+  </data>
   <data name="DuplicateMajor" xml:space="preserve">
-    <value>رشته تحصیلی ای با این اسم قبلا اضافه شده.-16</value>
+    <value>رشته تحصیلی ای با این اسم قبلا اضافه شده.</value>
     <comment>you cannt add duplciate major names.</comment>
   </data>
   <data name="DuplicateProvince" xml:space="preserve">
-    <value>استانی با این اسم قبلا ایجاد شده.-22</value>
+    <value>استانی با این اسم قبلا ایجاد شده.</value>
     <comment>province name is duplicate.</comment>
   </data>
   <data name="EducationHistoryAdded" xml:space="preserve">
-    <value>سابقه تحصیلی اضافه شد.-19</value>
+    <value>سابقه تحصیلی اضافه شد.</value>
     <comment>education history added.</comment>
   </data>
   <data name="InCurrectPassword" xml:space="preserve">
-    <value>رمز وارد شده صیحیح نمی باشد.-6</value>
+    <value>رمز وارد شده صیحیح نمی باشد.</value>
     <comment>InCurrect password entered.</comment>
   </data>
+  <data name="IndustryAdded" xml:space="preserve">
+    <value>زمینه فعالیت شرکت اضافه شد</value>
+    <comment>new industry added successfully</comment>
+  </data>
   <data name="InvalidMobileNumber" xml:space="preserve">
-    <value>شماره مبایل وارد شده اشتباه است.-5</value>
+    <value>شماره مبایل وارد شده اشتباه است.</value>
     <comment>InCurrect Mobile Number.</comment>
   </data>
   <data name="InvalidSignInInformation" xml:space="preserve">
-    <value>اطلاعات وارد شده صحیح نمی باشد.-8</value>
+    <value>اطلاعات وارد شده صحیح نمی باشد.</value>
     <comment>The Entered informations for signing in is incurrect.</comment>
   </data>
+  <data name="JobCategoryAdded" xml:space="preserve">
+    <value>دسته بندی شغلی جدید ایجاد شد.</value>
+    <comment>new job category added.</comment>
+  </data>
+  <data name="JobSeniorityLevelAdded" xml:space="preserve">
+    <value>رده سازمانی جدید اضافه شد.</value>
+    <comment>new job seniority level added successfuly.</comment>
+  </data>
   <data name="LinkAddedToResume" xml:space="preserve">
-    <value>لینک با موفقیت به رزومه اضافه شد.-14</value>
+    <value>لینک با موفقیت به رزومه اضافه شد.</value>
     <comment>link added to resume.</comment>
   </data>
   <data name="MajorAdded" xml:space="preserve">
-    <value>رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد.-17-</value>
+    <value>رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد.</value>
     <comment>major added.</comment>
   </data>
   <data name="MajorNotFound" xml:space="preserve">
-    <value>رشته تحصیلی یافت نشد.-18</value>
+    <value>رشته تحصیلی یافت نشد.</value>
     <comment>major not found.</comment>
   </data>
   <data name="PasswordChanged" xml:space="preserve">
-    <value>رمز با موفقیت ویرایش شد.-7</value>
+    <value>رمز با موفقیت ویرایش شد.</value>
     <comment>Password Successfuly changed.</comment>
   </data>
   <data name="PasswordIsInCurrect" xml:space="preserve">
-    <value>اطلاعات وارد شده نادرست است.-1</value>
+    <value>اطلاعات وارد شده نادرست است.</value>
     <comment>Password is InCurrect</comment>
   </data>
   <data name="ProfileEditedSuccessfuly" xml:space="preserve">
-    <value>پروفایل با موفقیت ویرایش شد.-12</value>
+    <value>پروفایل با موفقیت ویرایش شد.</value>
     <comment>profile successfuly edited.</comment>
   </data>
   <data name="ProfileNotFound" xml:space="preserve">
-    <value>پروفایل یافت نشد.-11</value>
+    <value>پروفایل یافت نشد.</value>
     <comment>there is no profile with the given id</comment>
   </data>
   <data name="ProvinceAdded" xml:space="preserve">
-    <value>استان جدید اضافه شد.-23</value>
+    <value>استان جدید اضافه شد.</value>
     <comment>new province added successfuly.</comment>
   </data>
   <data name="ProvinceAddedToCountry" xml:space="preserve">
-    <value>استان به کشور اضافه شد.-25</value>
+    <value>استان به کشور اضافه شد.</value>
     <comment>province added to country.</comment>
   </data>
+  <data name="ProvinceNotFound" xml:space="preserve">
+    <value>استان یافت نشد.</value>
+    <comment>province not found.</comment>
+  </data>
   <data name="ResumeNotFound" xml:space="preserve">
-    <value>رزومه با این مشخصات یافت نشد.-13</value>
+    <value>رزومه با این مشخصات یافت نشد.</value>
     <comment>resume not found.</comment>
   </data>
   <data name="TokenCreatedSuccessfuly" xml:space="preserve">
-    <value>عملیات ورود با موفقیت انجام شد.-9</value>
+    <value>عملیات ورود با موفقیت انجام شد.</value>
     <comment>Successful token createion.</comment>
   </data>
   <data name="UserNameExistInDataBase" xml:space="preserve">
-    <value>کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است.-10</value>
+    <value>کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است.</value>
     <comment>There is a user in the database with the given Eamil or UserName</comment>
   </data>
   <data name="UserNameNotFound" xml:space="preserve">
-    <value>اطلاعات وارد شده نادرست است.-2</value>
+    <value>اطلاعات وارد شده نادرست است.</value>
     <comment>User Not Found</comment>
   </data>
   <data name="YouSignedUpSuccessfuly" xml:space="preserve">
-    <value>عملیات ثبت نام با موفقیت انجام شد.-3</value>
+    <value>عملیات ثبت نام با موفقیت انجام شد.</value>
     <comment>Successful SignUp</comment>
   </data>
   <data name="YouSignInSuccessfuly" xml:space="preserve">
-    <value>عملیات ورود با موفقیت انجام شد.-4</value>
+    <value>عملیات ورود با موفقیت انجام شد.</value>
     <comment>Successful SignIn</comment>
   </data>
 </root>

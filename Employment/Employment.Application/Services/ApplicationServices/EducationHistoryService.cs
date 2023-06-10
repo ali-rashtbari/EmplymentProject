@@ -2,6 +2,7 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
@@ -28,13 +29,14 @@ namespace Employment.Application.Services.ApplicationServices
 
         public async Task<CommandResule<int>> AddAsync(AddEducationHistoryDto addEducationHistoryDto)
         {
+            var validationResult = await new AddEducationHistoryDtoValidator(_unitOfWork).ValidateAsync(addEducationHistoryDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(message: validationResult.Errors.FirstOrDefault().ErrorMessage);
+
             var resume = _unitOfWork.ResumeRepository.Get(addEducationHistoryDto.ResumeId, includes: new List<string>()
             {
                 "EducationHistories"
             });
-            if (resume is null) throw new NotFoundException(msg: ApplicationMessages.ResumeNotFound, entity: nameof(Resume), id: addEducationHistoryDto.ResumeId.ToString());
             var major = _unitOfWork.MajorRepository.Get(addEducationHistoryDto.MajorId);
-            if (resume is null) throw new NotFoundException(msg: ApplicationMessages.MajorNotFound, entity: nameof(Major), id: addEducationHistoryDto.MajorId.ToString());
             var educationHistory = _mapper.Map<EducationHistory>(addEducationHistoryDto);
             await _unitOfWork.EducationHistoryRepository.AddAsync(educationHistory);
             return new CommandResule<int>()

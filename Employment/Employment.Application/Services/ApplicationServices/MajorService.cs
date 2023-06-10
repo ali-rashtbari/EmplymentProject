@@ -1,8 +1,10 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
+using Employment.Common.Exceptions;
 using Employment.Domain;
 using System;
 using System.Collections.Generic;
@@ -24,8 +26,9 @@ namespace Employment.Application.Services.ApplicationServices
 
         public async Task<CommandResule<int>> AddAsync(AddMajorDto addMajorDto)
         {
-            var isExists = _unitOfWork.MajorRepository.IsExistsWithName(addMajorDto.DisplayName.ToLower());
-            if (isExists) throw new DuplicateWaitObjectException(message: ApplicationMessages.DuplicateMajor, parameterName: nameof(AddMajorDto));
+            var validationResult = await new AddMajorDtoValidator(_unitOfWork).ValidateAsync(addMajorDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+
             var major = new Major()
             {
                 DisplayName = addMajorDto.DisplayName,

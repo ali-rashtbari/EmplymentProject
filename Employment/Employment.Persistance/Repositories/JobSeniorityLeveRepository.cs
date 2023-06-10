@@ -9,18 +9,17 @@ using System.Threading.Tasks;
 
 namespace Employment.Persistance.Repositories
 {
-    public class CountryRepository : GenericRepository<Country>, ICountryRepository
+    public class JobSeniorityLeveRepository : GenericRepository<JobSeniorityLevel>, IJobSeniorityLevelRepository
     {
         private readonly AppDbContext _appDbContext;
-
-        public CountryRepository(AppDbContext dbContext) : base(dbContext)
+        public JobSeniorityLeveRepository(AppDbContext appDbContext) : base(appDbContext) 
         {
-            _appDbContext = dbContext;
+            _appDbContext = appDbContext;
         }
 
         public bool IsExists(string name)
         {
-            return _appDbContext.Countries.Any(c => c.Name.Trim().ToLower() == name.Trim().ToLower());
+            return _appDbContext.JobSeniorityLevels.Any(jsl => jsl.Name.ToLower() == name.ToLower());
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
-using Employment.Application.Dtos.Validations;
-using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,21 +7,20 @@ namespace Employment.Api.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    public class ProvinceController : ControllerBase
+    public class CityController : ControllerBase
     {
         private readonly IServicesPool _servicesPool;
-
-        public ProvinceController(IServicesPool servicesPool)
+        public CityController(IServicesPool servicesPool)
         {
-            _servicesPool = servicesPool;
+            _servicesPool = servicesPool;   
         }
+
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] AddProvinceDto addProvinceDto)
+        public async Task<IActionResult> Add([FromBody] AddCityDto addCityDto)
         {
-            var addResult = await _servicesPool.ProvinceService.AddAsync(addProvinceDto);
+            var addResult = await _servicesPool.CityService.AddAsync(addCityDto);
             return Ok(addResult);
         }
-
     }
 }

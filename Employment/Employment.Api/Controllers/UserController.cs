@@ -25,9 +25,6 @@ namespace Employment.Api.Controllers
         [HttpPost("EditProfile")]
         public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto)
         {
-            var validator = new EditProfileDtoValidator();
-            var validationResult = await validator.ValidateAsync(editProfileDto);
-            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto);
             return Ok(editResult.Message);
         }

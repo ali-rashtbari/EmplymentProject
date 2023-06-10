@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Dtos.ApplicationServicesDtos
 {
-    public class AddProvinceToCountryDto
+    public class AddJobSeniorityLevelDto
     {
-        public int CountryId { get; set; }
-        public int ProvinceId { get; set; }
+        public string Name { get; set; }
     }
 }

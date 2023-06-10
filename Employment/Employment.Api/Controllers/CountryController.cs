@@ -22,8 +22,6 @@ namespace Employment.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] AddCountryDto addCountryDto)
         {
-            var validationResult = await new AddCountryDtoValidator().ValidateAsync(addCountryDto);
-            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var addResult = await _servicesPool.CountryService.AddAsync(addCountryDto);
             return Ok(addResult);
         }

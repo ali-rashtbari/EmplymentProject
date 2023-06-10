@@ -9,21 +9,19 @@ namespace Employment.Api.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    public class ProvinceController : ControllerBase
+    public class JobCategoryController : ControllerBase
     {
         private readonly IServicesPool _servicesPool;
-
-        public ProvinceController(IServicesPool servicesPool)
+        public JobCategoryController(IServicesPool servicesPool)
         {
             _servicesPool = servicesPool;
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] AddProvinceDto addProvinceDto)
+        public async Task<IActionResult> Add([FromBody] AddJobCategoryDto addJobCategoryDto)
         {
-            var addResult = await _servicesPool.ProvinceService.AddAsync(addProvinceDto);
-            return Ok(addResult);
+            var addJobCategoryResult = await _servicesPool.JobCategoryService.AddAsync(addJobCategoryDto);
+            return Ok(addJobCategoryResult);
         }
-
     }
 }

@@ -2,6 +2,7 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
@@ -28,14 +29,13 @@ namespace Employment.Application.Services.ApplicationServices
 
         public async Task<CommandResule<int>> AddAsync(AddLinkDto addLinkDto)
         {
+            var validationResult = await new AddLinkDtoValidator(_unitOfWork).ValidateAsync(addLinkDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+
             var resume = _unitOfWork.ResumeRepository.Get(id: addLinkDto.ResumeId, includes: new List<string>()
             {
                 "Links"
             });
-            if (resume.Links.Count() >= 5) throw new Exception(ApplicationMessages.CantAddMoreLinks);
-            if (resume is null) throw new NotFoundException(msg: ApplicationMessages.ResumeNotFound, 
-                                                            entity: nameof(resume), 
-                                                            id: addLinkDto.ResumeId.ToString());
             var link = _mapper.Map<Link>(addLinkDto);
             await _unitOfWork.LinkRepository.AddAsync(link);
             await _unitOfWork.LinkRepository.AddToResumeAsync(link.Id, resume.Id);

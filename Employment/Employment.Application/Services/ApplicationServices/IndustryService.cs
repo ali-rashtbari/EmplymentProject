@@ -8,35 +8,35 @@ using Employment.Common.Exceptions;
 using Employment.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class CountryService : ICountryService
+    public class IndustryService : IIndustryService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CountryService(IUnitOfWork unitOfWork)
+        public IndustryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CommandResule<int>> AddAsync(AddCountryDto addCountryDto)
+        public async Task<CommandResule<int>> AddAsync(AddIndustryDto addIndustryDto)
         {
-            var validationResult = await new AddCountryDtoValidator(_unitOfWork).ValidateAsync(addCountryDto);
-            var country = new Country()
+            var validationResult = await new AddIndustryDtoValidator(_unitOfWork).ValidateAsync(addIndustryDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(message: validationResult.Errors.FirstOrDefault().ErrorMessage);
+
+            var industry = new Industry()
             {
-                Name = addCountryDto.Name,
+                Name = addIndustryDto.Name,
             };
-            await _unitOfWork.CountryRepository.AddAsync(country);
+            await _unitOfWork.IndustryRepository.AddAsync(industry);
             return new CommandResule<int>()
             {
                 IsSuccess = true,
-                Message = ApplicationMessages.CountryAdded,
-                Data = country.Id
+                Message = ApplicationMessages.IndustryAdded,
+                Data = industry.Id
             };
         }
     }

@@ -24,21 +24,18 @@ namespace Employment.Application.Services.ApplicationServices
         }
 
 
-        public async Task<CommandResule> EditAsync(EditProfileDto request)
+        public async Task<CommandResule> EditAsync(EditProfileDto editProfileDto)
         {
-            var profile = _unitOfWork.ProfileRepository.Get(request.Id, includes: new List<string>()
+            var validationResult = await new EditProfileDtoValidator(_unitOfWork).ValidateAsync(editProfileDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+
+            var profile = _unitOfWork.ProfileRepository.Get(editProfileDto.Id, includes: new List<string>()
             {
                 "Resume"
             });
-
-            //if (profile is null) throw new ArgumentNullException(nameof(profile));
-            if (profile is null) throw new NotFoundException(msg: ApplicationMessages.ProfileNotFound, entity: nameof(profile), id: request.Id.ToString());
-            _mapper.Map(request, profile);
+            _mapper.Map(editProfileDto, profile);
             await _unitOfWork.ProfileRepository.UpdateAsync(profile);
-
-            // check completeness ---
             await _unitOfWork.ProfileRepository.CheckCompleteness(profile);
-
             return new CommandResule()
             {
                 IsSuccess = true,

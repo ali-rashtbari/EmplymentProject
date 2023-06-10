@@ -9,6 +9,6 @@ namespace Employment.Application.Contracts.PersistanceContracts
 {
     public interface IMajorRepository : IGenericRepository<Major>
     {
-        bool IsExistsWithName(string displayName);
+        bool IsExists(string displayName);
     }
 }

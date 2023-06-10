@@ -95,6 +95,18 @@ namespace Employment.Persistance.Repositories
         private readonly IProvinceRepository _provinceRepository;
         public IProvinceRepository ProvinceRepository => _provinceRepository ?? new ProvinceRepository(_dbContext);
 
+        private readonly IIndustryRepository _industryRepository;
+        public IIndustryRepository IndustryRepository => _industryRepository ?? new IndustryRepository(_dbContext);
+
+        private readonly IJobCategoryRepository _jobCategoryRepository;
+        public IJobCategoryRepository IJobCategoryRepository => _jobCategoryRepository ?? new JobCategoryRepository(_dbContext);
+
+        private readonly IJobSeniorityLevelRepository _jobSeniorityLevelRepository;
+        public IJobSeniorityLevelRepository JobSeniorityLevelRepository => _jobSeniorityLevelRepository ?? new JobSeniorityLeveRepository(_dbContext);
+
+        private readonly ICityRepository _cityRepository;
+        public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_dbContext);
+
         #endregion
 
 

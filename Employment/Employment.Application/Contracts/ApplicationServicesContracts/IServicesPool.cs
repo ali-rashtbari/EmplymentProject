@@ -15,5 +15,9 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IEducationHistoryService EducationHistoryService { get; }
         public ICountryService CountryService { get; }
         public IProvinceService ProvinceService { get; }
+        public IIndustryService IndustryService { get; }
+        public IJobCategoryService JobCategoryService { get; }
+        public IJobSeniorityLevelService JobSeniorityLevelService { get; }
+        public ICityService CityService { get; }
     }
 }

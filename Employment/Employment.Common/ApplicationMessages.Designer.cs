@@ -61,7 +61,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است.-15.
+        ///   Looks up a localized string similar to تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است..
         /// </summary>
         public static string CantAddMoreLinks {
             get {
@@ -70,7 +70,16 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کشور جدید با موفقیت ایجاد شد.-21.
+        ///   Looks up a localized string similar to شهر اضافه شد..
+        /// </summary>
+        public static string CityAdded {
+            get {
+                return ResourceManager.GetString("CityAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کشور جدید با موفقیت ایجاد شد..
         /// </summary>
         public static string CountryAdded {
             get {
@@ -79,7 +88,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کشور یافت نشد.-24.
+        ///   Looks up a localized string similar to کشور یافت نشد..
         /// </summary>
         public static string CountryNotFound {
             get {
@@ -88,7 +97,16 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to چنین کشوری قبلا ایجاد شده.-20.
+        ///   Looks up a localized string similar to چنین شهری اضافه شده..
+        /// </summary>
+        public static string DuplicateCity {
+            get {
+                return ResourceManager.GetString("DuplicateCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چنین کشوری قبلا ایجاد شده..
         /// </summary>
         public static string DuplicateCountry {
             get {
@@ -97,7 +115,34 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رشته تحصیلی ای با این اسم قبلا اضافه شده.-16.
+        ///   Looks up a localized string similar to آیتمی با این اسم قبلا ایجاد شده..
+        /// </summary>
+        public static string DuplicateIndustry {
+            get {
+                return ResourceManager.GetString("DuplicateIndustry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چنین دسته بندی شغلی ای قبلا ایجاد شده..
+        /// </summary>
+        public static string DuplicateJobCategory {
+            get {
+                return ResourceManager.GetString("DuplicateJobCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رده سازمانی ای با این اسم قبلا ایجاد شده..
+        /// </summary>
+        public static string DuplicateJobSeniorityLevel {
+            get {
+                return ResourceManager.GetString("DuplicateJobSeniorityLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رشته تحصیلی ای با این اسم قبلا اضافه شده..
         /// </summary>
         public static string DuplicateMajor {
             get {
@@ -106,7 +151,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to استانی با این اسم قبلا ایجاد شده.-22.
+        ///   Looks up a localized string similar to استانی با این اسم قبلا ایجاد شده..
         /// </summary>
         public static string DuplicateProvince {
             get {
@@ -115,7 +160,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to سابقه تحصیلی اضافه شد.-19.
+        ///   Looks up a localized string similar to سابقه تحصیلی اضافه شد..
         /// </summary>
         public static string EducationHistoryAdded {
             get {
@@ -124,7 +169,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رمز وارد شده صیحیح نمی باشد.-6.
+        ///   Looks up a localized string similar to رمز وارد شده صیحیح نمی باشد..
         /// </summary>
         public static string InCurrectPassword {
             get {
@@ -133,7 +178,16 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to شماره مبایل وارد شده اشتباه است.-5.
+        ///   Looks up a localized string similar to زمینه فعالیت شرکت اضافه شد.
+        /// </summary>
+        public static string IndustryAdded {
+            get {
+                return ResourceManager.GetString("IndustryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره مبایل وارد شده اشتباه است..
         /// </summary>
         public static string InvalidMobileNumber {
             get {
@@ -142,7 +196,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات وارد شده صحیح نمی باشد.-8.
+        ///   Looks up a localized string similar to اطلاعات وارد شده صحیح نمی باشد..
         /// </summary>
         public static string InvalidSignInInformation {
             get {
@@ -151,7 +205,25 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to لینک با موفقیت به رزومه اضافه شد.-14.
+        ///   Looks up a localized string similar to دسته بندی شغلی جدید ایجاد شد..
+        /// </summary>
+        public static string JobCategoryAdded {
+            get {
+                return ResourceManager.GetString("JobCategoryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رده سازمانی جدید اضافه شد..
+        /// </summary>
+        public static string JobSeniorityLevelAdded {
+            get {
+                return ResourceManager.GetString("JobSeniorityLevelAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لینک با موفقیت به رزومه اضافه شد..
         /// </summary>
         public static string LinkAddedToResume {
             get {
@@ -160,7 +232,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد.-17-.
+        ///   Looks up a localized string similar to رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد..
         /// </summary>
         public static string MajorAdded {
             get {
@@ -169,7 +241,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رشته تحصیلی یافت نشد.-18.
+        ///   Looks up a localized string similar to رشته تحصیلی یافت نشد..
         /// </summary>
         public static string MajorNotFound {
             get {
@@ -178,7 +250,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رمز با موفقیت ویرایش شد.-7.
+        ///   Looks up a localized string similar to رمز با موفقیت ویرایش شد..
         /// </summary>
         public static string PasswordChanged {
             get {
@@ -187,7 +259,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات وارد شده نادرست است.-1.
+        ///   Looks up a localized string similar to اطلاعات وارد شده نادرست است..
         /// </summary>
         public static string PasswordIsInCurrect {
             get {
@@ -196,7 +268,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to پروفایل با موفقیت ویرایش شد.-12.
+        ///   Looks up a localized string similar to پروفایل با موفقیت ویرایش شد..
         /// </summary>
         public static string ProfileEditedSuccessfuly {
             get {
@@ -205,7 +277,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to پروفایل یافت نشد.-11.
+        ///   Looks up a localized string similar to پروفایل یافت نشد..
         /// </summary>
         public static string ProfileNotFound {
             get {
@@ -214,7 +286,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to استان جدید اضافه شد.-23.
+        ///   Looks up a localized string similar to استان جدید اضافه شد..
         /// </summary>
         public static string ProvinceAdded {
             get {
@@ -223,7 +295,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to استان به کشور اضافه شد.-25.
+        ///   Looks up a localized string similar to استان به کشور اضافه شد..
         /// </summary>
         public static string ProvinceAddedToCountry {
             get {
@@ -232,7 +304,16 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رزومه با این مشخصات یافت نشد.-13.
+        ///   Looks up a localized string similar to استان یافت نشد..
+        /// </summary>
+        public static string ProvinceNotFound {
+            get {
+                return ResourceManager.GetString("ProvinceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رزومه با این مشخصات یافت نشد..
         /// </summary>
         public static string ResumeNotFound {
             get {
@@ -241,7 +322,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد.-9.
+        ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد..
         /// </summary>
         public static string TokenCreatedSuccessfuly {
             get {
@@ -250,7 +331,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است.-10.
+        ///   Looks up a localized string similar to کاربری قبلا با این ایمیل یا نام کاربری در سایت ثبت نام کرده است..
         /// </summary>
         public static string UserNameExistInDataBase {
             get {
@@ -259,7 +340,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات وارد شده نادرست است.-2.
+        ///   Looks up a localized string similar to اطلاعات وارد شده نادرست است..
         /// </summary>
         public static string UserNameNotFound {
             get {
@@ -268,7 +349,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to عملیات ثبت نام با موفقیت انجام شد.-3.
+        ///   Looks up a localized string similar to عملیات ثبت نام با موفقیت انجام شد..
         /// </summary>
         public static string YouSignedUpSuccessfuly {
             get {
@@ -277,7 +358,7 @@ namespace Employment.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد.-4.
+        ///   Looks up a localized string similar to عملیات ورود با موفقیت انجام شد..
         /// </summary>
         public static string YouSignInSuccessfuly {
             get {

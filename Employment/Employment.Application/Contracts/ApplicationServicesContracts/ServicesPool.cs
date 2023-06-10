@@ -41,5 +41,17 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 
         private readonly IProvinceService _provinceService;
         public IProvinceService ProvinceService => _provinceService ?? new ProvinceService(_unitOfWork);
+
+        private readonly IIndustryService _industryService;
+        public IIndustryService IndustryService => _industryService ?? new IndustryService(_unitOfWork);
+
+        public IJobCategoryService _jobCategoryService;
+        public IJobCategoryService JobCategoryService => _jobCategoryService ?? new JobCategoryService(_unitOfWork);
+
+        private readonly IJobSeniorityLevelService _jobSentiorityLeveService;
+        public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork);
+
+        private readonly ICityService _cityService;
+        public ICityService CityService => _cityService ?? new CityService(_unitOfWork);
     }
 }

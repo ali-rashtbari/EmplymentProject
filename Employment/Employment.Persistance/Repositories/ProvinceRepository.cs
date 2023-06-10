@@ -20,7 +20,7 @@ namespace Employment.Persistance.Repositories
 
         public bool IsExists(string name)
         {
-            return _appDbContext.Provinces.FirstOrDefault(p => p.Name.Trim().ToLower() == name.Trim().ToLower()) != null;
+            return _appDbContext.Provinces.Any(p => p.Name.Trim().ToLower() == name.Trim().ToLower());
         }
     }
 }

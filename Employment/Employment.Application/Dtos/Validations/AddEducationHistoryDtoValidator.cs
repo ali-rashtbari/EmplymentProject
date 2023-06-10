@@ -1,4 +1,6 @@
-﻿using Employment.Application.Dtos.ApplicationServicesDtos;
+﻿using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Common;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -10,8 +12,12 @@ namespace Employment.Application.Dtos.Validations
 {
     public class AddEducationHistoryDtoValidator : AbstractValidator<AddEducationHistoryDto>
     {
-        public AddEducationHistoryDtoValidator()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AddEducationHistoryDtoValidator(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
+
             RuleFor(eh => eh.University)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
@@ -41,12 +47,24 @@ namespace Employment.Application.Dtos.Validations
             RuleFor(eh => eh.MajorId)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .GreaterThan(0).WithMessage("{PropertyName} مقدار مناسبی وارد کنید");
+                .GreaterThan(0).WithMessage("{PropertyName} مقدار مناسبی وارد کنید")
+                .Must(value => _isMajorExists(value)).WithMessage(ApplicationMessages.MajorNotFound);
 
             RuleFor(eh => eh.ResumeId)
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .GreaterThan(0).WithMessage("{PropertyName} مقدار مناسبی وارد کنید");
+                .GreaterThan(0).WithMessage("{PropertyName} مقدار مناسبی وارد کنید")
+                .Must(value => _isResumeExists(value)).WithMessage(ApplicationMessages.ResumeNotFound);
+        }
+
+        private bool _isResumeExists(int resumeId)
+        {
+            return _unitOfWork.ResumeRepository.Get(resumeId) != null;
+        }
+
+        private bool _isMajorExists(int majorId)
+        {
+            return _unitOfWork.MajorRepository.Get(majorId) != null;
         }
     }
 }

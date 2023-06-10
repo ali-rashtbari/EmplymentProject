@@ -1,6 +1,7 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
@@ -24,10 +25,9 @@ namespace Employment.Application.Services.ApplicationServices
 
         public async Task<CommandResule<int>> AddAsync(AddProvinceDto addProvinceDto)
         {
-            if (_unitOfWork.ProvinceRepository.IsExists(addProvinceDto.Name)) throw new ArgumentException(ApplicationMessages.DuplicateProvince);
-            if (_unitOfWork.CountryRepository.Get(addProvinceDto.CountryId) is null) throw new NotFoundException(ApplicationMessages.CountryNotFound,
-                                                                                                                  entity: nameof(Country),
-                                                                                                                  id: addProvinceDto.CountryId.ToString());
+            var validationResult = await new AddProvinceDtoValidator(_unitOfWork).ValidateAsync(addProvinceDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+
             var province = new Province()
             {
                 Name = addProvinceDto.Name,
