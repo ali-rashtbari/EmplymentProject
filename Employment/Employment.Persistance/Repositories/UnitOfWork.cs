@@ -107,6 +107,9 @@ namespace Employment.Persistance.Repositories
         private readonly ICityRepository _cityRepository;
         public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_dbContext);
 
+        private readonly IJobExperienceRepository _jobExperienceRepository;
+        public IJobExperienceRepository JobExperienceRepository => _jobExperienceRepository ?? new JobExperienceRepository(_dbContext);
+
         #endregion
 
 

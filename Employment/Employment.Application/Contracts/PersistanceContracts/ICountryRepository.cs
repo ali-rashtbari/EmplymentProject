@@ -9,6 +9,6 @@ namespace Employment.Application.Contracts.PersistanceContracts
 {
     public interface ICountryRepository : IGenericRepository<Country>
     {
-        bool IsExists(string name);
+        bool IsExists(string name); 
     }
 }

@@ -10,5 +10,6 @@ namespace Employment.Application.Contracts.PersistanceContracts
     public interface ICityRepository : IGenericRepository<City>
     {
         bool IsExists(string name);
+        bool IsInCountry(int cityId, int countryId);
     }
 }

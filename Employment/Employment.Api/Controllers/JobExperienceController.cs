@@ -1,7 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
-using Employment.Application.Dtos.Validations;
-using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +7,19 @@ namespace Employment.Api.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    public class IndustryController : ControllerBase
+    public class JobExperienceController : ControllerBase
     {
         private readonly IServicesPool _servicesPool;
-        public IndustryController(IServicesPool servicesPool)
+        public JobExperienceController(IServicesPool servicesPool)
         {
             _servicesPool = servicesPool;
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] AddIndustryDto addIndustryDto)
+        public async Task<IActionResult> Add([FromBody] AddJobExperienceDto addJobExperienceDto)
         {
-            var addIndustryResult = await _servicesPool.IndustryService.AddAsync(addIndustryDto);
-            return Ok(addIndustryResult);
+            var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
+            return Ok(addJobExperienceResult);
         }
-
     }
 }

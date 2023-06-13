@@ -125,6 +125,14 @@
     <value>شهر اضافه شد.</value>
     <comment>city added</comment>
   </data>
+  <data name="CityIsNotForThisCountry" xml:space="preserve">
+    <value>شهر انتخاب شده برای این کشور نیست.</value>
+    <comment>the city and country is not related to eachother.</comment>
+  </data>
+  <data name="CityNotFound" xml:space="preserve">
+    <value>شهر مورد یافت نشد.</value>
+    <comment>city not found.</comment>
+  </data>
   <data name="CountryAdded" xml:space="preserve">
     <value>کشور جدید با موفقیت ایجاد شد.</value>
     <comment>new country added successfuly</comment>
@@ -173,6 +181,10 @@
     <value>زمینه فعالیت شرکت اضافه شد</value>
     <comment>new industry added successfully</comment>
   </data>
+  <data name="IndustryNotFound" xml:space="preserve">
+    <value>زمینه فعالیتی یافت نشد.</value>
+    <comment>industry not found.</comment>
+  </data>
   <data name="InvalidMobileNumber" xml:space="preserve">
     <value>شماره مبایل وارد شده اشتباه است.</value>
     <comment>InCurrect Mobile Number.</comment>
@@ -185,9 +197,21 @@
     <value>دسته بندی شغلی جدید ایجاد شد.</value>
     <comment>new job category added.</comment>
   </data>
+  <data name="JobCategoryNotFound" xml:space="preserve">
+    <value>نوع فعالیتی یافت نشد.</value>
+    <comment>job category not found.</comment>
+  </data>
+  <data name="JobExperienceAdded" xml:space="preserve">
+    <value>سایقه شغلی اضافه شد.</value>
+    <comment>new job experience added.</comment>
+  </data>
   <data name="JobSeniorityLevelAdded" xml:space="preserve">
     <value>رده سازمانی جدید اضافه شد.</value>
     <comment>new job seniority level added successfuly.</comment>
+  </data>
+  <data name="JobSeniorityLeveNotFound" xml:space="preserve">
+    <value>رده سازمانی یافت نشد.</value>
+    <comment>JobSeniorityLevel not found.</comment>
   </data>
   <data name="LinkAddedToResume" xml:space="preserve">
     <value>لینک با موفقیت به رزومه اضافه شد.</value>

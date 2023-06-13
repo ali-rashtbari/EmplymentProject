@@ -19,5 +19,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IJobCategoryService JobCategoryService { get; }
         public IJobSeniorityLevelService JobSeniorityLevelService { get; }
         public ICityService CityService { get; }
+        public IJobExperienceService JobExperienceService { get; }
     }
 }

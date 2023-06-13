@@ -79,6 +79,24 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شهر انتخاب شده برای این کشور نیست..
+        /// </summary>
+        public static string CityIsNotForThisCountry {
+            get {
+                return ResourceManager.GetString("CityIsNotForThisCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شهر مورد یافت نشد..
+        /// </summary>
+        public static string CityNotFound {
+            get {
+                return ResourceManager.GetString("CityNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to کشور جدید با موفقیت ایجاد شد..
         /// </summary>
         public static string CountryAdded {
@@ -187,6 +205,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to زمینه فعالیتی یافت نشد..
+        /// </summary>
+        public static string IndustryNotFound {
+            get {
+                return ResourceManager.GetString("IndustryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شماره مبایل وارد شده اشتباه است..
         /// </summary>
         public static string InvalidMobileNumber {
@@ -214,11 +241,38 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to نوع فعالیتی یافت نشد..
+        /// </summary>
+        public static string JobCategoryNotFound {
+            get {
+                return ResourceManager.GetString("JobCategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سایقه شغلی اضافه شد..
+        /// </summary>
+        public static string JobExperienceAdded {
+            get {
+                return ResourceManager.GetString("JobExperienceAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رده سازمانی جدید اضافه شد..
         /// </summary>
         public static string JobSeniorityLevelAdded {
             get {
                 return ResourceManager.GetString("JobSeniorityLevelAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رده سازمانی یافت نشد..
+        /// </summary>
+        public static string JobSeniorityLeveNotFound {
+            get {
+                return ResourceManager.GetString("JobSeniorityLeveNotFound", resourceCulture);
             }
         }
         
