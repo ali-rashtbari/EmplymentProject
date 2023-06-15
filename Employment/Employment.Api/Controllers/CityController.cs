@@ -1,5 +1,7 @@
-﻿using Employment.Application.Contracts.ApplicationServicesContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+﻿using AutoMapper;
+using Employment.Api.Models.CityViewModels;
+using Employment.Application.Contracts.ApplicationServicesContracts;
+using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +12,14 @@ namespace Employment.Api.Controllers
     public class CityController : ControllerBase
     {
         private readonly IServicesPool _servicesPool;
-        public CityController(IServicesPool servicesPool)
+        private readonly IMapper _mapper;
+        private readonly ILogger<CityController> _logger;
+
+        public CityController(IServicesPool servicesPool, IMapper mapper, ILogger<CityController> logger = null)
         {
-            _servicesPool = servicesPool;   
+            _servicesPool = servicesPool;
+            _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -22,5 +29,20 @@ namespace Employment.Api.Controllers
             var addResult = await _servicesPool.CityService.AddAsync(addCityDto);
             return Ok(addResult);
         }
+
+        [HttpGet("Get/{id}")]
+        public ActionResult<GetCityToShowModel> Get(int id)
+        {
+            var city = _servicesPool.CityService.Get(id);
+            var toShow = _mapper.Map<GetCityToShowModel>(city);
+            return Ok(toShow);
+        }
+
+
+        //[HttpPost("Edit")]
+        //public async Task<IActionResult> Edit([FromBody] EditCityDto editCityDto)
+        //{
+
+        //}
     }
 }

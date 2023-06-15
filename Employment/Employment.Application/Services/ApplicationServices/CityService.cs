@@ -1,6 +1,7 @@
-﻿using Employment.Application.Contracts.ApplicationServicesContracts;
+﻿using AutoMapper;
+using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
@@ -17,9 +18,12 @@ namespace Employment.Application.Services.ApplicationServices
     public class CityService : ICityService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CityService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public CityService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<CommandResule<int>> AddAsync(AddCityDto addCityDto)
         {
@@ -37,6 +41,17 @@ namespace Employment.Application.Services.ApplicationServices
                 Message = ApplicationMessages.CityAdded,
                 Data = city.Id
             };
+        }
+        public GetCityDto Get(int id)
+        {
+            var includes = new List<string>()
+            {
+                "Province.Country"
+            };
+            var city = _unitOfWork.CityRepository.Get(id, includes);
+            if (city is null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: id.ToString());
+            var cityDto = _mapper.Map<GetCityDto>(city);
+            return cityDto;
         }
     }
 }

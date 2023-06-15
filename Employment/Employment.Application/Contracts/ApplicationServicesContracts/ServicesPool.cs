@@ -52,7 +52,7 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork);
 
         private readonly ICityService _cityService;
-        public ICityService CityService => _cityService ?? new CityService(_unitOfWork);
+        public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper);
 
         private readonly IJobExperienceService _jobExperienceService;
         public IJobExperienceService JobExperienceService => _jobExperienceService ?? new JobExperienceService(_unitOfWork, _mapper);

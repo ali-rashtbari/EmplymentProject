@@ -40,6 +40,7 @@ namespace Employment.Api.MIddleWares
                 {
                     await LogThenHandleException(exception, httpContext);
                 }
+                
             }
         }
 
@@ -54,7 +55,7 @@ namespace Employment.Api.MIddleWares
             //    _ => StatusCodes.Status500InternalServerError
             //};
 
-            _logger.LogError($"Something was Wrong : {ex}");
+            _logger.LogError($"An Exception Occured : {ex}");
             await HandleExceptionAsync(httpContext, ex);
             await Task.CompletedTask;
         }
@@ -65,7 +66,7 @@ namespace Employment.Api.MIddleWares
             httpContext.Response.ContentType = "application/json";
             //httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            await httpContext.Response.WriteAsync(new ExceptionDetails()
+            await httpContext.Response.WriteAsync(new ExceptionDetailsToShow()
             {
                 StatusCode = httpContext.Response.StatusCode,
                 Message = exception.Message

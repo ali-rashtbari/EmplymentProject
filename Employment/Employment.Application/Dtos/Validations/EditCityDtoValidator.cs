@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Dtos.Validations
 {
-    public class AddCityDtoValidator : AbstractValidator<AddCityDto>
+    public class EditCityDtoValidator : AbstractValidator<EditCityDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddCityDtoValidator(IUnitOfWork unitOfWork)
+        public EditCityDtoValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+
+            RuleFor(c => c.Id)
+                .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
+                .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد");
 
             RuleFor(c => c.Name)
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")

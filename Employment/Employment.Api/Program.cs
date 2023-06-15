@@ -5,14 +5,30 @@ using Employment.Persistance.Context;
 using Employment.Persistance.ExtensionMethods;
 using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
+using Serilog.AspNetCore;
+using Serilog;
+using Serilog.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+    //.WriteTo.File($"../Logs/EmploymentLogs-{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}  {DateTime.Now.Hour}:{DateTime.Now.Minute}.txt",
+    //               Serilog.Events.LogEventLevel.Information,
+    //               outputTemplate: "{Timestamp} [{Level}] {Message}{NewLine}{Exception}")
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 
 // Add services to the container.
 ConfigureServices(builder.Services, builder.Configuration);
 
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 Configure(app);

@@ -2,7 +2,7 @@
 
 namespace Employment.Api.MIddleWares
 {
-    public class ExceptionDetails
+    public class ExceptionDetailsToShow
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
