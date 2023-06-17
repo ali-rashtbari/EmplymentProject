@@ -11,6 +11,7 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     public interface ICityService
     {
         Task<CommandResule<int>> AddAsync(AddCityDto addCityDto);
+        Task<CommandResule<int>> UpdateAsync(UpdateCityDto editCityDto);
         GetCityDto Get(int id);
         GetListResultDto<GetCitiesListDto> GetList(GetCitiesListRequestDto getCitiesListDto);
     }

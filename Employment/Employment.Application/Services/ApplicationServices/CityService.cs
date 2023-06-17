@@ -2,11 +2,13 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,8 @@ namespace Employment.Application.Services.ApplicationServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+
         public async Task<CommandResule<int>> AddAsync(AddCityDto addCityDto)
         {
             var validationResult = await new AddCityDtoValidator(_unitOfWork).ValidateAsync(addCityDto);
@@ -39,6 +43,23 @@ namespace Employment.Application.Services.ApplicationServices
             {
                 IsSuccess = true,
                 Message = ApplicationMessages.CityAdded,
+                Data = city.Id
+            };
+        }
+        public async Task<CommandResule<int>> UpdateAsync(UpdateCityDto updateCityDto)
+        {
+            var validationResult = await new UpdateCityDtoValidator(_unitOfWork).ValidateAsync(updateCityDto);
+            if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
+            var city = _unitOfWork.CityRepository.Get(updateCityDto.Id, includes: new List<string>()
+            {
+                "Province"
+            });
+            _mapper.Map(updateCityDto, city);
+            await _unitOfWork.CityRepository.UpdateAsync(city);
+            return new CommandResule<int>()
+            {
+                IsSuccess = true,
+                Message = ApplicationMessages.CityUpdated,
                 Data = city.Id
             };
         }

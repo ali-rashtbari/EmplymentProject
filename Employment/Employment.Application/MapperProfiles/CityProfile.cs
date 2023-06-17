@@ -21,6 +21,9 @@ namespace Employment.Application.MapperProfiles
             CreateMap<City, GetCitiesListDto>()
                 .ForMember(dest => dest.ProvinceName, _ => _.MapFrom(src => src.Province.Name))
                 .ForMember(dest => dest.CountryName, _ => _.MapFrom(src => src.Province.Country.Name));
+
+            CreateMap<UpdateCityDto, City>()
+                .ForAllMembers(dto => dto.Condition(c => c.ProvinceId != null));
         }
     }
 }

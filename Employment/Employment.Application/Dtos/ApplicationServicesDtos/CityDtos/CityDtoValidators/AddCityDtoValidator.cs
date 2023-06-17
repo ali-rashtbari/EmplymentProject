@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.Validations
+namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoValidators
 {
     public class AddCityDtoValidator : AbstractValidator<AddCityDto>
     {

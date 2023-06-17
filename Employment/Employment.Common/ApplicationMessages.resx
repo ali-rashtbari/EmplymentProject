@@ -133,6 +133,10 @@
     <value>شهر مورد یافت نشد.</value>
     <comment>city not found.</comment>
   </data>
+  <data name="CityUpdated" xml:space="preserve">
+    <value>شهر با موفقیت ویرایش شد.</value>
+    <comment>City Updated.</comment>
+  </data>
   <data name="CountryAdded" xml:space="preserve">
     <value>کشور جدید با موفقیت ایجاد شد.</value>
     <comment>new country added successfuly</comment>
