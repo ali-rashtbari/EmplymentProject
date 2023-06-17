@@ -53,5 +53,34 @@ namespace Employment.Application.Services.ApplicationServices
             var cityDto = _mapper.Map<GetCityDto>(city);
             return cityDto;
         }
+        public GetListResultDto<GetCitiesListDto> GetList(GetCitiesListRequestDto getCitiesListDto)
+        {
+            var includes = new List<string>()
+            {
+                "Province.Country"
+            };
+            var allCities = _unitOfWork.CityRepository.GetAllAsQueryable(includes: includes);
+            #region Filters
+            if (getCitiesListDto.CountryId.HasValue) allCities = allCities.Where(c => c.Province.CountryId == getCitiesListDto.CountryId.Value);
+            if (getCitiesListDto.ProvinceId.HasValue) allCities = allCities.Where(c => c.ProvinceId == getCitiesListDto.ProvinceId.Value);
+            #endregion
+            #region Ordering
+            allCities = allCities.SystemOrderBy(orderBy: getCitiesListDto.OrderBy,
+                                                direction: getCitiesListDto.OrderDirection);
+            #endregion
+            #region Paging
+            var pagedList = PagedList<City>.Create(source: allCities,
+                                                   pageNumber: getCitiesListDto.PageNumber,
+                                                   pageSize: getCitiesListDto.PageSize,
+                                                   search: getCitiesListDto.Search);
+            #endregion
+            var values = _mapper.Map<IReadOnlyList<GetCitiesListDto>>(pagedList);
+            var citiesList = new GetListResultDto<GetCitiesListDto>()
+            {
+                Values = values,
+                MetaValues = pagedList.MetaData
+            };
+            return citiesList;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Employment.Application.Contracts.PersistanceContracts
         // get ---
         IEnumerable<T> GetAll(List<string>? includes = null);
         T Get(int id, List<string>? includes = null);
+        IQueryable<T> GetAllAsQueryable(List<string>? includes = null);
 
         // update ---
         Task UpdateAsync(T entity);

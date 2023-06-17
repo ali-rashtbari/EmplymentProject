@@ -56,7 +56,7 @@ namespace Employment.Persistance.Repositories
 
         public IEnumerable<T> GetAll(List<string>? includes = null)
         {
-            return GetAsQueryable(expression: null, includes: includes);
+            return GetAsQueryable(expression: null, includes: includes).AsEnumerable();
         }
 
         public void Update(T entity)
@@ -71,6 +71,10 @@ namespace Employment.Persistance.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public IQueryable<T> GetAllAsQueryable(List<string>? includes)
+        {
+            return GetAsQueryable(expression: null, includes: includes);
+        }
 
         private IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? expression = null, List<string>? includes = null)
         {

@@ -2,6 +2,8 @@
 using Employment.Api.Models.CityViewModels;
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
+using Employment.Common.Constants;
+using Employment.Common.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +40,13 @@ namespace Employment.Api.Controllers
             return Ok(toShow);
         }
 
+        [HttpGet("GetList")]
+        public IActionResult GetList([FromQuery] GetCitiesListRequestDto getCitiesListRequest)
+        {
+            GetListResultDto<GetCitiesListDto> pagedCities = _servicesPool.CityService.GetList(getCitiesListRequest);
+            Response.Headers.Add(ReponseHeaderValues.PaginationValues, Newtonsoft.Json.JsonConvert.SerializeObject(pagedCities.MetaValues));
+            return Ok(pagedCities.Values);
+        }
 
         //[HttpPost("Edit")]
         //public async Task<IActionResult> Edit([FromBody] EditCityDto editCityDto)

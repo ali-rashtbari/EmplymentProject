@@ -23,14 +23,12 @@ namespace Employment.Common
             var result = new ApiResultAsJson(message: _message, statusCode: statusCode, code: _code);
             return new JsonResult(result);
         }
-
         public static IActionResult ReturnResultAsJson<T>(string message, HttpStatusCode statusCode, T data)
         {
             _splitMessage(message);
             var result = new ApiResultAsJson(message: _message, statusCode: statusCode, code: _code);
             return new JsonResult(new { Value = result, Data = data });
         }
-
         /// <summary>
         /// split api result message and seprate the message and the message code.
         /// </summary>
@@ -51,8 +49,6 @@ namespace Employment.Common
                 }
             });
         }
-
-
         public static Expression<Func<T, bool>> GetLambdaExpression<T, Param>(string leftParam, Param rightParam)
         {
             // This expression is lambad : e => e.Id == id
@@ -64,6 +60,18 @@ namespace Employment.Common
 
             return lambdaExpression;
         }
-
+        public static IQueryable<T> SystemOrderBy<T>(this IQueryable<T> source, string? orderBy = "Id", string? direction = "asc")
+        {
+            //if (orderBy is null) orderBy = "Id";
+            //if (direction is null) direction = "asc";
+            ParameterExpression parameter = Expression.Parameter(source.ElementType, "");
+            MemberExpression property = Expression.Property(parameter, orderBy);
+            LambdaExpression lambda = Expression.Lambda(property, parameter);
+            var methodName = direction.ToLower() == "asc" ? "OrderBy" : "OrderByDescending";
+            Expression methodCallExpression = Expression.Call(typeof(Queryable), methodName,
+                                  new Type[] { source.ElementType, property.Type },
+                                  source.Expression, Expression.Quote(lambda));
+            return source.Provider.CreateQuery<T>(methodCallExpression);
+        }
     }
 }

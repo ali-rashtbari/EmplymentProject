@@ -12,5 +12,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     {
         Task<CommandResule<int>> AddAsync(AddCityDto addCityDto);
         GetCityDto Get(int id);
+        GetListResultDto<GetCitiesListDto> GetList(GetCitiesListRequestDto getCitiesListDto);
     }
 }
