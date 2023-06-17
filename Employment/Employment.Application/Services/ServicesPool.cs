@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Services.ApplicationServices;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Contracts.ApplicationServicesContracts
+namespace Employment.Application.Services
 {
     public class ServicesPool : IServicesPool
     {
@@ -37,7 +38,7 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IEducationHistoryService EducationHistoryService => _educationHistoryService ?? new EducationHistoryService(_unitOfWork, _mapper);
 
         private readonly ICountryService _countryService;
-        public ICountryService CountryService => _countryService ?? new CountryService(_unitOfWork);
+        public ICountryService CountryService => _countryService ?? new CountryService(_unitOfWork, _mapper);
 
         private readonly IProvinceService _provinceService;
         public IProvinceService ProvinceService => _provinceService ?? new ProvinceService(_unitOfWork);

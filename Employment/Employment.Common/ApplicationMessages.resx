@@ -145,6 +145,10 @@
     <value>کشور یافت نشد.</value>
     <comment>country not found.</comment>
   </data>
+  <data name="CountryUpdated" xml:space="preserve">
+    <value>اطلاعات کشور ویرایش شد.</value>
+    <comment>country updated.</comment>
+  </data>
   <data name="DuplicateCity" xml:space="preserve">
     <value>چنین شهری اضافه شده.</value>
     <comment>Duplicate city name </comment>

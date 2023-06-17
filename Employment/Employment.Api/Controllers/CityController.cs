@@ -48,11 +48,13 @@ namespace Employment.Api.Controllers
             return Ok(pagedCities.Values);
         }
 
-        [HttpPut("Edit")]
-        public async Task<IActionResult> Edit([FromBody] UpdateCityDto editCityDto)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] UpdateCityDto editCityDto)
         {
-            CommandResule<int> editCityResult = await _servicesPool.CityService.Edit(editCityDto);
+            CommandResule<int> editCityResult = await _servicesPool.CityService.UpdateAsync(editCityDto);
             return Ok(editCityResult);
         }
+
+
     }
 }

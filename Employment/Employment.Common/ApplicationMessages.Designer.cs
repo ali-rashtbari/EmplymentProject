@@ -124,6 +124,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اطلاعات کشور ویرایش شد..
+        /// </summary>
+        public static string CountryUpdated {
+            get {
+                return ResourceManager.GetString("CountryUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to چنین شهری اضافه شده..
         /// </summary>
         public static string DuplicateCity {

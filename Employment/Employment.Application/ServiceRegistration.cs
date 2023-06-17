@@ -1,4 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
+using Employment.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
