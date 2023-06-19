@@ -44,7 +44,7 @@ namespace Employment.Application.Services
         public IProvinceService ProvinceService => _provinceService ?? new ProvinceService(_unitOfWork);
 
         private readonly IIndustryService _industryService;
-        public IIndustryService IndustryService => _industryService ?? new IndustryService(_unitOfWork);
+        public IIndustryService IndustryService => _industryService ?? new IndustryService(_unitOfWork, _mapper);
 
         public IJobCategoryService _jobCategoryService;
         public IJobCategoryService JobCategoryService => _jobCategoryService ?? new JobCategoryService(_unitOfWork);

@@ -44,7 +44,7 @@ namespace Employment.Api.Controllers
         }
 
         [HttpGet("GetList")]
-        public async Task<IActionResult> GetList([FromQuery] GetCountriesListRequestDto getCountriesListRequestDtos)
+        public IActionResult GetList([FromQuery] GetCountriesListRequestDto getCountriesListRequestDtos)
         {
             GetListResultDto<GetCountriesListDto> countriesList = _servicesPool.CountryService.GetList(getCountriesListRequestDtos);
             Response.Headers.Add(ReponseHeaderValues.PaginationValues, Newtonsoft.Json.JsonConvert.SerializeObject(countriesList.MetaValues));

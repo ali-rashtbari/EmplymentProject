@@ -232,6 +232,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to زمینه فعالیت ویرایش شد..
+        /// </summary>
+        public static string IndustryUpdated {
+            get {
+                return ResourceManager.GetString("IndustryUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شماره مبایل وارد شده اشتباه است..
         /// </summary>
         public static string InvalidMobileNumber {
@@ -264,6 +273,15 @@ namespace Employment.Common {
         public static string JobCategoryNotFound {
             get {
                 return ResourceManager.GetString("JobCategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دسته بندی شغلی ویرایش شد..
+        /// </summary>
+        public static string JobCategoryUpdated {
+            get {
+                return ResourceManager.GetString("JobCategoryUpdated", resourceCulture);
             }
         }
         

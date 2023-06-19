@@ -193,6 +193,10 @@
     <value>زمینه فعالیتی یافت نشد.</value>
     <comment>industry not found.</comment>
   </data>
+  <data name="IndustryUpdated" xml:space="preserve">
+    <value>زمینه فعالیت ویرایش شد.</value>
+    <comment>indutry updated.</comment>
+  </data>
   <data name="InvalidMobileNumber" xml:space="preserve">
     <value>شماره مبایل وارد شده اشتباه است.</value>
     <comment>InCurrect Mobile Number.</comment>
@@ -208,6 +212,10 @@
   <data name="JobCategoryNotFound" xml:space="preserve">
     <value>نوع فعالیتی یافت نشد.</value>
     <comment>job category not found.</comment>
+  </data>
+  <data name="JobCategoryUpdated" xml:space="preserve">
+    <value>دسته بندی شغلی ویرایش شد.</value>
+    <comment>job category updated.</comment>
   </data>
   <data name="JobExperienceAdded" xml:space="preserve">
     <value>سایقه شغلی اضافه شد.</value>

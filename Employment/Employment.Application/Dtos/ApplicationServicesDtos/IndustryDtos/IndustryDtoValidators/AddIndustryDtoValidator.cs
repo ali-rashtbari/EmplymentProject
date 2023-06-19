@@ -1,5 +1,4 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Common;
 using FluentValidation;
 using System;
@@ -8,25 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.Validations
+namespace Employment.Application.Dtos.ApplicationServicesDtos.IndustryDtos.IndustryDtoValidators
 {
-    public class AddJobCategoryDtoValidator : AbstractValidator<AddJobCategoryDto>
+    public class AddIndustryDtoValidator : AbstractValidator<AddIndustryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddJobCategoryDtoValidator(IUnitOfWork unitOfWork)
+        public AddIndustryDtoValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
-            RuleFor(jc => jc.Name)
+            RuleFor(i => i.Name)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .Must(value => !_isJobCategoryNameExists(value)).WithMessage(ApplicationMessages.DuplicateJobCategory);
+                .Must(value => !_isIndustryNameExists(value)).WithMessage(ApplicationMessages.DuplicateIndustry);
         }
 
-        private bool _isJobCategoryNameExists(string name)
+        private bool _isIndustryNameExists(string name)
         {
-            return _unitOfWork.IJobCategoryRepository.IsExists(name.ToLower());
+            return _unitOfWork.IndustryRepository.IsExists(name.ToLower());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Common;
 using FluentValidation;
 using System;

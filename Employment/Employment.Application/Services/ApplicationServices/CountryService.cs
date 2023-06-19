@@ -63,6 +63,10 @@ namespace Employment.Application.Services.ApplicationServices
                 "Provinces.Cities"
             });
             #region Filters
+            if(!string.IsNullOrWhiteSpace(getCountriesListRequestDtos.Search))
+            {
+                countries = countries.Where(c => c.Name.ToLower().Contains(getCountriesListRequestDtos.Search.ToLower()));
+            }
             #endregion
             #region Ordering
             countries = countries.SystemOrderBy(orderBy: getCountriesListRequestDtos.OrderBy,
