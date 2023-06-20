@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.AspNetCore.Hosting;
 using FluentValidation.Validators;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.ComponentModel;
+using Employment.Common.Enums;
 
 namespace Employment.Persistance.Repositories
 {
@@ -59,9 +62,9 @@ namespace Employment.Persistance.Repositories
             _dbContext.Database.RollbackTransaction();
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            return _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         public int SaveChanges()
@@ -111,6 +114,10 @@ namespace Employment.Persistance.Repositories
         public IJobExperienceRepository JobExperienceRepository => _jobExperienceRepository ?? new JobExperienceRepository(_dbContext);
 
         #endregion
+
+
+
+
 
 
     }

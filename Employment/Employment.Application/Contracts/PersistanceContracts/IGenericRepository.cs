@@ -13,6 +13,11 @@ namespace Employment.Application.Contracts.PersistanceContracts
         // get ---
         IEnumerable<T> GetAll(List<string>? includes = null);
         T Get(int id, List<string>? includes = null);
+        /// <summary>
+        /// get all entities as queryable and as no tracking.
+        /// </summary>
+        /// <param name="includes"></param>
+        /// <returns></returns>
         IQueryable<T> GetAllAsQueryable(List<string>? includes = null);
 
         // update ---

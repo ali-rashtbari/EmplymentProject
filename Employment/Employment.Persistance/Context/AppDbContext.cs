@@ -1,8 +1,10 @@
-﻿using Employment.Domain;
+﻿using Employment.Common.Enums;
+using Employment.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.ComponentModel;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
@@ -33,7 +35,7 @@ namespace Employment.Persistance.Context
         public DbSet<JobCategory> JobCategories { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<JobSeniorityLevel> JobSeniorityLevels { get; set; }
-
+        public DbSet<History> Histories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -43,34 +45,184 @@ namespace Employment.Persistance.Context
 
         public override int SaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
-            {
-                entry.Entity.DateModified = DateTime.Now;
-
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.DateCreated = DateTime.Now;
-                }
-
-            }
-            return base.SaveChanges();
+            LogAndSaveChanges();
+            return 1;
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            await LogAndSaveChangesAsync();
+            return 1;
+        }
+
+
+
+
+        #region Private Method
+
+        private async Task BaseSaveChangesAsync()
         {
             foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
             {
-                entry.Entity.DateModified = DateTime.Now;
-
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.DateModified = DateTime.Now;
+                }
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.DateCreated = DateTime.Now;
                 }
-
             }
-            return base.SaveChangesAsync();
+            await base.SaveChangesAsync();
+        }
+        private void BaseSaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
+            {
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.DateModified = DateTime.Now;
+                }
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.DateCreated = DateTime.Now;
+                }
+            }
+            base.SaveChanges();
         }
 
+        private async Task LogAndSaveChangesAsync()
+        {
+            this.ChangeTracker.DetectChanges();
+            var trackedEntities = this.ChangeTracker.Entries().Where(en => en.State != Microsoft.EntityFrameworkCore.EntityState.Unchanged).ToList();
+            var historiesList = LogChanges(trackedEntities);
+            await BaseSaveChangesAsync();
+            foreach (var entityLogs in historiesList)
+            {
+                await this.Histories.AddRangeAsync(entityLogs.Histories);
+                foreach (var history in entityLogs.Histories)
+                {
+                    history.RecordId = entityLogs.entity.Entity.GetType().GetProperty("Id").GetValue(entityLogs.entity.Entity).ToString();
+                }
+            }
+            await BaseSaveChangesAsync();
+            await Task.CompletedTask;
+        }
+
+        private void LogAndSaveChanges()
+        {
+            this.ChangeTracker.DetectChanges();
+            var trackedEntities = this.ChangeTracker.Entries().Where(en => en.State != Microsoft.EntityFrameworkCore.EntityState.Unchanged).ToList();
+            var historiesList = LogChanges(trackedEntities);
+            BaseSaveChanges();
+            foreach (var entityLogs in historiesList)
+            {
+                this.Histories.AddRange(entityLogs.Histories);
+                foreach (var history in entityLogs.Histories)
+                {
+                    history.RecordId = entityLogs.entity.Entity.GetType().GetProperty("Id").GetValue(entityLogs.entity.Entity).ToString();
+                }
+            }
+            BaseSaveChanges();
+        }
+
+        private List<(List<History> Histories, EntityEntry entity)> LogChanges(List<EntityEntry> entityEntries)
+        {
+            var historiesList = new List<(List<History>, EntityEntry)>();
+            foreach (var entry in entityEntries)
+            {
+                var entityName = entry.Metadata.Name.Split('.').Last();
+                // --- if entity name is defined in the exceptions enumeration, it will not be loged --- //
+                if (Enum.IsDefined(typeof(IgnoredModelFromHIstory), entityName))
+                {
+                    continue;
+                }
+                if (entry == null) continue;
+                var histories = GetChangesHistoryList(entry, entry.State);
+                historiesList.Add((histories, entry));
+            }
+            return historiesList;
+        }
+
+        private List<History> GetChangesHistoryList(EntityEntry entity, EntityState state)
+        {
+            var historyList = new List<History>();
+            var entityProperties = entity.Properties;
+            var entityName = GetDomainDisplayName(entity);
+            string recordId = null;
+            foreach (var property in entityProperties)
+            {
+                var propertyName = property.Metadata.Name;
+                var propertyDisplayName = GetPropertyDisplayName(entity, propertyName);
+                if (propertyName.ToString().ToLower() == "id")
+                {
+                    recordId = property.CurrentValue.ToString();
+                    continue;
+                }
+                GetValues(property, state, out string oldValue, out string currentValue);
+                if (state == EntityState.Modified && oldValue == currentValue)
+                {
+                    continue;
+                }
+                historyList.Add(new History()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    PreviousValue = oldValue,
+                    NextValue = currentValue,
+                    ChangeDate = DateTime.Now,
+                    FieldName = propertyDisplayName,
+                    TableName = entityName,
+                    ChangeState = state.ToString(),
+                    RecordId = recordId
+                });
+            }
+            return historyList;
+        }
+
+        private void GetValues(PropertyEntry property, EntityState state, out string oldValue, out string currentValue)
+        {
+            oldValue = null;
+            currentValue = null;
+            switch (state)
+            {
+                case EntityState.Deleted:
+                    oldValue = property.OriginalValue == null ? null : property.OriginalValue.ToString();
+                    break;
+                case EntityState.Modified:
+                    oldValue = property.OriginalValue == null ? null : property.OriginalValue.ToString();
+                    currentValue = property.CurrentValue == null ? null : property.CurrentValue.ToString();
+                    break;
+                case EntityState.Added:
+                    currentValue = property.CurrentValue == null ? null : property.CurrentValue.ToString();
+                    break;
+            }
+        }
+
+        private string GetPropertyDisplayName(EntityEntry entity, string propertyName)
+        {
+            var properties = entity.Entity.GetType().GetProperties();
+            var propery = properties.Where(prop => prop.Name.ToLower() == propertyName.ToLower()).FirstOrDefault();
+            var displayName = propery.GetCustomAttributes(typeof(DisplayNameAttribute), true).FirstOrDefault() as DisplayNameAttribute;
+            if (displayName != null)
+            {
+                return displayName.DisplayName;
+            }
+            return propertyName;
+        }
+
+        private string GetDomainDisplayName(EntityEntry entity)
+        {
+            var displayName = entity.Entity.GetType().GetCustomAttributes(typeof(DisplayNameAttribute), true)
+                                              .FirstOrDefault()
+                                              as DisplayNameAttribute;
+            if (displayName != null)
+            {
+                return displayName.DisplayName;
+            }
+            return entity.Metadata.Name.Split('.').Last();
+        }
+
+        #endregion
 
     }
 }

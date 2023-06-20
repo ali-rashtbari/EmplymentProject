@@ -47,7 +47,7 @@ namespace Employment.Application.Services
         public IIndustryService IndustryService => _industryService ?? new IndustryService(_unitOfWork, _mapper);
 
         public IJobCategoryService _jobCategoryService;
-        public IJobCategoryService JobCategoryService => _jobCategoryService ?? new JobCategoryService(_unitOfWork);
+        public IJobCategoryService JobCategoryService => _jobCategoryService ?? new JobCategoryService(_unitOfWork, _mapper);
 
         private readonly IJobSeniorityLevelService _jobSentiorityLeveService;
         public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork);
