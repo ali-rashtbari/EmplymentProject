@@ -71,7 +71,7 @@ namespace Employment.Application.Services.ApplicationServices
                 "Province.Country"
             };
             var city = _unitOfWork.CityRepository.Get(id, includes);
-            if (city is null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: id.ToString());
+            if (city == null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: id.ToString());
             var cityDto = _mapper.Map<GetCityDto>(city);
             return cityDto;
         }

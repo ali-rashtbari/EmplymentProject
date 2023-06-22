@@ -48,7 +48,7 @@ namespace Employment.Application.Services.ApplicationServices
         public GetIndustryDto Get(int id)
         {
             var industry = _unitOfWork.IndustryRepository.Get(id);
-            if (industry is null) throw new NotFoundException(msg: ApplicationMessages.IndustryNotFound,
+            if (industry == null) throw new NotFoundException(msg: ApplicationMessages.IndustryNotFound,
                                                               entity: nameof(Industry),
                                                               id: id.ToString());
             var industryDto = _mapper.Map<GetIndustryDto>(industry);

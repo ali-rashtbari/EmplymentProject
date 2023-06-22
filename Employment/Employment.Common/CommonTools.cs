@@ -62,8 +62,8 @@ namespace Employment.Common
         }
         public static IQueryable<T> SystemOrderBy<T>(this IQueryable<T> source, string? orderBy = "Id", string? direction = "asc")
         {
-            //if (orderBy is null) orderBy = "Id";
-            //if (direction is null) direction = "asc";
+            //if (orderBy == null) orderBy = "Id";
+            //if (direction == null) direction = "asc";
             ParameterExpression parameter = Expression.Parameter(source.ElementType, "");
             MemberExpression property = Expression.Property(parameter, orderBy);
             LambdaExpression lambda = Expression.Lambda(property, parameter);

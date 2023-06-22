@@ -50,7 +50,7 @@ namespace Employment.Application.Services.ApplicationServices
             {
                 "Provinces.Cities"
             });
-            if (country is null) throw new NotFoundException(msg: ApplicationMessages.CountryNotFound,
+            if (country == null) throw new NotFoundException(msg: ApplicationMessages.CountryNotFound,
                                                              entity: nameof(country),
                                                              id: id.ToString());
             var getCountryDto = _mapper.Map<GetCountryDto>(country);

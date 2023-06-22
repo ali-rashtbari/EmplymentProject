@@ -48,7 +48,7 @@ namespace Employment.Application.Services.ApplicationServices
         public GetJobCategoryDto Get(int id)
         {
             var jobCategory = _unitOfWork.IJobCategoryRepository.Get(id);
-            if (jobCategory is null) throw new NotFoundException(msg: ApplicationMessages.JobCategoryNotFound,
+            if (jobCategory == null) throw new NotFoundException(msg: ApplicationMessages.JobCategoryNotFound,
                                                                  entity: nameof(JobCategory),
                                                                  id: id.ToString());
             var jobCategoryDto = _mapper.Map<GetJobCategoryDto>(jobCategory);
