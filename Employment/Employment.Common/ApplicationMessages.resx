@@ -221,6 +221,10 @@
     <value>سایقه شغلی اضافه شد.</value>
     <comment>new job experience added.</comment>
   </data>
+  <data name="JobExperienceNotFound" xml:space="preserve">
+    <value>سابقه شغلی یافت نشد.</value>
+    <comment>jobexperience not found.</comment>
+  </data>
   <data name="JobSeniorityLevelAdded" xml:space="preserve">
     <value>رده سازمانی جدید اضافه شد.</value>
     <comment>new job seniority level added successfuly.</comment>

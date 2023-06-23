@@ -1,5 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,5 +21,13 @@ namespace Employment.Api.Controllers
             var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
             return Ok(addJobExperienceResult);
         }
+
+        [HttpGet("Add/{id}")]
+        public IActionResult Get(int id)
+        {
+            GetJobExperienceDto jobExperience = _servicesPool.JobExperienceService.Get(id);
+            return Ok(jobExperience);
+        }
+
     }
 }

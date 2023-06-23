@@ -47,7 +47,7 @@ namespace Employment.Persistance.ModelConfigurations
                 .HasForeignKey(je => je.JobSeniorityLevelId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
 
-            builder.HasOne(je => je.Inductry)
+            builder.HasOne(je => je.Industry)
                 .WithMany(i => i.JobExperience)
                 .HasForeignKey(je => je.InductryId)
                 .OnDelete(DeleteBehavior.ClientNoAction);

@@ -295,6 +295,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سابقه شغلی یافت نشد..
+        /// </summary>
+        public static string JobExperienceNotFound {
+            get {
+                return ResourceManager.GetString("JobExperienceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رده سازمانی جدید اضافه شد..
         /// </summary>
         public static string JobSeniorityLevelAdded {

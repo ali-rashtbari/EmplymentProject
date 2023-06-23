@@ -1,5 +1,5 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
 using Employment.Common;
 using FluentValidation;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.Validations
+namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.JobExperienceDtoValidators
 {
     public class AddJobExperienceDtoValidator : AbstractValidator<AddJobExperienceDto>
     {
@@ -53,7 +53,7 @@ namespace Employment.Application.Dtos.Validations
                 .Must(value => _isCityExists(value)).WithMessage(ApplicationMessages.CityNotFound)
                 .Custom((cityId, context) =>
                 {
-                    if(!_unitOfWork.CityRepository.IsInCountry(cityId: cityId, countryId: context.InstanceToValidate.CountryId))
+                    if (!_unitOfWork.CityRepository.IsInCountry(cityId: cityId, countryId: context.InstanceToValidate.CountryId))
                     {
                         context.AddFailure(new FluentValidation.Results.ValidationFailure()
                         {

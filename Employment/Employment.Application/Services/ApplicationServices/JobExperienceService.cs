@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.JobExperienceDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
@@ -40,6 +41,24 @@ namespace Employment.Application.Services.ApplicationServices
                 Message = ApplicationMessages.JobExperienceAdded,
                 Data = jobExperience.Id
             };
+        }
+
+        public GetJobExperienceDto Get(int id)
+        {
+            var jobExperienceIncludes = new List<string>()
+            {
+                "JobCategory",
+                "City",
+                "SeniorityLevel",
+                "Industry",
+                "Country"
+            };
+            var jobExperience = _unitOfWork.JobExperienceRepository.Get(id, includes: jobExperienceIncludes);
+            if (jobExperience == null) throw new NotFoundException(msg: ApplicationMessages.JobExperienceNotFound,
+                                                                   entity: nameof(JobExperience),
+                                                                   id: id.ToString());
+            var jobExperienceDto = _mapper.Map<GetJobExperienceDto>(jobExperience);
+            return jobExperienceDto;
         }
     }
 }
