@@ -4,6 +4,7 @@ using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Common.Constants;
 using Employment.Common.Dtos;
+using Employment.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,10 +30,11 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddCityDto addCityDto)
         {
             var addResult = await _servicesPool.CityService.AddAsync(addCityDto);
-            return Ok(addResult);
+            return CreatedAtAction(actionName: "Get", new { id = addResult.Data }, addResult);
         }
 
-        [HttpGet("Get/{id}")]
+        [HttpGet]
+        [Route(template: "Get/{id}", Name = "GetDetails")]
         public ActionResult<GetCityToShowModel> Get(int id)
         {
             var city = _servicesPool.CityService.Get(id);

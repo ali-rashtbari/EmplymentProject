@@ -1,5 +1,6 @@
 ﻿using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Common.Dtos;
+using Employment.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
