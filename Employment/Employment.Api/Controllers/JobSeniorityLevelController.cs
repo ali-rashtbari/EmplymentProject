@@ -21,7 +21,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddJobSeniorityLevelDto addJobSeniorityLevelDto)
         {
             var addJobSeniorityLevelResult = await _servicesPool.JobSeniorityLevelService.AddAsync(addJobSeniorityLevelDto);
-            return Ok(addJobSeniorityLevelResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobSeniorityLevelResult.Data }, addJobSeniorityLevelResult);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddJobCategoryDto addJobCategoryDto)
         {
             var addJobCategoryResult = await _servicesPool.JobCategoryService.AddAsync(addJobCategoryDto);
-            return Ok(addJobCategoryResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobCategoryResult.Data }, addJobCategoryResult);
         }
 
         [HttpGet("Get/{id}")]

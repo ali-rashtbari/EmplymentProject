@@ -23,7 +23,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddIndustryDto addIndustryDto)
         {
             var addIndustryResult = await _servicesPool.IndustryService.AddAsync(addIndustryDto);
-            return Ok(addIndustryResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addIndustryResult.Data }, addIndustryResult);
         }
 
         [HttpGet("Get/{id}")]

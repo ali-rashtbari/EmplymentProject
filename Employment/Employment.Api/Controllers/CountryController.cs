@@ -26,7 +26,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddCountryDto addCountryDto)
         {
             var addResult = await _servicesPool.CountryService.AddAsync(addCountryDto);
-            return Ok(addResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addResult.Data }, addResult);
         }
 
         [HttpPut("Update")]

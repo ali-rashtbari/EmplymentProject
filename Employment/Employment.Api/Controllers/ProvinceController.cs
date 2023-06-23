@@ -22,7 +22,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddProvinceDto addProvinceDto)
         {
             var addResult = await _servicesPool.ProvinceService.AddAsync(addProvinceDto);
-            return Ok(addResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addResult.Data }, addResult);
         }
 
     }

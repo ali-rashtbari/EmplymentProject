@@ -22,7 +22,7 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> Add([FromBody] AddMajorDto addMajorDto)
         {
             var addResult = await _servicesPool.MajorService.AddAsync(addMajorDto);
-            return Ok(addResult);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addResult.Data }, addResult);
         }
     }
 }
