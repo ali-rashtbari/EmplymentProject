@@ -15,8 +15,8 @@ namespace Employment.Domain
 
 
         public virtual ICollection<Link> Links { get; set; }
-
         public virtual ICollection<EducationHistory> EducationHistories { get; set; }
+        public virtual ICollection<JobExperience> JobExperiences { get; set; }
 
         #endregion
     }

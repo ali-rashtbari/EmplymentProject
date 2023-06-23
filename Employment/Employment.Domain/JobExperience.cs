@@ -33,6 +33,9 @@ namespace Employment.Domain
         public virtual City City { get; set; }
         public int CityId { get; set; }
 
+        public virtual Resume Resume { get; set; }
+        public int ResumeId { get; set; }
+
         #endregion
     }
 }
