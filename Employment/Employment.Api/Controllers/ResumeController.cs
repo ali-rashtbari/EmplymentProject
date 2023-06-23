@@ -2,6 +2,7 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,12 @@ namespace Employment.Api.Controllers
             return Ok(addResult);
         }
 
-   
+        [HttpPost("AddJobExperience")]
+        public async Task<IActionResult> AddJobExperience([FromBody] AddJobExperienceDto addJobExperienceDto)
+        {
+            var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
+            return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobExperienceResult.Data }, addJobExperienceResult);
+        }
 
     }
 }

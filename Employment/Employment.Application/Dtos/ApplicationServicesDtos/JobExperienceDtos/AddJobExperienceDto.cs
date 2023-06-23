@@ -8,6 +8,7 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos
 {
     public class AddJobExperienceDto
     {
+        public int ResumeId { get; set; }
         public string JobTitle { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }

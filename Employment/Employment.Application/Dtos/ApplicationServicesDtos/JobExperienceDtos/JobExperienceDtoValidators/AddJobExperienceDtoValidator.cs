@@ -18,6 +18,11 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.
         {
             _unitOfWork = unitOfWork;
 
+            RuleFor(je => je.ResumeId)
+                .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
+                .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
+                .Must(value => _isResumeExists(value)).WithMessage(ApplicationMessages.ResumeNotFound);
+
             RuleFor(je => je.JobTitle)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
@@ -105,6 +110,11 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.
         private bool _isJobSeniorityLevelExists(int jobSeniorityLevelId)
         {
             return _unitOfWork.JobSeniorityLevelRepository.Get(jobSeniorityLevelId) != null;
+        }
+
+        private bool _isResumeExists(int resumeId)
+        {
+            return _unitOfWork.ResumeRepository.Get(resumeId) != null;
         }
     }
 }

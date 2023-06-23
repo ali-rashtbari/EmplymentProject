@@ -15,12 +15,6 @@ namespace Employment.Api.Controllers
             _servicesPool = servicesPool;
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] AddJobExperienceDto addJobExperienceDto)
-        {
-            var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
-            return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobExperienceResult.Data }, addJobExperienceResult);
-        }
 
         [HttpGet("Add/{id}")]
         public IActionResult Get(int id)
