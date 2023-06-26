@@ -16,6 +16,14 @@ namespace Employment.Persistance.ModelConfigurations
             builder.Property(c => c.Name)
                 .IsRequired(true)
                 .HasMaxLength(50);
+
+            #region Relations 
+
+            builder.HasMany(jsl => jsl.JobExperiences)
+                .WithOne(je => je.SeniorityLevel)
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+            
+            #endregion
         }
     }
 }

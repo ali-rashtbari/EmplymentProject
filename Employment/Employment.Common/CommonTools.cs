@@ -73,5 +73,12 @@ namespace Employment.Common
                                   source.Expression, Expression.Quote(lambda));
             return source.Provider.CreateQuery<T>(methodCallExpression);
         }
+        public static string GetDashSepratedStr(DateTime dateTime)
+        {
+            var year = dateTime.Year;
+            var month = dateTime.Month;
+            var day = dateTime.Day;
+            return $"{year}-{month}-{day}";
+        }
     }
 }

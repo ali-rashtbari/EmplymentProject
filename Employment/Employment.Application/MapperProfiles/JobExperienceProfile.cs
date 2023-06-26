@@ -19,7 +19,7 @@ namespace Employment.Application.MapperProfiles
                 .ForMember(dest => dest.Industry, _ => _.MapFrom(src => src.Industry.Name))
                 .ForMember(dest => dest.JobCategory, _ => _.MapFrom(src => src.JobCategory.Name))
                 .ForMember(dest => dest.City, _ => _.MapFrom(src => src.City.Name))
-                .ForMember(dest => dest.Country, _ => _.MapFrom(src => src.Country.Name))
+                .ForMember(dest => dest.Country, _ => _.MapFrom(src => src.City.Province.Country.Name))
                 .ForMember(dest => dest.JobSeniorityLevel, _ => _.MapFrom(src => src.SeniorityLevel.Name));
 
         }

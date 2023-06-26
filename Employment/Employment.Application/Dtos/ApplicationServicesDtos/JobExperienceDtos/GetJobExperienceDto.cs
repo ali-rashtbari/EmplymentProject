@@ -23,7 +23,6 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos
         public string Industry { get; set; }
         public int IndustryId { get; set; }
         public string Country { get; set; }
-        public int CountryId { get; set; }
         public string City { get; set; }
         public int CityId { get; set; }
     }

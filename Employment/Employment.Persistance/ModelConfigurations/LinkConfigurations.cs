@@ -30,7 +30,7 @@ namespace Employment.Persistance.ModelConfigurations
                 .WithMany(r => r.Links)
                 .HasForeignKey(l => l.ResumeId)
                 .IsRequired(true)
-                .OnDelete(deleteBehavior: DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             #endregion
         }

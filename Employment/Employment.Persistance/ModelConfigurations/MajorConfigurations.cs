@@ -23,7 +23,7 @@ namespace Employment.Persistance.ModelConfigurations
 
             builder.HasMany(m => m.EducationHistories)
                 .WithOne(eh => eh.Major)
-                .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             #endregion
 

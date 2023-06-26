@@ -38,29 +38,29 @@ namespace Employment.Persistance.ModelConfigurations
             #region Relations 
 
             builder.HasOne(je => je.JobCategory)
-                .WithMany(jc => jc.JobExperience)
+                .WithMany(jc => jc.JobExperiences)
                 .HasForeignKey(je => je.JobCategoryId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(je => je.SeniorityLevel)
                 .WithMany(sl => sl.JobExperiences)
                 .HasForeignKey(je => je.JobSeniorityLevelId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(je => je.Industry)
-                .WithMany(i => i.JobExperience)
+                .WithMany(i => i.JobExperiences)
                 .HasForeignKey(je => je.InductryId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
-
-            builder.HasOne(je => je.Country)
-                .WithMany(c => c.JobExperience)
-                .HasForeignKey(je => je.CountryId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(je => je.City)
-                .WithMany(c => c.JobExperience)
+                .WithMany(c => c.JobExperiences)
                 .HasForeignKey(je => je.CityId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(je => je.Resume)
+                .WithMany(re => re.JobExperiences)
+                .HasForeignKey(je => je.ResumeId)
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             #endregion
 

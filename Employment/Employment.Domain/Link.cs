@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Employment.Domain.BasesModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,6 +14,7 @@ namespace Employment.Domain
         public int Id { get; set; }
         public string DisplayName { get; set; }
         public string Url { get; set; }
+
 
         #region Relations 
 

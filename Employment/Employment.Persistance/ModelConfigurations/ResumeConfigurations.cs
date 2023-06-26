@@ -16,7 +16,7 @@ namespace Employment.Persistance.ModelConfigurations
                 .WithOne(p => p.Resume)
                 .HasForeignKey<Resume>(r => r.ProfleId)
                 .IsRequired(true)
-                .OnDelete(deleteBehavior: DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             builder.HasMany(r => r.Links)
                 .WithOne(l => l.Resume)
@@ -24,6 +24,10 @@ namespace Employment.Persistance.ModelConfigurations
 
             builder.HasMany(r => r.EducationHistories)
                 .WithOne(eh => eh.Resume)
+                .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
+
+            builder.HasMany(r => r.JobExperiences)
+                .WithOne(je => je.Resume)
                 .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
 
             #endregion

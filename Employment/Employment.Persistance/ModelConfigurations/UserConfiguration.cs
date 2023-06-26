@@ -30,7 +30,6 @@ namespace Employment.Persistance.ModelConfigurations
 
             builder.HasOne(u => u.Profile)
                 .WithOne(p => p.User)
-                .HasForeignKey<Profile>(p => p.UserId)
                 .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
 
             #endregion

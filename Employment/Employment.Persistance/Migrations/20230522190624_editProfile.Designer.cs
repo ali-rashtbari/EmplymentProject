@@ -462,7 +462,7 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.Profile", "Profile")
                         .WithOne("Resume")
                         .HasForeignKey("Employment.Domain.Resume", "ProfleId")
-                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Profile");

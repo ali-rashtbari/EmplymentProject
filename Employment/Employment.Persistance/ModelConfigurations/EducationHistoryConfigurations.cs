@@ -39,14 +39,12 @@ namespace Employment.Persistance.ModelConfigurations
             builder.HasOne(eh => eh.Resume)
                 .WithMany(r => r.EducationHistories)
                 .HasForeignKey(eh => eh.ResumeId)
-                .IsRequired(true)
-                .OnDelete(deleteBehavior: DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             builder.HasOne(eh => eh.Major)
                 .WithMany(m => m.EducationHistories)
                 .HasForeignKey(eh => eh.MajorId)
-                .IsRequired(true)
-                .OnDelete(deleteBehavior: DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             #endregion
 

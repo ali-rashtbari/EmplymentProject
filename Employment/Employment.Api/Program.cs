@@ -8,9 +8,12 @@ using FluentValidation.AspNetCore;
 using Serilog.AspNetCore;
 using Serilog;
 using Serilog.Extensions;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region AddSerilog
 var logger = new LoggerConfiguration()
     //.WriteTo.File($"../Logs/EmploymentLogs-{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}  {DateTime.Now.Hour}:{DateTime.Now.Minute}.txt",
     //               Serilog.Events.LogEventLevel.Information,
@@ -21,6 +24,7 @@ var logger = new LoggerConfiguration()
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+#endregion
 
 
 // Add services to the container.
@@ -40,15 +44,16 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.EndPointServiceRegistration(configuration);
     services.ApplicationServiceRegistration();
 
-
-
     services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
 
-
+    //services.AddSignalR(options =>
+    //{
+    //    options.EnableDetailedErrors = true;
+    //});
 
     services.AddEndpointsApiExplorer();
 
@@ -92,6 +97,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
 }
 
+
 void Configure(WebApplication app)
 {
     if (app.Environment.IsDevelopment())
@@ -115,6 +121,7 @@ void Configure(WebApplication app)
 
 
     app.UseCors("CorsPolicy");
+
 
     app.MapControllers();
 

@@ -4,6 +4,7 @@ using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626185827_editRelations")]
+    partial class editRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -783,7 +786,7 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.Major", "Major")
                         .WithMany("EducationHistories")
                         .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("Employment.Domain.Resume", "Resume")
@@ -802,31 +805,31 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.City", "City")
                         .WithMany("JobExperiences")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("Employment.Domain.Industry", "Industry")
                         .WithMany("JobExperiences")
                         .HasForeignKey("InductryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("Employment.Domain.JobCategory", "JobCategory")
                         .WithMany("JobExperiences")
                         .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("Employment.Domain.JobSeniorityLevel", "SeniorityLevel")
                         .WithMany("JobExperiences")
                         .HasForeignKey("JobSeniorityLevelId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("Employment.Domain.Resume", "Resume")
                         .WithMany("JobExperiences")
                         .HasForeignKey("ResumeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -867,7 +870,7 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.Country", "Country")
                         .WithMany("Provinces")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.Navigation("Country");
@@ -878,7 +881,7 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.Profile", "Profile")
                         .WithOne("Resume")
                         .HasForeignKey("Employment.Domain.Resume", "ProfleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.Navigation("Profile");

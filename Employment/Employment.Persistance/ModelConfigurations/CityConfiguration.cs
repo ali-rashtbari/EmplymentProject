@@ -16,6 +16,19 @@ namespace Employment.Persistance.ModelConfigurations
             builder.Property(c => c.Name)
                 .IsRequired(true)
                 .HasMaxLength(50);
+
+            #region Relations 
+
+            builder.HasOne(c => c.Province)
+                .WithMany(p => p.Cities)
+                .HasForeignKey(c => c.ProvinceId)
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+            builder.HasMany(c => c.JobExperiences)
+                .WithOne(je => je.City)
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+            #endregion
         }
     }
 }

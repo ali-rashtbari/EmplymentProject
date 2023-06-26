@@ -8,8 +8,7 @@ namespace Employment.Common.Enums
 {
     public enum IgnoredModelFromHIstory
     {
-        //City = 0,
-        Province = 1,
-        Country = 2
+        UserRole = 3,
+        Role = 4,
     }
 }

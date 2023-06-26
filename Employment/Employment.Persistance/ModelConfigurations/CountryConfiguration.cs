@@ -19,9 +19,10 @@ namespace Employment.Persistance.ModelConfigurations
 
             #region Relations 
 
+
             builder.HasMany(c => c.Provinces)
                 .WithOne(p => p.Country)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(DeleteBehavior.NoAction);
 
             #endregion
         }

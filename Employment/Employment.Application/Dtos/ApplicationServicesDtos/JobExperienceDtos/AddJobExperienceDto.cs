@@ -17,7 +17,6 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos
         public int JobCategoryId { get; set; }
         public int JobSeniorityLevelId { get; set; }
         public int InductryId { get; set; }
-        public int CountryId { get; set; }
         public int CityId { get; set; }
     }
 }

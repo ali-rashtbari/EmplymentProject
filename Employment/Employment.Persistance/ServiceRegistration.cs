@@ -1,6 +1,7 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Domain;
 using Employment.Persistance.Context;
+using Employment.Persistance.Interceptors;
 using Employment.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +14,17 @@ namespace Employment.Persistance
     {
         public static IServiceCollection PersistanceServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(options =>
+
+            services.AddSingleton<UpdateAuditableEntitiesDateTimeInterceptor>();
+
+            services.AddDbContext<AppDbContext>((serviceProvider, options) =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("Default"));
+                var updateAuditableEntitiesInterceptor = serviceProvider.GetService<UpdateAuditableEntitiesDateTimeInterceptor>();
+
+                options.UseSqlServer(configuration.GetConnectionString("Default"), o =>
+                {
+                    o.UseQuerySplittingBehavior(querySplittingBehavior: QuerySplittingBehavior.SplitQuery);
+                })/*.AddInterceptors(updateAuditableEntitiesInterceptor)*/;
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

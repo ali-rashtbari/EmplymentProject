@@ -47,25 +47,11 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.
                 .MaximumLength(100).WithErrorCode("{PropertyName} نمی تواند بیشتر از 100 حرف داشته باشد.")
                 .MinimumLength(3).WithErrorCode("{PropertyName} باید حداقل دارای 3 حرف باشد.");
 
-            RuleFor(je => je.CountryId)
-                .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .Must(value => _isCountryExists(value)).WithMessage(ApplicationMessages.CountryNotFound);
 
             RuleFor(je => je.CityId)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .Must(value => _isCityExists(value)).WithMessage(ApplicationMessages.CityNotFound)
-                .Custom((cityId, context) =>
-                {
-                    if (!_unitOfWork.CityRepository.IsInCountry(cityId: cityId, countryId: context.InstanceToValidate.CountryId))
-                    {
-                        context.AddFailure(new FluentValidation.Results.ValidationFailure()
-                        {
-                            ErrorMessage = ApplicationMessages.CityIsNotForThisCountry
-                        });
-                    }
-                });
+                .Must(value => _isCityExists(value)).WithMessage(ApplicationMessages.CityNotFound);
 
             RuleFor(je => je.Description)
                 .MaximumLength(600).WithErrorCode("{PropertyName} نمی تواند بیشتر از 600 حرف داشته باشد.");

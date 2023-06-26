@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Employment.Domain.BasesModels;
 
 namespace Employment.Domain
 {
-    public class Resume : DomainBaseEntity
+    public class Resume : DomainBaseEntity, IAuditable
     {
-
+        public DateTime DateTimeAdded { get; set; }
+        public DateTime? DateTimeModified { get; set; }
+        public DateTime? DateTimeDeleted { get; set; }
 
         #region Relations 
 

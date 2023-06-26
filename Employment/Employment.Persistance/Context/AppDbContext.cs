@@ -1,5 +1,6 @@
 ﻿using Employment.Common.Enums;
 using Employment.Domain;
+using Employment.Domain.BasesModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -59,38 +60,34 @@ namespace Employment.Persistance.Context
 
 
         #region Private Method
-
-        private async Task BaseSaveChangesAsync()
+        private void ChangeEntityDateTimes()
         {
-            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
+            foreach (var entry in ChangeTracker.Entries<IAuditable>())
             {
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Entity.DateModified = DateTime.Now;
+                    entry.Entity.DateTimeModified = DateTime.Now;
                 }
-                if (entry.State == EntityState.Added)
+                else if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.DateCreated = DateTime.Now;
+                    entry.Entity.DateTimeAdded = DateTime.Now;
+                }
+                else if (entry.State == EntityState.Deleted)
+                {
+                    entry.Entity.DateTimeDeleted = DateTime.Now;
                 }
             }
+        }
+        private async Task BaseSaveChangesAsync()
+        {
+            ChangeEntityDateTimes();
             await base.SaveChangesAsync();
         }
         private void BaseSaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries<DomainBaseEntity>())
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Entity.DateModified = DateTime.Now;
-                }
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.DateCreated = DateTime.Now;
-                }
-            }
+            ChangeEntityDateTimes();
             base.SaveChanges();
         }
-
         private async Task LogAndSaveChangesAsync()
         {
             this.ChangeTracker.DetectChanges();
@@ -114,7 +111,7 @@ namespace Employment.Persistance.Context
             this.ChangeTracker.DetectChanges();
             var trackedEntities = this.ChangeTracker.Entries().Where(en => en.State != Microsoft.EntityFrameworkCore.EntityState.Unchanged).ToList();
             var historiesList = LogChanges(trackedEntities);
-            BaseSaveChanges();
+            base.SaveChanges();
             foreach (var entityLogs in historiesList)
             {
                 this.Histories.AddRange(entityLogs.Histories);
@@ -123,7 +120,7 @@ namespace Employment.Persistance.Context
                     history.RecordId = entityLogs.entity.Entity.GetType().GetProperty("Id").GetValue(entityLogs.entity.Entity).ToString();
                 }
             }
-            BaseSaveChanges();
+            base.SaveChanges();
         }
 
         private List<(List<History> Histories, EntityEntry entity)> LogChanges(List<EntityEntry> entityEntries)

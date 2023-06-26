@@ -44,11 +44,10 @@ namespace Employment.Persistance.ModelConfigurations
             builder.HasOne(p => p.User)
                 .WithOne(u => u.Profile)
                 .HasForeignKey<Profile>(p => p.UserId)
-                .OnDelete(deleteBehavior: DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             builder.HasOne(p => p.Resume)
                 .WithOne(r => r.Profile)
-                .HasForeignKey<Resume>(r => r.ProfleId)
                 .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
 
             #endregion

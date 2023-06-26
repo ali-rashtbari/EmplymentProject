@@ -20,9 +20,14 @@ namespace Employment.Persistance.ModelConfigurations
 
             #region Relations 
 
+            builder.HasOne(p => p.Country)
+                .WithMany(c => c.Provinces)
+                .HasForeignKey(p => p.CountryId)
+                .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
             builder.HasMany(p => p.Cities)
                 .WithOne(c => c.Province)
-                .OnDelete(DeleteBehavior.ClientNoAction);
+                .OnDelete(deleteBehavior: DeleteBehavior.ClientCascade);
 
             #endregion
         }

@@ -28,21 +28,21 @@ namespace Employment.Api.Controllers
         public async Task<IActionResult> AddLink([FromBody] AddLinkDto addLinkDto)
         {
             var addLinkResult = await _servicesPool.LinkService.AddAsync(addLinkDto);
-            return Ok(addLinkResult);
+            return CreatedAtAction(actionName: "Get", controllerName: "Link", routeValues: new { id = addLinkResult.Data }, addLinkResult);
         }
 
         [HttpPost("AddEducationHistory")]
         public async Task<IActionResult> AddEducationHistory([FromBody] AddEducationHistoryDto addEducationHistoryDto)
         {
             var addResult = await _servicesPool.EducationHistoryService.AddAsync(addEducationHistoryDto);
-            return Ok(addResult);
+            return CreatedAtAction(actionName: "Get", controllerName: "EducationHistory", routeValues: new { id = addResult.Data }, addResult);
         }
 
         [HttpPost("AddJobExperience")]
         public async Task<IActionResult> AddJobExperience([FromBody] AddJobExperienceDto addJobExperienceDto)
         {
             var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
-            return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobExperienceResult.Data }, addJobExperienceResult);
+            return CreatedAtAction(actionName: "Get", controllerName: "JobExperience", routeValues: new { id = addJobExperienceResult.Data }, addJobExperienceResult);
         }
 
     }
