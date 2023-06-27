@@ -1,5 +1,5 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Common;
 using FluentValidation;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.Validations
+namespace Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos.LinkDtoValidators
 {
     public class AddLinkDtoValidator : AbstractValidator<AddLinkDto>
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.ApplicationServicesDtos
+namespace Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos
 {
-    public class AddJobSeniorityLevelDto
+    public class AddCountryDto
     {
         public string Name { get; set; }
     }

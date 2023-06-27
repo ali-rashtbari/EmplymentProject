@@ -1,5 +1,4 @@
-﻿using Employment.Application.Dtos.ApplicationServicesDtos;
-using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos;
+﻿using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos;
 using Employment.Common.Dtos;
 using System;
 using System.Collections.Generic;

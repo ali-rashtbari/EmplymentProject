@@ -1,5 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.JobSeriorityLeveDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +22,13 @@ namespace Employment.Api.Controllers
         {
             var addJobSeniorityLevelResult = await _servicesPool.JobSeniorityLevelService.AddAsync(addJobSeniorityLevelDto);
             return CreatedAtAction(actionName: "Get", routeValues: new { id = addJobSeniorityLevelResult.Data }, addJobSeniorityLevelResult);
+        }
+
+        [HttpGet("GetList")]
+        public IActionResult GetList()
+        {
+            IEnumerable<GetJobSeniorityLevelsListDto> jobSeniorities = _servicesPool.JobSeniorityLevelService.GetList();
+            return Ok(jobSeniorities);
         }
     }
 }

@@ -3,6 +3,7 @@ using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;

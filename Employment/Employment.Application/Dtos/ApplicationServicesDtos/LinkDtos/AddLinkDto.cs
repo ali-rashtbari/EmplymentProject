@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employment.Application.Dtos.ApplicationServicesDtos
+namespace Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos
 {
     public class AddLinkDto
     {

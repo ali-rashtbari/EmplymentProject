@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Domain;
 using System;

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos.CountryDtoValidators;
 using Employment.Application.Dtos.Validations;
