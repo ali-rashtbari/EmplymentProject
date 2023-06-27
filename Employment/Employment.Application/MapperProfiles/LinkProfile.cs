@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Domain;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Employment.Application.MapperProfiles
             CreateMap<AddLinkDto, Link>()
                 .ForMember(dest => dest.DisplayName, _ => _.MapFrom(src => src.DisplayName))
                 .ForMember(dest => dest.Url, _ => _.MapFrom(src => src.Url));
+
+            CreateMap<Link, GetLinkDto>();
         }
     }
 }

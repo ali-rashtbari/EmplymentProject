@@ -237,6 +237,10 @@
     <value>لینک با موفقیت به رزومه اضافه شد.</value>
     <comment>link added to resume.</comment>
   </data>
+  <data name="LinkNotFound" xml:space="preserve">
+    <value>لینک یافت نشد.</value>
+    <comment>link not found.</comment>
+  </data>
   <data name="MajorAdded" xml:space="preserve">
     <value>رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد.</value>
     <comment>major added.</comment>

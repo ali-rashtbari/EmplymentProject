@@ -2,11 +2,13 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +47,21 @@ namespace Employment.Application.Services.ApplicationServices
                 Message = ApplicationMessages.LinkAddedToResume,
                 Data = link.Id
             };
+        }
+
+        public GetLinkDto Get(int id)
+        {
+            var link = _unitOfWork.LinkRepository.Get(id);
+            if (link == null) throw new NotFoundException(msg: ApplicationMessages.LinkNotFound, entity: nameof(Link), id: id.ToString());
+            var linkDto = _mapper.Map<GetLinkDto>(link);
+            return linkDto;
+        }
+
+        public IEnumerable<GetLinksListDto> GetListAsync(int resumeId)
+        {
+            var links = _unitOfWork.LinkRepository.GetAll().AsQueryable().AsNoTracking();
+            var linksListDto = _mapper.Map<IEnumerable<GetLinksListDto>>(links);
+            return linksListDto;
         }
     }
 }

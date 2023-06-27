@@ -331,6 +331,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لینک یافت نشد..
+        /// </summary>
+        public static string LinkNotFound {
+            get {
+                return ResourceManager.GetString("LinkNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رشته تحصیلی با موفقیت به لیست رشته ها اضافه شد..
         /// </summary>
         public static string MajorAdded {
