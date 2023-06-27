@@ -1,11 +1,13 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.MajorDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.MajorDtos.MajorDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,16 @@ namespace Employment.Application.Services.ApplicationServices
                 Message = ApplicationMessages.MajorAdded,
                 Data = major.Id
             };
+        }
+
+        public IEnumerable<GetMajorsListDto> GetList()
+        {
+            var majors = _unitOfWork.MajorRepository.GetAllAsQueryable().AsNoTracking();
+            return majors.Select(ma => new GetMajorsListDto()
+            {
+                Id = ma.Id,
+                DisplayName = ma.DisplayName
+            });
         }
     }
 }
