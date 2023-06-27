@@ -2,6 +2,7 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos.LinkDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;

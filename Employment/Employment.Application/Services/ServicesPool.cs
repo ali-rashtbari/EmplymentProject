@@ -41,7 +41,7 @@ namespace Employment.Application.Services
         public ICountryService CountryService => _countryService ?? new CountryService(_unitOfWork, _mapper);
 
         private readonly IProvinceService _provinceService;
-        public IProvinceService ProvinceService => _provinceService ?? new ProvinceService(_unitOfWork);
+        public IProvinceService ProvinceService => _provinceService ?? new ProvinceService(_unitOfWork, _mapper);
 
         private readonly IIndustryService _industryService;
         public IIndustryService IndustryService => _industryService ?? new IndustryService(_unitOfWork, _mapper);
@@ -50,7 +50,7 @@ namespace Employment.Application.Services
         public IJobCategoryService JobCategoryService => _jobCategoryService ?? new JobCategoryService(_unitOfWork, _mapper);
 
         private readonly IJobSeniorityLevelService _jobSentiorityLeveService;
-        public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork);
+        public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork, _mapper);
 
         private readonly ICityService _cityService;
         public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper);

@@ -1,4 +1,4 @@
-﻿using Employment.Application.Dtos.ApplicationServicesDtos;
+﻿using Employment.Application.Dtos.ApplicationServicesDtos.ProvinceDtos;
 using Employment.Common.Dtos;
 using System;
 using System.Collections.Generic;
@@ -11,5 +11,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     public interface IProvinceService
     {
         Task<CommandResule<int>> AddAsync(AddProvinceDto addProvinceDto);
+        IEnumerable<GetProvincesListDto> GetList(int countryId);
     }
 }

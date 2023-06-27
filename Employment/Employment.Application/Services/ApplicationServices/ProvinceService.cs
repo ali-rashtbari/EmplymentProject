@@ -1,12 +1,15 @@
-﻿using Employment.Application.Contracts.ApplicationServicesContracts;
+﻿using AutoMapper;
+using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
-using Employment.Application.Dtos.ApplicationServicesDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.ProvinceDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.ProvinceDtos.ProvinceDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +21,11 @@ namespace Employment.Application.Services.ApplicationServices
     public class ProvinceService : IProvinceService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProvinceService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public ProvinceService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<CommandResule<int>> AddAsync(AddProvinceDto addProvinceDto)
@@ -42,5 +47,11 @@ namespace Employment.Application.Services.ApplicationServices
             };
         }
 
+        public IEnumerable<GetProvincesListDto> GetList(int countryId)
+        {
+            var provinces = _unitOfWork.ProvinceRepository.GetAllAsQueryable().AsNoTracking();
+            var provincesListDto = _mapper.Map<IEnumerable<GetProvincesListDto>>(provinces);
+            return provincesListDto;
+        }
     }
 }
