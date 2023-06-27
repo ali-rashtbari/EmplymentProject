@@ -57,9 +57,9 @@ namespace Employment.Application.Services.ApplicationServices
             return linkDto;
         }
 
-        public IEnumerable<GetLinksListDto> GetListAsync(int resumeId)
+        public IEnumerable<GetLinksListDto> GetList(int resumeId)
         {
-            var links = _unitOfWork.LinkRepository.GetAll().AsQueryable().AsNoTracking();
+            var links = _unitOfWork.LinkRepository.GetAllAsQueryable().AsNoTracking();
             var linksListDto = _mapper.Map<IEnumerable<GetLinksListDto>>(links);
             return linksListDto;
         }

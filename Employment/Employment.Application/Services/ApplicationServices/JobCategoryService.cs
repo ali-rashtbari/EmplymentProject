@@ -8,6 +8,7 @@ using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Employment.Application.Services.ApplicationServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
         public async Task<CommandResule<int>> AddAsync(AddJobCategoryDto addJobCategoryDto)
         {
             var validationResult = await new AddJobCategoryDtoValidator(_unitOfWork).ValidateAsync(addJobCategoryDto);
@@ -44,7 +44,6 @@ namespace Employment.Application.Services.ApplicationServices
                 Data = jobCategory.Id
             };
         }
-
         public GetJobCategoryDto Get(int id)
         {
             var jobCategory = _unitOfWork.IJobCategoryRepository.Get(id);
@@ -54,10 +53,9 @@ namespace Employment.Application.Services.ApplicationServices
             var jobCategoryDto = _mapper.Map<GetJobCategoryDto>(jobCategory);
             return jobCategoryDto;
         }
-
         public GetListResultDto<GetJobCategoriesListDto> GetList(GetJobCategoriesListRequetsDto request)
         {
-            var jobCategories = _unitOfWork.IJobCategoryRepository.GetAllAsQueryable();
+            var jobCategories = _unitOfWork.IJobCategoryRepository.GetAllAsQueryable().AsNoTracking();
             #region Filters
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
@@ -85,7 +83,6 @@ namespace Employment.Application.Services.ApplicationServices
             };
             return result;
         }
-
         public async Task<CommandResule<int>> UpdateAsync(UpdateJobCategoryDto request)
         {
             var validationResult = await new UpdateJobCategoryDtoValidator(_unitOfWork).ValidateAsync(request);

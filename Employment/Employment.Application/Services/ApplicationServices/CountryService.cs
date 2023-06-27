@@ -9,6 +9,7 @@ using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -61,7 +62,7 @@ namespace Employment.Application.Services.ApplicationServices
             var countries = _unitOfWork.CountryRepository.GetAllAsQueryable(includes: new List<string>()
             {
                 "Provinces.Cities"
-            });
+            }).AsNoTracking();
             #region Filters
             if(!string.IsNullOrWhiteSpace(getCountriesListRequestDtos.Search))
             {

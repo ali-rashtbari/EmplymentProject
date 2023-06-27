@@ -26,7 +26,7 @@ namespace Employment.Api.Controllers
         [HttpGet("GetList/{resumeId}")]
         public async Task<IActionResult> GetList(int resumeId)
         {
-            IEnumerable<GetLinksListDto> links = await _servicesPool.LinkService.GetListAsync(resumeId);
+            IEnumerable<GetLinksListDto> links = _servicesPool.LinkService.GetList(resumeId);
             return Ok(links);
         }
 

@@ -13,6 +13,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     {
         Task<CommandResule<int>> AddAsync(AddLinkDto addLinkDto);
         GetLinkDto Get(int id);
-        Task<IEnumerable<GetLinksListDto>> GetListAsync(int resumeId);
+        IEnumerable<GetLinksListDto> GetList(int resumeId);
     }
 }

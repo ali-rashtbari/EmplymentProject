@@ -8,6 +8,7 @@ using Employment.Common;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Employment.Application.Services.ApplicationServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
         public async Task<CommandResule<int>> AddAsync(AddIndustryDto addIndustryDto)
         {
             var validationResult = await new AddIndustryDtoValidator(_unitOfWork).ValidateAsync(addIndustryDto);
@@ -44,7 +44,6 @@ namespace Employment.Application.Services.ApplicationServices
                 Data = industry.Id
             };
         }
-
         public GetIndustryDto Get(int id)
         {
             var industry = _unitOfWork.IndustryRepository.Get(id);
@@ -54,10 +53,9 @@ namespace Employment.Application.Services.ApplicationServices
             var industryDto = _mapper.Map<GetIndustryDto>(industry);
             return industryDto;
         }
-
         public GetListResultDto<GetIndustriesListDto> GetList(GetIndustriesListRequestDto request)
         {
-            var industries = _unitOfWork.IndustryRepository.GetAllAsQueryable();
+            var industries = _unitOfWork.IndustryRepository.GetAllAsQueryable().AsNoTracking();
 
             #region Filters
             if(!string.IsNullOrWhiteSpace(request.Search))
@@ -86,7 +84,6 @@ namespace Employment.Application.Services.ApplicationServices
             };
             return result;
         }
-
         public async Task<CommandResule<int>> UpdateAsync(UpdateIndustryDto request)
         {
             var validationResult = await new UpdateIndustryDtoValidator(_unitOfWork).ValidateAsync(request);

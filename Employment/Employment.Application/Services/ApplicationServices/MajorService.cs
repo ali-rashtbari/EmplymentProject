@@ -23,7 +23,6 @@ namespace Employment.Application.Services.ApplicationServices
             _unitOfWork = unitOfWork;
         }
 
-
         public async Task<CommandResule<int>> AddAsync(AddMajorDto addMajorDto)
         {
             var validationResult = await new AddMajorDtoValidator(_unitOfWork).ValidateAsync(addMajorDto);
