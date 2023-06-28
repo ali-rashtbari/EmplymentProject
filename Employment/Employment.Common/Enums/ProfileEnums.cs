@@ -16,16 +16,6 @@ namespace Employment.Common.Enums
         Other = 4
     }
 
-    public enum Level
-    {
-        Basic = 0,
-        PreIntermediate = 1,
-        Intermediate = 2,
-        UpperIntermediate = 3,
-        Advanced = 4,
-        Native = 5
-    }
-
     public enum Gender
     {
         Male = 0,
