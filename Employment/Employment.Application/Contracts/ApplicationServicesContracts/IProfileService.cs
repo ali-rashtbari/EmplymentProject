@@ -10,6 +10,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 {
     public interface IProfileService
     {
-        Task<CommandResule> EditAsync(EditProfileDto request);
+        Task<CommandResule> EditAsync(EditProfileDto request, string userName);
     }
 }

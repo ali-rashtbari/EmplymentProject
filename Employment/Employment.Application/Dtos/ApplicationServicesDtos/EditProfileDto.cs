@@ -9,7 +9,6 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos
 {
     public class EditProfileDto
     {
-        public int Id { get; set; }
         public string? Biography { get; set; }
         public Gender? Gender { get; set; }
         public MaritalStatus? MaritalStatus { get; set; }

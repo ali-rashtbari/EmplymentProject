@@ -1,6 +1,8 @@
-﻿using Employment.Domain;
+﻿using Employment.Common.Enums;
+using Employment.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,10 @@ namespace Employment.Persistance.ModelConfigurations
                 .WithMany(l => l.ResumeLanguages)
                 .HasForeignKey(rl => rl.LanguageId)
                 .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+            builder.Property(rl => rl.Level)
+                .IsRequired(true)
+                .HasConversion<EnumToStringConverter<LanguageLevel>>();
 
         }
     }

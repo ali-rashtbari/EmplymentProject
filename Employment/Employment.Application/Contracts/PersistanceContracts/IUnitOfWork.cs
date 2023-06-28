@@ -36,6 +36,7 @@ namespace Employment.Application.Contracts.PersistanceContracts
         public IJobSeniorityLevelRepository JobSeniorityLevelRepository { get; }
         public ICityRepository CityRepository { get; }
         public IJobExperienceRepository JobExperienceRepository { get; }
+        public ILanguageRepository LanguageRepository { get; }
 
         #endregion
 

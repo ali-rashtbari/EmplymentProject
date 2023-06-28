@@ -8,7 +8,6 @@ namespace Employment.Application.MapperProfiles
         public ProfileProfile()
         {
             CreateMap<EditProfileDto, Employment.Domain.Profile>()
-                .ForMember(des => des.Id, _ => _.MapFrom(src => src.Id))
                 .ForMember(des => des.Address, _ => _.MapFrom(src => src.Address))
                 .ForMember(des => des.Gender, _ => _.MapFrom(src => src.Gender))
                 .ForMember(des => des.Biography, _ => _.MapFrom(src => src.Biography))

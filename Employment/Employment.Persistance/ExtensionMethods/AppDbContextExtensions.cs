@@ -57,8 +57,10 @@ namespace Employment.Persistance.ExtensionMethods
                 Mobile = "09917586411",
                 Profile = new Profile()
                 {
-                    Gender = Common.Enums.Gender.Male
-                }
+                    Gender = Common.Enums.Gender.Male,
+                    DateTimeAdded = DateTime.Now
+                },
+                DateTimeAdded = DateTime.Now,
             };
 
             var passwordHasher = new PasswordHasher<User>();

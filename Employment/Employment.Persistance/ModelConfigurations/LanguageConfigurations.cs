@@ -20,10 +20,6 @@ namespace Employment.Persistance.ModelConfigurations
                    .IsRequired(true)
                    .HasMaxLength(50);
 
-            builder.Property(l => l.Level)
-                .IsRequired(true)
-                .HasConversion<EnumToStringConverter<LanguageLevel>>();
-
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Employment.Application.Contracts.PersistanceContracts
         bool IsCompleted(int id);
         bool IsCompleted(string userId);
         Task CheckCompleteness(Profile profile);
+        Profile? GetByUserId(string userName);
 
     }
 }

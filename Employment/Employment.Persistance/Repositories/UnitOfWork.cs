@@ -113,11 +113,10 @@ namespace Employment.Persistance.Repositories
         private readonly IJobExperienceRepository _jobExperienceRepository;
         public IJobExperienceRepository JobExperienceRepository => _jobExperienceRepository ?? new JobExperienceRepository(_dbContext);
 
+        private readonly ILanguageRepository _languageRepository;
+        public ILanguageRepository LanguageRepository => _languageRepository ?? new LanguageRepository(_dbContext);
+
         #endregion
-
-
-
-
 
 
     }

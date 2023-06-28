@@ -18,12 +18,6 @@ namespace Employment.Application.Dtos.Validations
         {
             _unitOfWork = unitOfWork;
 
-            RuleFor(e => e.Id)
-                .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
-                .GreaterThan(0).WithMessage("برای {PropertyName} مقدار درستی وارد نشده است.")
-                .Must(value => _isProfileExists(value)).WithMessage(ApplicationMessages.ProfileNotFound);
-
             When(e => !string.IsNullOrWhiteSpace(e.Address), () =>
             {
                 RuleFor(e => e.Address).Cascade(cascadeMode: CascadeMode.StopOnFirstFailure)

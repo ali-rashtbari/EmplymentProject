@@ -2,6 +2,8 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Services.ApplicationServices;
+using Employment.Domain;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +17,17 @@ namespace Employment.Application.Services
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper)
+        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         private readonly IProfileService _profileService;
-        public IProfileService ProfileService => _profileService ?? new ProfileService(_unitOfWork, _mapper);
+        public IProfileService ProfileService => _profileService ?? new ProfileService(_unitOfWork, _mapper, _userManager);
 
         private readonly IResumeService _resumeService;
         public IResumeService ResumeService => _resumeService ?? new ResumeService();
@@ -57,5 +61,8 @@ namespace Employment.Application.Services
 
         private readonly IJobExperienceService _jobExperienceService;
         public IJobExperienceService JobExperienceService => _jobExperienceService ?? new JobExperienceService(_unitOfWork, _mapper);
+
+        private readonly ILanguageService _languageService;
+        public ILanguageService LanguageService => _languageService ?? new LanguageService(_unitOfWork, _mapper);
     }
 }

@@ -37,11 +37,17 @@ namespace Employment.Persistance.Repositories
             {
                 profile.Resume = new Resume()
                 {
-
+                    DateTimeAdded = DateTime.Now
                 };
             }
             await UpdateAsync(profile);
             await Task.CompletedTask;
+        }
+
+        public Profile GetByUserId(string userId)
+        {
+            var profile = _dbContext.Profiles.FirstOrDefault(p => p.UserId == userId && p.IsActive == true);
+            return profile;
         }
 
         public bool IsCompleted(int id)

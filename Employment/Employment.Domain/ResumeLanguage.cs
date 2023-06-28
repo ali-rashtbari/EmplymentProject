@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Employment.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Employment.Domain
     public class ResumeLanguage
     {
         public int Id { get; set; }
+        public LanguageLevel Level { get; set; }
 
         #region Relations 
 
@@ -17,6 +19,7 @@ namespace Employment.Domain
         
         public virtual Resume Resume { get; set; }
         public int ResumeId { get; set; }
+
 
         #endregion
     }

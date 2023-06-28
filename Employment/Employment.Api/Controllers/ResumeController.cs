@@ -3,8 +3,10 @@ using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
+using Employment.Application.Dtos.ApplicationServicesDtos.LanguageDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Application.Dtos.Validations;
+using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +46,13 @@ namespace Employment.Api.Controllers
         {
             var addJobExperienceResult = await _servicesPool.JobExperienceService.AddAsync(addJobExperienceDto);
             return CreatedAtAction(actionName: "Get", controllerName: "JobExperience", routeValues: new { id = addJobExperienceResult.Data }, addJobExperienceResult);
+        }
+
+        [HttpPost("AddLanguage")]
+        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageToResumeDto addLanguageToResumeDto)
+        {
+            CommandResule<int> addLanguageToResumeResult = await _servicesPool.LanguageService.AddToResume(addLanguageToResumeDto);
+            return Ok(addLanguageToResumeResult);
         }
 
     }

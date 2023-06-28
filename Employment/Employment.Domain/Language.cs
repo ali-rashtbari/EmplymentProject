@@ -12,7 +12,6 @@ namespace Employment.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public LanguageLevel Level { get; set; }
 
         #region Relations
 

@@ -23,10 +23,10 @@ namespace Employment.Api.Controllers
         }
 
         [HttpPost("EditProfile")]
-        public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto)
+        public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto, string userName)
         {
-            var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto);
-            return Ok(editResult.Message);
+            var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto, userName);
+            return Ok(editResult);
         }
 
     }

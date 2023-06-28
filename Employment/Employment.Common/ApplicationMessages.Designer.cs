@@ -61,6 +61,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to پروفایل فعالی برای کاربر یافت نشد..
+        /// </summary>
+        public static string ActiveProfileNotFound {
+            get {
+                return ResourceManager.GetString("ActiveProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تعداد لینک های اضافه شده به رزومه به سقف خود رسیده است..
         /// </summary>
         public static string CantAddMoreLinks {
@@ -318,6 +327,33 @@ namespace Employment.Common {
         public static string JobSeniorityLeveNotFound {
             get {
                 return ResourceManager.GetString("JobSeniorityLeveNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to زبان اضافه شد..
+        /// </summary>
+        public static string LanguageAdded {
+            get {
+                return ResourceManager.GetString("LanguageAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to زبان به رزومه شما اضافه شد..
+        /// </summary>
+        public static string LanguageAddedToResume {
+            get {
+                return ResourceManager.GetString("LanguageAddedToResume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to زبان یافت نشد..
+        /// </summary>
+        public static string LanguageNotFound {
+            get {
+                return ResourceManager.GetString("LanguageNotFound", resourceCulture);
             }
         }
         
