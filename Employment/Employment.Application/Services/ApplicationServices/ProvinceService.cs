@@ -49,7 +49,7 @@ namespace Employment.Application.Services.ApplicationServices
 
         public IEnumerable<GetProvincesListDto> GetList(int countryId)
         {
-            var provinces = _unitOfWork.ProvinceRepository.GetAllAsQueryable().AsNoTracking();
+            var provinces = _unitOfWork.ProvinceRepository.GetAllAsQueryable();
             var provincesListDto = _mapper.Map<IEnumerable<GetProvincesListDto>>(provinces);
             return provincesListDto;
         }

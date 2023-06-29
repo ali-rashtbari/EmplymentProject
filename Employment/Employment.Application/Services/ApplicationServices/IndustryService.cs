@@ -55,7 +55,7 @@ namespace Employment.Application.Services.ApplicationServices
         }
         public GetListResultDto<GetIndustriesListDto> GetList(GetIndustriesListRequestDto request)
         {
-            var industries = _unitOfWork.IndustryRepository.GetAllAsQueryable().AsNoTracking();
+            var industries = _unitOfWork.IndustryRepository.GetAllAsQueryable();
 
             #region Filters
             if(!string.IsNullOrWhiteSpace(request.Search))

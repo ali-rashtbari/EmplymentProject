@@ -22,6 +22,7 @@ namespace Employment.Domain
         public virtual ICollection<JobExperience> JobExperiences { get; set; }
         public virtual ICollection<ResumeLanguage> ResumeLanguages { get; set; }
 
+
         #endregion
     }
 }

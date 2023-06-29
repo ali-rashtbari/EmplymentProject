@@ -73,12 +73,12 @@ namespace Employment.Persistance.Repositories
 
         public IQueryable<T> GetAllAsQueryable(List<string>? includes)
         {
-            return GetAsQueryable(expression: null, includes: includes).AsNoTracking();
+            return GetAsQueryable(expression: null, includes: includes);
         }
 
         private IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? expression = null, List<string>? includes = null)
         {
-            var entities = _dbContext.Set<T>().AsQueryable();
+            var entities = _dbContext.Set<T>().AsNoTracking().AsQueryable();
             if(expression is not null)
             {
                 entities = entities.Where(expression);

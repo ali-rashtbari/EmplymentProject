@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230628192235_addResumeLanguageTbl")]
-    partial class addResumeLanguageTbl
+    [Migration("20230629190321_addLanguageTbk")]
+    partial class addLanguageTbk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -372,9 +372,11 @@ namespace Employment.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -383,7 +385,7 @@ namespace Employment.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("Employment.Domain.Link", b =>
@@ -572,20 +574,35 @@ namespace Employment.Persistance.Migrations
 
             modelBuilder.Entity("Employment.Domain.ResumeLanguage", b =>
                 {
-                    b.Property<int>("ResumeId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
-                    b.HasKey("ResumeId", "LanguageId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ResumeLanguage");
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("ResumeLanguages");
                 });
 
             modelBuilder.Entity("Employment.Domain.Role", b =>

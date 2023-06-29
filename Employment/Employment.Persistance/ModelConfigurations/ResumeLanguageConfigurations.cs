@@ -15,7 +15,9 @@ namespace Employment.Persistance.ModelConfigurations
     {
         public void Configure(EntityTypeBuilder<ResumeLanguage> builder)
         {
-            builder.HasKey(rl => new { rl.ResumeId, rl.LanguageId });
+            builder.HasKey(rl => rl.Id);
+            builder.Property(rl => rl.Level)
+                .HasConversion<EnumToStringConverter<LanguageLevel>>();
 
             builder.HasOne(rl => rl.Resume)
                 .WithMany(r => r.ResumeLanguages)
@@ -23,14 +25,9 @@ namespace Employment.Persistance.ModelConfigurations
                 .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             builder.HasOne(rl => rl.Language)
-                .WithMany(l => l.ResumeLanguages)
+                .WithMany(r => r.ResumeLanguages)
                 .HasForeignKey(rl => rl.LanguageId)
                 .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
-
-            builder.Property(rl => rl.Level)
-                .IsRequired(true)
-                .HasConversion<EnumToStringConverter<LanguageLevel>>();
-
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Employment.Application.Services.ApplicationServices
             {
                 "Province.Country"
             };
-            var allCities = _unitOfWork.CityRepository.GetAllAsQueryable(includes: includes).AsNoTracking();
+            var allCities = _unitOfWork.CityRepository.GetAllAsQueryable(includes: includes);
             #region Filters
             if (getCitiesListDto.CountryId.HasValue) allCities = allCities.Where(c => c.Province.CountryId == getCitiesListDto.CountryId.Value);
             if (getCitiesListDto.ProvinceId.HasValue) allCities = allCities.Where(c => c.ProvinceId == getCitiesListDto.ProvinceId.Value);

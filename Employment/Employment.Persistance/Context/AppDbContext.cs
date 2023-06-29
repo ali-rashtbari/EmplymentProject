@@ -37,6 +37,8 @@ namespace Employment.Persistance.Context
         public DbSet<Province> Provinces { get; set; }
         public DbSet<JobSeniorityLevel> JobSeniorityLevels { get; set; }
         public DbSet<History> Histories { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<ResumeLanguage> ResumeLanguages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

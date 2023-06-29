@@ -369,6 +369,12 @@ namespace Employment.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -376,7 +382,7 @@ namespace Employment.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("Employment.Domain.Link", b =>
@@ -565,24 +571,35 @@ namespace Employment.Persistance.Migrations
 
             modelBuilder.Entity("Employment.Domain.ResumeLanguage", b =>
                 {
-                    b.Property<int>("ResumeId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ResumeId", "LanguageId");
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ResumeLanguage");
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("ResumeLanguages");
                 });
 
             modelBuilder.Entity("Employment.Domain.Role", b =>

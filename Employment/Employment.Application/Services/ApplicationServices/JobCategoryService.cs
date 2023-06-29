@@ -55,7 +55,7 @@ namespace Employment.Application.Services.ApplicationServices
         }
         public GetListResultDto<GetJobCategoriesListDto> GetList(GetJobCategoriesListRequetsDto request)
         {
-            var jobCategories = _unitOfWork.IJobCategoryRepository.GetAllAsQueryable().AsNoTracking();
+            var jobCategories = _unitOfWork.IJobCategoryRepository.GetAllAsQueryable();
             #region Filters
             if (!string.IsNullOrWhiteSpace(request.Search))
             {

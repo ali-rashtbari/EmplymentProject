@@ -59,7 +59,7 @@ namespace Employment.Application.Services.ApplicationServices
 
         public IEnumerable<GetLinksListDto> GetList(int resumeId)
         {
-            var links = _unitOfWork.LinkRepository.GetAllAsQueryable().AsNoTracking();
+            var links = _unitOfWork.LinkRepository.GetAllAsQueryable();
             var linksListDto = _mapper.Map<IEnumerable<GetLinksListDto>>(links);
             return linksListDto;
         }

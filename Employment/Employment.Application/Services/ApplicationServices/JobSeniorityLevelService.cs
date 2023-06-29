@@ -48,7 +48,7 @@ namespace Employment.Application.Services.ApplicationServices
 
         public IEnumerable<GetJobSeniorityLevelsListDto> GetList()
         {
-            var jobSeniorities = _unitOfWork.JobSeniorityLevelRepository.GetAllAsQueryable().AsNoTracking();
+            var jobSeniorities = _unitOfWork.JobSeniorityLevelRepository.GetAllAsQueryable();
             return jobSeniorities.Select(js => new GetJobSeniorityLevelsListDto()
             {
                 Id = js.Id,

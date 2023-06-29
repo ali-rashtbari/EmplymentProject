@@ -61,7 +61,7 @@ namespace Employment.Application.Services.ApplicationServices
             var countries = _unitOfWork.CountryRepository.GetAllAsQueryable(includes: new List<string>()
             {
                 "Provinces.Cities"
-            }).AsNoTracking();
+            });
             #region Filters
             if(!string.IsNullOrWhiteSpace(getCountriesListRequestDtos.Search))
             {

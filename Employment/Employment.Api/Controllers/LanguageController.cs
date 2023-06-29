@@ -22,8 +22,8 @@ namespace Employment.Api.Controllers
         {
             CommandResule<int> addLanguageResult = await _servicesPool.LanguageService.AddAsync(addLanguageDto);
             return CreatedAtAction(actionName: "Get",
-                                   controllerName:ControllerContext.ActionDescriptor.ControllerName,
-                                   routeValues: new { id = addLanguageResult.Data }, 
+                                   controllerName: ControllerContext.ActionDescriptor.ControllerName,
+                                   routeValues: new { id = addLanguageResult.Data },
                                    addLanguageResult);
         }
 

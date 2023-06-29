@@ -1,19 +1,17 @@
-﻿using Employment.Common.Enums;
+﻿using Employment.Domain.BasesModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employment.Domain
 {
-    public class Language
+    public class Language : DomainBaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
-        #region Relations
+        #region Relations 
 
         public virtual ICollection<ResumeLanguage> ResumeLanguages { get; set; }
 
