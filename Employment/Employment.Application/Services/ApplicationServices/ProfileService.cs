@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos;
 using Employment.Application.Dtos.Validations;
 using Employment.Application.MapperProfiles;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -14,7 +15,7 @@ using System.Diagnostics;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class ProfileService : IProfileService
+    public class ProfileService : IProfileService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

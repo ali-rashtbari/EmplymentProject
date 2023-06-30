@@ -134,3 +134,17 @@ void Configure(WebApplication app)
 
     app.Run();
 }
+
+//void ConfigureContainer(WebApplicationBuilder builder)
+//{
+
+//    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+//    builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+//    {
+
+//        builder.RegisterContainerDependency();
+
+//    });
+
+//}

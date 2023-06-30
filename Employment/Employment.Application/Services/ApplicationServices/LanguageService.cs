@@ -4,6 +4,7 @@ using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.LanguageDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.LanguageDtos.LanguageDtoValiators;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class LanguageService : ILanguageService
+    public class LanguageService : ILanguageService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

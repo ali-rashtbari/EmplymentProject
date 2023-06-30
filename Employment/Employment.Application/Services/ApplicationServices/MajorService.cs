@@ -4,6 +4,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.MajorDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.MajorDtos.MajorDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class MajorService : IMajorService
+    public class MajorService : IMajorService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
 

@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos.LinkDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class LinkService : ILinkService
+    public class LinkService : ILinkService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

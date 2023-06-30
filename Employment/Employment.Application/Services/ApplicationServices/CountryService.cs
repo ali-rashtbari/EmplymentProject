@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.CountryDtos.CountryDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class CountryService : ICountryService
+    public class CountryService : ICountryService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

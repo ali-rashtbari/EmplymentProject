@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.ProvinceDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.ProvinceDtos.ProvinceDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class ProvinceService : IProvinceService
+    public class ProvinceService : IProvinceService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

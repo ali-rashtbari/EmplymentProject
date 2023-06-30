@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.JobSeriorityLeveDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.JobSeriorityLeveDtos.JobSeniorityLevelDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class JobSeniorityLevelService : IJobSeniorityLevelService
+    public class JobSeniorityLevelService : IJobSeniorityLevelService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

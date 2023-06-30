@@ -5,6 +5,7 @@ using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.JobExperienceDtos.JobExperienceDtoValidators;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
 using Employment.Domain;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Employment.Application.Services.ApplicationServices
 {
-    public class JobExperienceService : IJobExperienceService
+    public class JobExperienceService : IJobExperienceService, IService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
