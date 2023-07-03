@@ -1,4 +1,5 @@
 ﻿using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
+using Employment.Application.Dtos.CommonDto;
 using Employment.Common.Dtos;
 using Employment.Domain;
 using System;
@@ -12,8 +13,8 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
     public interface ICityService
     {
         Task<CommandResule<int>> AddAsync(AddCityDto addCityDto);
-        Task<CommandResule<int>> UpdateAsync(UpdateCityDto editCityDto);
-        GetCityDto Get(int id);
+        Task<CommandResule<string>> UpdateAsync(UpdateCityDto editCityDto);
+        GetCityDto Get(GetDetailsRequestDto getDetailsRequest);
         GetListResultDto<GetCitiesListDto> GetList(GetCitiesListRequestDto getCitiesListDto);
     }
 }

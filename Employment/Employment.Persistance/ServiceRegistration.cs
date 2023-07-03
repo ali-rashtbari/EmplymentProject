@@ -1,4 +1,9 @@
-﻿using Employment.Application.Contracts.PersistanceContracts;
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Employment.Application.Contracts.ApplicationServicesContracts;
+using Employment.Application.Contracts.PersistanceContracts;
+using Employment.Application.Services;
+using Employment.Application.Services.ApplicationServices;
 using Employment.Domain;
 using Employment.Persistance.Context;
 using Employment.Persistance.Interceptors;
@@ -31,6 +36,26 @@ namespace Employment.Persistance
 
             return services;
 
+        }
+
+        public static ContainerBuilder PersistanceAutoFacServiceRegisteration(this ContainerBuilder builder)
+        {
+
+            builder.RegisterType<ServicesInterceptor>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ServicesPool>()
+                .As<IServicesPool>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<CityService>()
+                .As<ICityService>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(ServicesInterceptor))
+                .InstancePerDependency();
+
+            return builder;
         }
     }
 }

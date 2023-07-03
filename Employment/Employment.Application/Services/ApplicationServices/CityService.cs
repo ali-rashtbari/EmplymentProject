@@ -3,8 +3,10 @@ using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoValidators;
+using Employment.Application.Dtos.CommonDto;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
+using Employment.Common.Constants;
 using Employment.Common.Contracts;
 using Employment.Common.Dtos;
 using Employment.Common.Exceptions;
@@ -23,11 +25,13 @@ namespace Employment.Application.Services.ApplicationServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IIntIdHahser _intIdHasher;
 
-        public CityService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CityService(IUnitOfWork unitOfWork, IMapper mapper, IIntIdHahser intIdHahser)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _intIdHasher = intIdHahser;
         }
 
 
@@ -48,31 +52,31 @@ namespace Employment.Application.Services.ApplicationServices
                 Data = city.Id
             };
         }
-        public async Task<CommandResule<int>> UpdateAsync(UpdateCityDto updateCityDto)
+        public async Task<CommandResule<string>> UpdateAsync(UpdateCityDto updateCityDto)
         {
-            var validationResult = await new UpdateCityDtoValidator(_unitOfWork).ValidateAsync(updateCityDto);
+            var validationResult = await new UpdateCityDtoValidator(_unitOfWork, _intIdHasher).ValidateAsync(updateCityDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
-            var city = _unitOfWork.CityRepository.Get(updateCityDto.Id, includes: new List<string>()
+            var city = _unitOfWork.CityRepository.Get(updateCityDto.DecodedID, includes: new List<string>()
             {
                 "Province"
             });
             _mapper.Map(updateCityDto, city);
             await _unitOfWork.CityRepository.UpdateAsync(city);
-            return new CommandResule<int>()
+            return new CommandResule<string>()
             {
                 IsSuccess = true,
                 Message = ApplicationMessages.CityUpdated,
-                Data = city.Id
+                Data = _intIdHasher.Code(city.Id)
             };
         }
-        public GetCityDto Get(int id)
+        public GetCityDto Get(GetDetailsRequestDto getDetailsRequest)
         {
             var includes = new List<string>()
             {
                 "Province.Country"
             };
-            var city = _unitOfWork.CityRepository.Get(id, includes);
-            if (city == null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: id.ToString());
+            var city = _unitOfWork.CityRepository.Get(getDetailsRequest.DecodedID, includes);
+            if (city == null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: getDetailsRequest.DecodedID.ToString());
             var cityDto = _mapper.Map<GetCityDto>(city);
             return cityDto;
         }

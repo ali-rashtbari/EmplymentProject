@@ -2,6 +2,7 @@
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Services.ApplicationServices;
+using Employment.Common.Constants;
 using Employment.Domain;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -18,12 +19,14 @@ namespace Employment.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private readonly IIntIdHahser _intIdHasher;
 
-        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager)
+        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, IIntIdHahser intIdHasher)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
+            _intIdHasher = intIdHasher;
         }
 
         private readonly IProfileService _profileService;
@@ -57,7 +60,7 @@ namespace Employment.Application.Services
         public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork, _mapper);
 
         private readonly ICityService _cityService;
-        public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper);
+        public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper, _intIdHasher);
 
         private readonly IJobExperienceService _jobExperienceService;
         public IJobExperienceService JobExperienceService => _jobExperienceService ?? new JobExperienceService(_unitOfWork, _mapper);

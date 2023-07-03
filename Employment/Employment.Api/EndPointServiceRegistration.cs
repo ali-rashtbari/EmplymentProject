@@ -1,5 +1,4 @@
-﻿using Employment.Api.ActionFilters;
-using Employment.Api.Models.AuthModels;
+﻿using Employment.Api.Models.AuthModels;
 using Employment.Api.Services.JWTServices;
 using Employment.Application.MapperProfiles;
 using Employment.Domain;
@@ -61,7 +60,6 @@ namespace Employment.Api
 
 
             // --- action filters --- //
-            services.AddScoped<ModelValidationFilterAttribute>();
             services.AddScoped<IJwtService, JwtService>();
 
             // --- logger --- //

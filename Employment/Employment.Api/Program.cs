@@ -10,6 +10,8 @@ using Serilog;
 using Serilog.Extensions;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Employment.Common.Constants;
+using Employment.Common.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,9 @@ builder.Logging.AddSerilog(logger);
 ConfigureServices(builder.Services, builder.Configuration);
 
 
+// add services to autofac ioc container ---
+ConfigureContainer(builder);
+
 var app = builder.Build();
 
 
@@ -49,6 +54,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
+    services.AddSingleton<IIntIdHahser, IntIdHahser>();
 
     //services.AddSignalR(options =>
     //{
@@ -135,16 +141,16 @@ void Configure(WebApplication app)
     app.Run();
 }
 
-//void ConfigureContainer(WebApplicationBuilder builder)
-//{
+void ConfigureContainer(WebApplicationBuilder builder)
+{
 
-//    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-//    builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
-//    {
+    builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+    {
 
-//        builder.RegisterContainerDependency();
+        builder.PersistanceAutoFacServiceRegisteration();
 
-//    });
+    });
 
-//}
+}

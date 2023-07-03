@@ -1,4 +1,5 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
+using Employment.Application.MapperProfiles;
 using Employment.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,8 +15,9 @@ namespace Employment.Application
     {
         public static IServiceCollection ApplicationServiceRegistration(this IServiceCollection services)
         {
-            services.AddScoped<IServicesPool, ServicesPool>();
-            services.AddAutoMapper(assemblies: Assembly.GetExecutingAssembly());
+            //services.AddScoped<IServicesPool, ServicesPool>();
+            //services.AddAutoMapper(assemblies: Assembly.GetExecutingAssembly());
+            services.RegisterProfiles();
 
             return services;
         }

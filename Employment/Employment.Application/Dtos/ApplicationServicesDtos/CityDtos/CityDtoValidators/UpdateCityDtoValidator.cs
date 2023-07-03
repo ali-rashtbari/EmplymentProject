@@ -1,6 +1,7 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Common;
+using Employment.Common.Constants;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
     public class UpdateCityDtoValidator : AbstractValidator<UpdateCityDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IIntIdHahser _intIdHasher;
 
-        public UpdateCityDtoValidator(IUnitOfWork unitOfWork)
+        public UpdateCityDtoValidator(IUnitOfWork unitOfWork, IIntIdHahser intIdHahser)
         {
             _unitOfWork = unitOfWork;
+            _intIdHasher = intIdHahser;
 
-            RuleFor(c => c.Id)
+            RuleFor(c => c.EncodedID)
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .Must(value => _isExistsCity(value)).WithMessage(ApplicationMessages.CityNotFound);
@@ -28,22 +31,22 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .MaximumLength(50).WithErrorCode("{PropertyName} نمی تواند بیشتر از 50 حرف داشته باشد.");
 
-            When(c => c.ProvinceId.HasValue, () =>
+            When(c => c.DecodedProvinceId.HasValue, () =>
             {
-                RuleFor(c => c.ProvinceId)
-                .Must(value => _isExistsProvince(value.Value)).WithMessage(ApplicationMessages.ProvinceNotFound);
+                RuleFor(c => c.EncodedProvinceId)
+                .Must(value => _isExistsProvince(value)).WithMessage(ApplicationMessages.ProvinceNotFound);
             });
 
         }
 
-        private bool _isExistsProvince(int provinceId)
+        private bool _isExistsProvince(string provinceId)
         {
-            return _unitOfWork.ProvinceRepository.Get(provinceId) != null;
+            return _unitOfWork.ProvinceRepository.Get(_intIdHasher.DeCode(provinceId)) != null;
         }
 
-        private bool _isExistsCity(int cityId)
+        private bool _isExistsCity(string cityId)
         {
-            return _unitOfWork.CityRepository.Get(cityId) != null;
+            return _unitOfWork.CityRepository.Get(_intIdHasher.DeCode(cityId)) != null;
         }
     }
 }

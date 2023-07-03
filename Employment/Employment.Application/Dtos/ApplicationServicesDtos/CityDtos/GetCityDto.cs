@@ -8,7 +8,7 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos
 {
     public class GetCityDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string ProvinceName { get; set; }
         public int ProvinceId { get; set; }

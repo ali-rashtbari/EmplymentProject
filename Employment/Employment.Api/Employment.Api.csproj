@@ -35,4 +35,8 @@
     <ProjectReference Include="..\Employment.Persistance\Employment.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ActionFilters\" />
+  </ItemGroup>
+
 </Project>

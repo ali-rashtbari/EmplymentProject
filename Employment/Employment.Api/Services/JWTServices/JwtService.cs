@@ -31,10 +31,10 @@ namespace Employment.Api.Services.JWTServices
         public async Task<RequestTokenResultDto> GetTokenAsync(RequestTokenRequestDto requestTokenRequestDto)
         {
             var user = await _userManager.FindByNameAsync(requestTokenRequestDto.Email);
-            if (user == null) ExceptionHelper.ThrowException(ApplicationMessages.UserNameNotFound, System.Net.HttpStatusCode.BadRequest);
+            if (user == null) throw new NotFoundException(ApplicationMessages.UserNameNotFound, entity: nameof(User), id: requestTokenRequestDto.Email);
 
-            if (!await _userManager.CheckPasswordAsync(user, requestTokenRequestDto.Password)) 
-                ExceptionHelper.ThrowException(ApplicationMessages.InvalidSignInInformation, System.Net.HttpStatusCode.BadRequest);
+            if (!await _userManager.CheckPasswordAsync(user, requestTokenRequestDto.Password))
+                throw new Exception(ApplicationMessages.InvalidSignInInformation);
 
             return new RequestTokenResultDto()
             {
