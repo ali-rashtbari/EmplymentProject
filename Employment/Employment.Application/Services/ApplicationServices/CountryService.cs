@@ -79,7 +79,7 @@ namespace Employment.Application.Services.ApplicationServices
                                                                      pageNumber: getCountriesListRequestDtos.PageNumber,
                                                                      search: getCountriesListRequestDtos.Search);
             #endregion
-            var values = _mapper.Map<IReadOnlyList<GetCountriesListDto>>(pagedList);
+            var values = _mapper.Map<IEnumerable<GetCountriesListDto>>(pagedList);
             var countriesList = new GetListResultDto<GetCountriesListDto>()
             {
                 Values = values,

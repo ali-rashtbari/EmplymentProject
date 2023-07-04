@@ -1,5 +1,6 @@
 ﻿using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Common;
+using Employment.Common.Constants;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
     public class AddCityDtoValidator : AbstractValidator<AddCityDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IIntIdHahser _intIdHasher;
 
-        public AddCityDtoValidator(IUnitOfWork unitOfWork)
+        public AddCityDtoValidator(IUnitOfWork unitOfWork, IIntIdHahser intIdHahser)
         {
+            _intIdHasher = intIdHahser;
             _unitOfWork = unitOfWork;
 
             RuleFor(c => c.Name)
@@ -22,15 +25,15 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .MaximumLength(50).WithErrorCode("{PropertyName} نمی تواند بیشتر از 50 حرف داشته باشد.");
 
-            RuleFor(c => c.ProvinceId)
+            RuleFor(c => c.EncodedProvinceId)
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .Must(value => _isExistsProvince(value)).WithMessage(ApplicationMessages.ProvinceNotFound);
         }
 
-        private bool _isExistsProvince(int provinceId)
+        private bool _isExistsProvince(string provinceEncodedId)
         {
-            return _unitOfWork.ProvinceRepository.Get(provinceId) != null;
+            return _unitOfWork.ProvinceRepository.Get(_intIdHasher.DeCode(provinceEncodedId)) != null;
         }
     }
 }

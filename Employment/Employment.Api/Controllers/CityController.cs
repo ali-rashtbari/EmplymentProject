@@ -34,16 +34,17 @@ namespace Employment.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] AddCityDto addCityDto)
         {
-            var addResult = await _servicesPool.CityService.AddAsync(addCityDto);
-            return CreatedAtAction(actionName: "Get", new { id = addResult.Data }, addResult);
+            addCityDto.DecodedProvinceId = _intIdHahser.DeCode(addCityDto.EncodedProvinceId);
+            CommandResule<string> addResult = await _cityService.AddAsync(addCityDto);
+            return CreatedAtAction(actionName: "Get", new { encodedID = addResult.Data }, addResult);
         }
 
-        [HttpGet("Get/{id}")]
-        public ActionResult<GetCityToShowModel> Get(string id)
+        [HttpGet("Get/{encodedID}")]
+        public IActionResult Get(string encodedID)
         {
             var city = _cityService.Get(new GetDetailsRequestDto()
             {
-                EncodedID = id
+                EncodedID = encodedID
             });
             return Ok(city);
         }

@@ -12,7 +12,7 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
 {
     public interface ICityService
     {
-        Task<CommandResule<int>> AddAsync(AddCityDto addCityDto);
+        Task<CommandResule<string>> AddAsync(AddCityDto addCityDto);
         Task<CommandResule<string>> UpdateAsync(UpdateCityDto editCityDto);
         GetCityDto Get(GetDetailsRequestDto getDetailsRequest);
         GetListResultDto<GetCitiesListDto> GetList(GetCitiesListRequestDto getCitiesListDto);

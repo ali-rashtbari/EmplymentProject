@@ -35,21 +35,21 @@ namespace Employment.Application.Services.ApplicationServices
         }
 
 
-        public async Task<CommandResule<int>> AddAsync(AddCityDto addCityDto)
+        public async Task<CommandResule<string>> AddAsync(AddCityDto addCityDto)
         {
-            var validationResult = await new AddCityDtoValidator(_unitOfWork).ValidateAsync(addCityDto);
+            var validationResult = await new AddCityDtoValidator(_unitOfWork, _intIdHasher).ValidateAsync(addCityDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var city = new City()
             {
                 Name = addCityDto.Name,
-                ProvinceId = addCityDto.ProvinceId,
+                ProvinceId = addCityDto.DecodedProvinceId.Value,
             };
             await _unitOfWork.CityRepository.AddAsync(city);
-            return new CommandResule<int>()
+            return new CommandResule<string>()
             {
                 IsSuccess = true,
                 Message = ApplicationMessages.CityAdded,
-                Data = city.Id
+                Data = _intIdHasher.Code(city.Id)
             };
         }
         public async Task<CommandResule<string>> UpdateAsync(UpdateCityDto updateCityDto)
