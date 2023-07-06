@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Employment.Common.Constants;
 using Employment.Common.Services;
+using Employment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.PersistanceServiceRegistration(configuration);
     services.EndPointServiceRegistration(configuration);
     services.ApplicationServiceRegistration();
+    services.InfrastructureServiceRegisteration();
 
     services.AddControllers()
     .AddNewtonsoftJson(options =>

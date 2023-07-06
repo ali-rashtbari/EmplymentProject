@@ -1,4 +1,5 @@
-﻿using Employment.Api.Models.AuthModels;
+﻿using Castle.Core.Smtp;
+using Employment.Api.Models.AuthModels;
 using Employment.Api.Services.JWTServices;
 using Employment.Api.Services.JWTServices.Dtos;
 using Employment.Common;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Net;
+using IEmailSender = Employment.Application.Contracts.InfrastructureContracts.IEmailSender;
 
 namespace Employment.Api.Controllers
 {
@@ -22,12 +24,14 @@ namespace Employment.Api.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtService _jwtService;
+        private readonly IEmailSender _emailSender;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtService = jwtService;
+            _emailSender = emailSender;
         }
 
         [HttpPost("SignIn")]
@@ -38,18 +42,26 @@ namespace Employment.Api.Controllers
                 var user = await _userManager.FindByNameAsync(signinViewModel.Email);
                 if (user == null) ExceptionHelper.ThrowException(ApplicationMessages.UserNameNotFound, statusCode: HttpStatusCode.BadRequest);
 
-                var isPasswordCurrect = await _userManager.CheckPasswordAsync(user, signinViewModel.Password);
-                if (!isPasswordCurrect) ExceptionHelper.ThrowException(ApplicationMessages.PasswordIsInCurrect, statusCode: HttpStatusCode.BadRequest);
-
-                await _signInManager.SignInAsync(user, signinViewModel.IsRemember);
-
-                var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
+                if(await _userManager.IsEmailConfirmedAsync(user))
                 {
-                    Email = signinViewModel.Email,
-                    Password = signinViewModel.Password,
-                });
+                    var isPasswordCurrect = await _userManager.CheckPasswordAsync(user, signinViewModel.Password);
+                    if (!isPasswordCurrect) ExceptionHelper.ThrowException(ApplicationMessages.PasswordIsInCurrect, statusCode: HttpStatusCode.BadRequest);
 
-                return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignInSuccessfuly, HttpStatusCode.OK, data: token);
+                    await _signInManager.SignInAsync(user, signinViewModel.IsRemember);
+
+                    var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
+                    {
+                        Email = signinViewModel.Email,
+                        Password = signinViewModel.Password,
+                    });
+
+                    return new JsonResult(token);
+                }
+                else
+                {
+                    throw new Exception("First you need to confirm your email.");
+                }
+                
             }
             catch (MainException ex)
             {
@@ -64,7 +76,6 @@ namespace Employment.Api.Controllers
         {
             if (await _userManager.FindByNameAsync(signUpViewModel.Email) != null)
             {
-                //ExceptionHelper.ThrowException(ApplicationMessages.UserNameExistInDataBase, HttpStatusCode.BadRequest);
                 throw new DuplicateNameException(ApplicationMessages.UserNameExistInDataBase);
             }
             var user = new User()
@@ -91,25 +102,36 @@ namespace Employment.Api.Controllers
             if (!createResult.Succeeded)
             {
                 var errorMessage = createResult.Errors.FirstOrDefault().Description + "-" + createResult.Errors.FirstOrDefault().Code;
-                //ExceptionHelper.ThrowException(errorMessage, HttpStatusCode.BadRequest);
                 throw new Exception(errorMessage);
             }
 
             await _userManager.AddToRoleAsync(user, RoleNames.User);
 
-            var signInResult = await _signInManager.PasswordSignInAsync(user, password: signUpViewModel.Password, isPersistent: false, false);
-            if (!signInResult.Succeeded)
+            // send code ---
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var callBackUrl = Url.Action("ConfirmRegisteration", controller: "Auth", values: new { userId = user.Id, code = code }, protocol: Request.Scheme);
+
+            await _emailSender.SendEmailAsync(user.Email, "Welcome to Employment :)", $"confirm you email {callBackUrl}");
+
+            if(_signInManager.Options.SignIn.RequireConfirmedAccount)
             {
-                throw new NotFoundException(msg: ApplicationMessages.UserNameNotFound, entity: nameof(User), signUpViewModel.UserName);
+                if(await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    var token = await _signInAfterSignUp(user, signUpViewModel.Password, signUpViewModel.UserName, user.Email);
+                    return new JsonResult(token);
+                }
+                else
+                {
+                    throw new Exception("First you need to confirm your email.");
+                }
+            }
+            else
+            {
+                var token = await _signInAfterSignUp(user, signUpViewModel.Password, signUpViewModel.UserName, user.Email);
+                return new JsonResult(token);
             }
 
-            var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
-            {
-                Email = signUpViewModel.Email,
-                Password = signUpViewModel.Password
-            });
-            //return CommonTools.ReturnResultAsJson(ApplicationMessages.YouSignedUpSuccessfuly, HttpStatusCode.OK, data: token);
-            return Ok(ApplicationMessages.YouSignedUpSuccessfuly);
         }
 
         [HttpPost("GetToken")]
@@ -128,7 +150,6 @@ namespace Employment.Api.Controllers
             return Ok(token);
         }
 
-        [Authorize]
         [HttpPut("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel changePasswordViewModel)
         {
@@ -136,12 +157,28 @@ namespace Employment.Api.Controllers
             return Ok(ApplicationMessages.PasswordChanged);
         }
 
-        [Authorize]
         [HttpGet("SignOut")]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             return Ok();
+        }
+
+        
+        [HttpGet("ConfirmRegisteration")]
+        public async Task<IActionResult> ConfirmRegisteration(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null) throw new NotFoundException(msg: ApplicationMessages.UserNameNotFound, entity: nameof(User), id: userId.ToString());
+            var confirmResult = await _userManager.ConfirmEmailAsync(user, code);
+            if(confirmResult.Succeeded)
+            {
+                return Ok("Congradulations! Eamil Confirmed Succesfully. :)");
+            }
+            else
+            {
+                throw new Exception("Email Confirmation proccess faild. :( try again later.");
+            }
         }
 
 
@@ -163,6 +200,22 @@ namespace Employment.Api.Controllers
             }
             await _userManager.UpdateAsync(user);
             await Task.CompletedTask;
+        }
+
+        private async Task<RequestTokenResultDto> _signInAfterSignUp(User user, string password, string userName, string email)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(user, password: password, isPersistent: false, false);
+            if (!signInResult.Succeeded)
+            {
+                throw new NotFoundException(msg: ApplicationMessages.UserNameNotFound, entity: nameof(User), userName);
+            }
+
+            var token = await _jwtService.GetTokenAsync(new RequestTokenRequestDto()
+            {
+                Email = email,
+                Password = password
+            });
+            return token;
         }
     }
 }

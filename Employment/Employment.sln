@@ -30,7 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProject", "TestProject", "{2BE5DD85-5BB4-426F-8121-8E21681647E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employment_TestProject", "Employment_TestProject\Employment_TestProject.csproj", "{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employment_TestProject", "Employment_TestProject\Employment_TestProject.csproj", "{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employment.Infrastructure", "Employment.Infrastructure\Employment.Infrastructure.csproj", "{3D0281A5-1380-493F-B3D4-813B9D830350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0281A5-1380-493F-B3D4-813B9D830350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0281A5-1380-493F-B3D4-813B9D830350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0281A5-1380-493F-B3D4-813B9D830350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0281A5-1380-493F-B3D4-813B9D830350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{1A156776-ADEB-4FA1-9184-7EB6AA188222} = {EE9854A0-AF14-4B08-AD6C-2216CDBB74C6}
 		{D184A080-035B-4480-AFAC-A1480D5CE43F} = {DF35819A-3F97-4939-8A18-C2E484B42033}
 		{DD3AE11B-FCCA-4C24-9FD4-EA9254576DF6} = {2BE5DD85-5BB4-426F-8121-8E21681647E0}
+		{3D0281A5-1380-493F-B3D4-813B9D830350} = {7CB8CD3F-B395-421E-A2E9-C45EAAFF05B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {435C20AB-3381-46DB-90C7-8145C020A284}

@@ -20,8 +20,7 @@ namespace Employment.Api
 
             services.AddIdentity<User, Role>(options =>
             {
-                options.SignIn.RequireConfirmedPhoneNumber = false;
-                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = true;
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = true;
@@ -30,7 +29,9 @@ namespace Employment.Api
                 options.Password.RequireUppercase = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
                 options.Lockout.MaxFailedAccessAttempts = 3;
+
             }).AddEntityFrameworkStores<AppDbContext>()
+            .AddPasswordValidator<PasswordValidatorService>()
             .AddDefaultTokenProviders();
 
             var section = configuration.GetSection("JwtOptions");

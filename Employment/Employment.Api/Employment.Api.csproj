@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Employment.Application\Employment.Application.csproj" />
     <ProjectReference Include="..\Employment.Common\Employment.Common.csproj" />
+    <ProjectReference Include="..\Employment.Infrastructure\Employment.Infrastructure.csproj" />
     <ProjectReference Include="..\Employment.Persistance\Employment.Persistance.csproj" />
   </ItemGroup>
 
