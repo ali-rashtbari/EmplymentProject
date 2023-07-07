@@ -6,6 +6,7 @@ using Employment.Common;
 using Employment.Common.Constants;
 using Employment.Common.Exceptions;
 using Employment.Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

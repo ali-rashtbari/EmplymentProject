@@ -60,6 +60,7 @@ namespace Employment.Api.Services.JWTServices
                                         .Where(ur => ur.UserId == user.Id)
                                         .Select(ur => ur.RoleId)
                                         .AsQueryable();
+            var roleNames = _dbContext.Roles.Where(r => userRolesIds.Contains(r.Id)).Select(r => r.Name).ToList();
 
             var claims = new List<Claim>()
             {
@@ -68,7 +69,7 @@ namespace Employment.Api.Services.JWTServices
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("FullName", user.FullName),
-                new Claim("RolesId", string.Join(" , ", userRolesIds))
+                new Claim(ClaimTypes.Role, string.Join(" , ", roleNames))
             };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.Key));

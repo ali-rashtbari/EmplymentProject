@@ -1,5 +1,6 @@
 ﻿using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.LinkDtos;
+using Employment.Common.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,10 @@ namespace Employment.Api.Controllers
         [HttpGet("GetList/{resumeId}")]
         public async Task<IActionResult> GetList(int resumeId)
         {
+            if(User.IsInRole(RoleNames.Admin))
+            {
+                var roleName = User.Identity.Name;
+            }
             IEnumerable<GetLinksListDto> links = _servicesPool.LinkService.GetList(resumeId);
             return Ok(links);
         }
