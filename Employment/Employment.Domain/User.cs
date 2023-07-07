@@ -25,6 +25,7 @@ namespace Employment.Domain
         #region Relations 
 
         public virtual Profile Profile { get; set; }
+        public virtual ICollection<ConfirmationEmail> ConfirmationEmails { get; set; }
 
 
 

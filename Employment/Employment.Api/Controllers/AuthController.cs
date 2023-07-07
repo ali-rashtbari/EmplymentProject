@@ -2,6 +2,7 @@
 using Employment.Api.Models.AuthModels;
 using Employment.Api.Services.JWTServices;
 using Employment.Api.Services.JWTServices.Dtos;
+using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Common;
 using Employment.Common.Constants;
 using Employment.Common.Exceptions;
@@ -26,13 +27,19 @@ namespace Employment.Api.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtService _jwtService;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IEmailSender emailSender)
+        public AuthController(UserManager<User> userManager, 
+                              SignInManager<User> signInManager, 
+                              IJwtService jwtService, 
+                              IEmailSender emailSender,
+                              IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtService = jwtService;
             _emailSender = emailSender;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost("SignIn")]
@@ -108,14 +115,10 @@ namespace Employment.Api.Controllers
 
             await _userManager.AddToRoleAsync(user, RoleNames.User);
 
-            // send code ---
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            // send confirmation email ---
+            await _sendConfirmationEmail(user);
 
-            var callBackUrl = Url.Action("ConfirmRegisteration", controller: "Auth", values: new { userId = user.Id, code = code }, protocol: Request.Scheme);
-
-            await _emailSender.SendEmailAsync(user.Email, "Welcome to Employment :)", $"confirm you email {callBackUrl}");
-
-            if(_signInManager.Options.SignIn.RequireConfirmedAccount)
+            if (_signInManager.Options.SignIn.RequireConfirmedAccount)
             {
                 if(await _userManager.IsEmailConfirmedAsync(user))
                 {
@@ -165,7 +168,24 @@ namespace Employment.Api.Controllers
             return Ok();
         }
 
-        
+        [HttpGet("ResendConfirmationEmail")]
+        public async Task<IActionResult> ResendConfirmationEmail(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user is null) throw new NotFoundException(msg: ApplicationMessages.UserNameNotFound, entity: nameof(user), id: userName.ToString());
+            var lastSentConfirmationEmail = await _unitOfWork.ConfirmationEmailRepository.GetUserLastActiveConfirmationEmail(user.Id);
+            if (lastSentConfirmationEmail == null)
+            {
+                await _sendConfirmationEmail(user);
+                return Ok("Email sent. :)");
+            }
+            else
+            {
+                await _sendConfirmationEmail(user);
+                return Ok("confirmation email sent. :)");
+            }
+        }
+
         [HttpGet("ConfirmRegisteration")]
         public async Task<IActionResult> ConfirmRegisteration(string userId, string code)
         {
@@ -174,7 +194,14 @@ namespace Employment.Api.Controllers
             var confirmResult = await _userManager.ConfirmEmailAsync(user, code);
             if(confirmResult.Succeeded)
             {
-                return Ok("Congradulations! Eamil Confirmed Succesfully. :)");
+                var lastSentConfirmationEmail = await _unitOfWork.ConfirmationEmailRepository.GetUserLastActiveConfirmationEmail(user.Id);
+                if(lastSentConfirmationEmail != null)
+                {
+                    lastSentConfirmationEmail.IsConfirmed = true;
+                    lastSentConfirmationEmail.DateTimeConfirmed = DateTime.UtcNow;
+                    _unitOfWork.ConfirmationEmailRepository.Update(lastSentConfirmationEmail);
+                }
+                return RedirectToAction(actionName: "SignIn", controllerName: "Auth");
             }
             else
             {
@@ -217,6 +244,28 @@ namespace Employment.Api.Controllers
                 Password = password
             });
             return token;
+        }
+
+        private async Task _sendConfirmationEmail(User user)
+        {
+            // arrange ---
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callBackUrl = Url.Action("ConfirmRegisteration", controller: "Auth", values: new { userId = user.Id, code = code }, protocol: Request.Scheme);
+            var subject = "Employment Confirmation Email.";
+            var message = $"Hello Mrs./Mr. '{user.FullName}'\nBefore sign in to the employment site, plz confirm your Account. :)\nConfirm : {callBackUrl}";
+            // act --
+            await _emailSender.SendEmailAsync(user.Email, subject, message);
+            var confirmationEmail = new ConfirmationEmail()
+            {
+                Id = Guid.NewGuid(),
+                DateTimeConfirmed = null,
+                Email = user.Email,
+                DateTimeSent = DateTime.UtcNow,
+                IsConfirmed = false,
+                UserId = user.Id,
+            };
+            await _unitOfWork.ConfirmationEmailRepository.AddAsync(confirmationEmail);
+            await Task.CompletedTask;
         }
     }
 }

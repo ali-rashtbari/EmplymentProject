@@ -39,6 +39,7 @@ namespace Employment.Persistance.Context
         public DbSet<History> Histories { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<ResumeLanguage> ResumeLanguages { get; set; }
+        public DbSet<ConfirmationEmail> ConfirmationEamils { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

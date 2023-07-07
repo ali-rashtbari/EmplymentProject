@@ -116,6 +116,9 @@ namespace Employment.Persistance.Repositories
         private readonly ILanguageRepository _languageRepository;
         public ILanguageRepository LanguageRepository => _languageRepository ?? new LanguageRepository(_dbContext);
 
+        private readonly IConfirmationEmailRepository _confirmationEmailRepository;
+        public IConfirmationEmailRepository ConfirmationEmailRepository => _confirmationEmailRepository ?? new ConfirmationEmailRepository(_dbContext);
+
         #endregion
 
 

@@ -4,6 +4,7 @@ using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230707134527_addConfirmationEmailsTbl")]
+    partial class addConfirmationEmailsTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,7 @@ namespace Employment.Persistance.Migrations
                     b.Property<DateTime>("DateTimeSent")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 7, 20, 21, 57, 49, DateTimeKind.Local).AddTicks(3240));
+                        .HasDefaultValue(new DateTime(2023, 7, 7, 17, 15, 26, 923, DateTimeKind.Local).AddTicks(1395));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -91,7 +94,7 @@ namespace Employment.Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ConfirmationEamils");
+                    b.ToTable("ConfirmationEmail");
                 });
 
             modelBuilder.Entity("Employment.Domain.Country", b =>
