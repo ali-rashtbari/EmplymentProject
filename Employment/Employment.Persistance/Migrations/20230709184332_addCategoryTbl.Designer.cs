@@ -4,6 +4,7 @@ using Employment.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employment.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230709184332_addCategoryTbl")]
+    partial class addCategoryTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace Employment.Persistance.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Employment.Domain.City", b =>
@@ -110,7 +113,7 @@ namespace Employment.Persistance.Migrations
                     b.Property<DateTime>("DateTimeSent")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 9, 22, 21, 40, 648, DateTimeKind.Local).AddTicks(1458));
+                        .HasDefaultValue(new DateTime(2023, 7, 9, 22, 13, 31, 177, DateTimeKind.Local).AddTicks(1650));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -901,7 +904,7 @@ namespace Employment.Persistance.Migrations
                     b.HasOne("Employment.Domain.Category", "Parent")
                         .WithMany("Childs")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Parent");
                 });

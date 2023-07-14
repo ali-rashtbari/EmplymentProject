@@ -10,8 +10,6 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos
     public class AddCityDto
     {
         public string Name { get; set; }
-        [JsonIgnore]
-        public int? DecodedProvinceId { get; set; }
-        public string EncodedProvinceId { get; set; }
+        public int? ProvinceId { get; set; }
     }
 }

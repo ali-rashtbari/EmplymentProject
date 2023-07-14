@@ -38,24 +38,24 @@ namespace Employment.Persistance
 
         }
 
-        public static ContainerBuilder PersistanceAutoFacServiceRegisteration(this ContainerBuilder builder)
-        {
+        //public static ContainerBuilder PersistanceAutoFacServiceRegisteration(this ContainerBuilder builder)
+        //{
 
-            builder.RegisterType<ServicesInterceptor>()
-                .AsSelf()
-                .InstancePerLifetimeScope();
+        //    builder.RegisterType<ServicesInterceptor>()
+        //        .AsSelf()
+        //        .InstancePerLifetimeScope();
 
-            builder.RegisterType<ServicesPool>()
-                .As<IServicesPool>()
-                .InstancePerLifetimeScope();
+        //    builder.RegisterType<ServicesPool>()
+        //        .As<IServicesPool>()
+        //        .InstancePerLifetimeScope();
 
-            builder.RegisterType<CityService>()
-                .As<ICityService>()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(ServicesInterceptor))
-                .InstancePerDependency();
+        //    builder.RegisterType<CityService>()
+        //        .As<ICityService>()
+        //        .EnableInterfaceInterceptors()
+        //        .InterceptedBy(typeof(ServicesInterceptor))
+        //        .InstancePerDependency();
 
-            return builder;
-        }
+        //    return builder;
+        //}
     }
 }

@@ -46,7 +46,7 @@ namespace Employment.Application.Services.ApplicationServices
 
         public IEnumerable<GetMajorsListDto> GetList()
         {
-            var majors = _unitOfWork.MajorRepository.GetAllAsQueryable().AsNoTracking();
+            var majors = _unitOfWork.MajorRepository.GetAllAsQueryable();
             return majors.Select(ma => new GetMajorsListDto()
             {
                 Id = ma.Id,

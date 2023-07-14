@@ -21,5 +21,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public ICityService CityService { get; }
         public IJobExperienceService JobExperienceService { get; }
         public ILanguageService LanguageService { get; }
+        public ICategoryService CategoryService { get; }
     }
 }

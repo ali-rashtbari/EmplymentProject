@@ -14,14 +14,12 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
     public class UpdateCityDtoValidator : AbstractValidator<UpdateCityDto>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IIntIdHahser _intIdHasher;
 
-        public UpdateCityDtoValidator(IUnitOfWork unitOfWork, IIntIdHahser intIdHahser)
+        public UpdateCityDtoValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _intIdHasher = intIdHahser;
 
-            RuleFor(c => c.EncodedID)
+            RuleFor(c => c.Id)
                 .NotEmpty().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .Must(value => _isExistsCity(value)).WithMessage(ApplicationMessages.CityNotFound);
@@ -31,22 +29,22 @@ namespace Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoVa
                 .NotNull().WithMessage("{PropertyName} نمی تواند خالی باشد")
                 .MaximumLength(50).WithErrorCode("{PropertyName} نمی تواند بیشتر از 50 حرف داشته باشد.");
 
-            When(c => c.DecodedProvinceId.HasValue, () =>
+            When(c => c.ProvinceId.HasValue, () =>
             {
-                RuleFor(c => c.EncodedProvinceId)
-                .Must(value => _isExistsProvince(value)).WithMessage(ApplicationMessages.ProvinceNotFound);
+                RuleFor(c => c.ProvinceId)
+                .Must(pId => _isExistsProvince(pId.Value)).WithMessage(ApplicationMessages.ProvinceNotFound);
             });
 
         }
 
-        private bool _isExistsProvince(string provinceId)
+        private bool _isExistsProvince(int provinceId)
         {
-            return _unitOfWork.ProvinceRepository.Get(_intIdHasher.DeCode(provinceId)) != null;
+            return _unitOfWork.ProvinceRepository.Get(provinceId) != null;
         }
 
-        private bool _isExistsCity(string cityId)
+        private bool _isExistsCity(int cityId)
         {
-            return _unitOfWork.CityRepository.Get(_intIdHasher.DeCode(cityId)) != null;
+            return _unitOfWork.CityRepository.Get(cityId) != null;
         }
     }
 }

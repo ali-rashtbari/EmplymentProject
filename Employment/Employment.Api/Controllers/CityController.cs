@@ -2,7 +2,6 @@
 using Employment.Api.Models.CityViewModels;
 using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
-using Employment.Application.Dtos.CommonDto;
 using Employment.Common.Constants;
 using Employment.Common.Dtos;
 using Employment.Domain;
@@ -19,14 +18,12 @@ namespace Employment.Api.Controllers
     {
         private readonly IServicesPool _servicesPool;
         private readonly IMapper _mapper;
-        private readonly IIntIdHahser _intIdHahser;
         private readonly ICityService _cityService;
 
-        public CityController(IServicesPool servicesPool, IMapper mapper, IIntIdHahser intIdHahser, ICityService cityService)
+        public CityController(IServicesPool servicesPool, IMapper mapper, ICityService cityService)
         {
             _servicesPool = servicesPool;
             _mapper = mapper;
-            _intIdHahser = intIdHahser;
             _cityService = cityService;
         }
 
@@ -34,18 +31,14 @@ namespace Employment.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] AddCityDto addCityDto)
         {
-            addCityDto.DecodedProvinceId = _intIdHahser.DeCode(addCityDto.EncodedProvinceId);
-            CommandResule<string> addResult = await _cityService.AddAsync(addCityDto);
+            CommandResule<int> addResult = await _cityService.AddAsync(addCityDto);
             return CreatedAtAction(actionName: "Get", new { encodedID = addResult.Data }, addResult);
         }
 
-        [HttpGet("Get/{encodedID}")]
-        public IActionResult Get(string encodedID)
+        [HttpGet("Get/{id}")]
+        public IActionResult Get(int id)
         {
-            var city = _cityService.Get(new GetDetailsRequestDto()
-            {
-                EncodedID = encodedID
-            });
+            var city = _cityService.Get(id);
             return Ok(city);
         }
 
@@ -60,8 +53,7 @@ namespace Employment.Api.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateCityDto editCityDto)
         {
-            editCityDto.DecodedProvinceId = _intIdHahser.DeCode(editCityDto.EncodedProvinceId);
-            CommandResule<string> editCityResult = await _cityService.UpdateAsync(editCityDto);
+            CommandResule<int> editCityResult = await _cityService.UpdateAsync(editCityDto);
             return Ok(editCityResult);
         }
 

@@ -29,19 +29,25 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 #endregion
 
-
 // Add services to the container.
 ConfigureServices(builder.Services, builder.Configuration);
 
-
 // add services to autofac ioc container ---
-ConfigureContainer(builder);
+//ConfigureContainer(builder);
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 Configure(app);
+
+
+
+
+
+
+
+
+
 
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -120,7 +126,6 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
 }
 
-
 void Configure(WebApplication app)
 {
     if (app.Environment.IsDevelopment())
@@ -158,16 +163,24 @@ void Configure(WebApplication app)
     app.Run();
 }
 
-void ConfigureContainer(WebApplicationBuilder builder)
-{
 
-    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-    builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
-    {
 
-        builder.PersistanceAutoFacServiceRegisteration();
 
-    });
 
-}
+
+
+
+//void ConfigureContainer(WebApplicationBuilder builder)
+//{
+
+//    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+//    builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+//    {
+
+//        builder.PersistanceAutoFacServiceRegisteration();
+
+//    });
+
+//}

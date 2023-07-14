@@ -79,6 +79,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to دسته بندی یافت نشد..
+        /// </summary>
+        public static string CategoryNotFound {
+            get {
+                return ResourceManager.GetString("CategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شهر اضافه شد..
         /// </summary>
         public static string CityAdded {
@@ -390,6 +399,15 @@ namespace Employment.Common {
         public static string MajorNotFound {
             get {
                 return ResourceManager.GetString("MajorNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دسته بندی جدید اضافه شد..
+        /// </summary>
+        public static string NewCategoryAdded {
+            get {
+                return ResourceManager.GetString("NewCategoryAdded", resourceCulture);
             }
         }
         

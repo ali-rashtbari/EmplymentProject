@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Employment.Domain\Employment.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\CommonDto\" />
+  </ItemGroup>
+
 </Project>

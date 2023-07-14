@@ -13,24 +13,18 @@ namespace Employment.Application.MapperProfiles
 {
     public class CityProfile : AutoMapper.Profile
     {
-        private readonly IIntIdHahser _intIdHasher;
-        public CityProfile(IIntIdHahser intIdHahser)
+        public CityProfile()
         {
-            _intIdHasher = intIdHahser;
             CreateMap<City, GetCityDto>()
                 .ForMember(dest => dest.ProvinceName, _ => _.MapFrom(src => src.Province.Name))
-                .ForMember(dest => dest.CountryName, _ => _.MapFrom(src => src.Province.Country.Name))
-                .ForMember(dest => dest.Id, _ => _.MapFrom(src => _intIdHasher.Code(src.Id)));
+                .ForMember(dest => dest.CountryName, _ => _.MapFrom(src => src.Province.Country.Name));
 
             CreateMap<City, GetCitiesListDto>()
                 .ForMember(dest => dest.ProvinceName, _ => _.MapFrom(src => src.Province.Name))
-                .ForMember(dest => dest.CountryName, _ => _.MapFrom(src => src.Province.Country.Name))
-                .ForMember(dest => dest.Id, _ => _.MapFrom(src => _intIdHasher.Code(src.Id)));
+                .ForMember(dest => dest.CountryName, _ => _.MapFrom(src => src.Province.Country.Name));
 
             CreateMap<UpdateCityDto, City>()
-                .ForMember(dest => dest.Id, _ => _.MapFrom(src => _intIdHasher.DeCode(src.EncodedID)))
-                .ForMember(dest => dest.ProvinceId, _ => _.MapFrom(src => _intIdHasher.DeCode(src.EncodedProvinceId)))
-                .ForAllMembers(dto => dto.Condition(c => c.DecodedProvinceId != null));
+                .ForAllMembers(dto => dto.Condition(c => c.Id != null));
         }
     }
 }

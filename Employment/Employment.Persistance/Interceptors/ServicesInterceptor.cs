@@ -1,6 +1,5 @@
 ﻿using AutoMapper.Internal;
 using Castle.DynamicProxy;
-using Employment.Application.Dtos.CommonDto;
 using Employment.Common.Constants;
 using Employment.Common.Exceptions;
 using System;

@@ -78,7 +78,15 @@ namespace Employment.Persistance.Repositories
 
         private IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? expression = null, List<string>? includes = null)
         {
-            var entities = _dbContext.Set<T>().AsNoTracking().AsQueryable();
+            IQueryable<T> entities = null;
+            if(includes.Count > 0)
+            {
+                entities = _dbContext.Set<T>().AsNoTrackingWithIdentityResolution().AsQueryable();
+            }
+            else
+            {
+                entities = _dbContext.Set<T>().AsNoTracking().AsQueryable();
+            }
             if(expression is not null)
             {
                 entities = entities.Where(expression);

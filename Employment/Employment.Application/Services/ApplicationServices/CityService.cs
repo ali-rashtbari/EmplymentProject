@@ -3,7 +3,6 @@ using Employment.Application.Contracts.ApplicationServicesContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos.CityDtoValidators;
-using Employment.Application.Dtos.CommonDto;
 using Employment.Application.Dtos.Validations;
 using Employment.Common;
 using Employment.Common.Constants;
@@ -25,58 +24,56 @@ namespace Employment.Application.Services.ApplicationServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IIntIdHahser _intIdHasher;
 
-        public CityService(IUnitOfWork unitOfWork, IMapper mapper, IIntIdHahser intIdHahser)
+        public CityService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _intIdHasher = intIdHahser;
         }
 
 
-        public async Task<CommandResule<string>> AddAsync(AddCityDto addCityDto)
+        public async Task<CommandResule<int>> AddAsync(AddCityDto addCityDto)
         {
-            var validationResult = await new AddCityDtoValidator(_unitOfWork, _intIdHasher).ValidateAsync(addCityDto);
+            var validationResult = await new AddCityDtoValidator(_unitOfWork).ValidateAsync(addCityDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
             var city = new City()
             {
                 Name = addCityDto.Name,
-                ProvinceId = addCityDto.DecodedProvinceId.Value,
+                ProvinceId = addCityDto.ProvinceId.Value,
             };
             await _unitOfWork.CityRepository.AddAsync(city);
-            return new CommandResule<string>()
+            return new CommandResule<int>()
             {
                 IsSuccess = true,
                 Message = ApplicationMessages.CityAdded,
-                Data = _intIdHasher.Code(city.Id)
+                Data = city.Id
             };
         }
-        public async Task<CommandResule<string>> UpdateAsync(UpdateCityDto updateCityDto)
+        public async Task<CommandResule<int>> UpdateAsync(UpdateCityDto updateCityDto)
         {
-            var validationResult = await new UpdateCityDtoValidator(_unitOfWork, _intIdHasher).ValidateAsync(updateCityDto);
+            var validationResult = await new UpdateCityDtoValidator(_unitOfWork).ValidateAsync(updateCityDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);
-            var city = _unitOfWork.CityRepository.Get(updateCityDto.DecodedID, includes: new List<string>()
+            var city = _unitOfWork.CityRepository.Get(updateCityDto.Id, includes: new List<string>()
             {
                 "Province"
             });
             _mapper.Map(updateCityDto, city);
             await _unitOfWork.CityRepository.UpdateAsync(city);
-            return new CommandResule<string>()
+            return new CommandResule<int>()
             {
                 IsSuccess = true,
                 Message = ApplicationMessages.CityUpdated,
-                Data = _intIdHasher.Code(city.Id)
+                Data = city.Id
             };
         }
-        public GetCityDto Get(GetDetailsRequestDto getDetailsRequest)
+        public GetCityDto Get(int id)
         {
             var includes = new List<string>()
             {
                 "Province.Country"
             };
-            var city = _unitOfWork.CityRepository.Get(getDetailsRequest.DecodedID, includes);
-            if (city == null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: getDetailsRequest.DecodedID.ToString());
+            var city = _unitOfWork.CityRepository.Get(id, includes);
+            if (city == null) throw new NotFoundException(msg: ApplicationMessages.CityNotFound, entity: nameof(city), id: id.ToString());
             var cityDto = _mapper.Map<GetCityDto>(city);
             return cityDto;
         }

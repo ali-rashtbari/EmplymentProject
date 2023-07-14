@@ -119,6 +119,9 @@ namespace Employment.Persistance.Repositories
         private readonly IConfirmationEmailRepository _confirmationEmailRepository;
         public IConfirmationEmailRepository ConfirmationEmailRepository => _confirmationEmailRepository ?? new ConfirmationEmailRepository(_dbContext);
 
+        private readonly ICategoryRepository _categoryRepository;
+        public ICategoryRepository CategoryRepository => _categoryRepository ?? new CategoryRepository(_dbContext);
+
         #endregion
 
 

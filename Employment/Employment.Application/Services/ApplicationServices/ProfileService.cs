@@ -29,7 +29,7 @@ namespace Employment.Application.Services.ApplicationServices
         }
 
 
-        public async Task<CommandResule> EditAsync(EditProfileDto editProfileDto, string userName)
+        public async Task<CommandResule> UpdateAsync(EditProfileDto editProfileDto, string userName)
         {
             var validationResult = await new EditProfileDtoValidator(_unitOfWork).ValidateAsync(editProfileDto);
             if (!validationResult.IsValid) throw new InvalidModelException(validationResult.Errors.FirstOrDefault().ErrorMessage);

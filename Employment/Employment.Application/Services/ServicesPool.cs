@@ -60,12 +60,15 @@ namespace Employment.Application.Services
         public IJobSeniorityLevelService JobSeniorityLevelService => _jobSentiorityLeveService ?? new JobSeniorityLevelService(_unitOfWork, _mapper);
 
         private readonly ICityService _cityService;
-        public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper, _intIdHasher);
+        public ICityService CityService => _cityService ?? new CityService(_unitOfWork, _mapper);
 
         private readonly IJobExperienceService _jobExperienceService;
         public IJobExperienceService JobExperienceService => _jobExperienceService ?? new JobExperienceService(_unitOfWork, _mapper);
 
         private readonly ILanguageService _languageService;
         public ILanguageService LanguageService => _languageService ?? new LanguageService(_unitOfWork, _mapper);
+
+        private readonly ICategoryService _categoryService;
+        public ICategoryService CategoryService => _categoryService ?? new CategoryService(_unitOfWork);
     }
 }

@@ -15,7 +15,7 @@ namespace Employment.Application
     {
         public static IServiceCollection ApplicationServiceRegistration(this IServiceCollection services)
         {
-            //services.AddScoped<IServicesPool, ServicesPool>();
+            services.AddScoped<IServicesPool, ServicesPool>();
             //services.AddAutoMapper(assemblies: Assembly.GetExecutingAssembly());
             services.RegisterProfiles();
 

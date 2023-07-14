@@ -22,10 +22,10 @@ namespace Employment.Api.Controllers
             _servicesPool = servicesPool;
         }
 
-        [HttpPost("EditProfile")]
+        [HttpPost("UpdateProfile")]
         public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto, string userName)
         {
-            var editResult = await _servicesPool.ProfileService.EditAsync(editProfileDto, userName);
+            var editResult = await _servicesPool.ProfileService.UpdateAsync(editProfileDto, userName);
             return Ok(editResult);
         }
 

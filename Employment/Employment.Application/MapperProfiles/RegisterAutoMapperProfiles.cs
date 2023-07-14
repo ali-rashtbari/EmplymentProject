@@ -18,7 +18,7 @@ namespace Employment.Application.MapperProfiles
 
             services.AddSingleton(provider => new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new CityProfile(provider.GetService<IIntIdHahser>()));
+                cfg.AddProfile(new CityProfile(/*provider.GetService<IIntIdHahser>()*/));
                 cfg.AddProfile(new CountryProfile());
                 cfg.AddProfile(new EducationHistoryProfile());
                 cfg.AddProfile(new IndustryProfile());
