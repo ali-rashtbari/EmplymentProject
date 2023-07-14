@@ -79,7 +79,7 @@ namespace Employment.Persistance.Repositories
         private IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? expression = null, List<string>? includes = null)
         {
             IQueryable<T> entities = null;
-            if(includes.Count > 0)
+            if(includes != null && includes.Count() > 0)
             {
                 entities = _dbContext.Set<T>().AsNoTrackingWithIdentityResolution().AsQueryable();
             }
