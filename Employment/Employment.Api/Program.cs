@@ -13,6 +13,7 @@ using Autofac.Extensions.DependencyInjection;
 using Employment.Common.Constants;
 using Employment.Common.Services;
 using Employment.Infrastructure;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -140,6 +141,8 @@ void Configure(WebApplication app)
 
     }
 
+
+
     app.ConfigureCustomeMiddlewares();
 
     app.UseHttpsRedirection();
@@ -149,6 +152,12 @@ void Configure(WebApplication app)
 
 
     app.UseCors("CorsPolicy");
+    app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions()
+    {
+        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),
+        RequestPath = new PathString("/wwwroot")
+    });
 
 
     app.MapControllers();

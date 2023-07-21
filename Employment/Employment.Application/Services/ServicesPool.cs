@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Employment.Application.Contracts.ApplicationServicesContracts;
+using Employment.Application.Contracts.InfrastructureContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Services.ApplicationServices;
 using Employment.Common.Constants;
 using Employment.Domain;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -20,13 +22,15 @@ namespace Employment.Application.Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IIntIdHahser _intIdHasher;
+        private readonly IWebHostEnvironment _env;
 
-        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, IIntIdHahser intIdHasher)
+        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, IIntIdHahser intIdHasher, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _intIdHasher = intIdHasher;
+            _env = env;
         }
 
         private readonly IProfileService _profileService;
@@ -70,5 +74,6 @@ namespace Employment.Application.Services
 
         private readonly ICategoryService _categoryService;
         public ICategoryService CategoryService => _categoryService ?? new CategoryService(_unitOfWork);
+
     }
 }

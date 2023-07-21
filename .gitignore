@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Employment/Employment.Api/wwwroot/Resumes/User-2
