@@ -23,5 +23,6 @@ namespace Employment.Application.Contracts.ApplicationServicesContracts
         public IJobExperienceService JobExperienceService { get; }
         public ILanguageService LanguageService { get; }
         public ICategoryService CategoryService { get; }
+        public ICommonService CommonService { get; }
     }
 }

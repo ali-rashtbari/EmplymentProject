@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Data;
 using System.Net;
 using IEmailSender = Employment.Application.Contracts.InfrastructureContracts.IEmailSender;
@@ -82,10 +84,7 @@ namespace Employment.Api.Controllers
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp([FromBody] SignUpViewModel signUpViewModel)
         {
-            if (await _userManager.FindByNameAsync(signUpViewModel.Email) != null)
-            {
-                throw new DuplicateNameException(ApplicationMessages.UserNameExistInDataBase);
-            }
+            await _isUserDuplciate(signUpViewModel);
             var user = new User()
             {
                 Email = signUpViewModel.Email,
@@ -267,5 +266,20 @@ namespace Employment.Api.Controllers
             await _unitOfWork.ConfirmationEmailRepository.AddAsync(confirmationEmail);
             await Task.CompletedTask;
         }
+
+        private async Task _isUserDuplciate(SignUpViewModel signUpViewModel)
+        {
+
+            if (await _userManager.FindByNameAsync(signUpViewModel.Email) != null)
+            {
+                throw new DuplicateNameException(ApplicationMessages.UserNameExistInDataBase);
+            }
+            if(await _userManager.Users.AnyAsync(u => u.Mobile == signUpViewModel.Mobile))
+            {
+                throw new DuplicateNameException(ApplicationMessages.UserNameExistInDataBase);
+            }
+        }
     }
+
+
 }

@@ -6,6 +6,7 @@ using Employment.Application.Services.ApplicationServices;
 using Employment.Common.Constants;
 using Employment.Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,21 @@ namespace Employment.Application.Services
         private readonly UserManager<User> _userManager;
         private readonly IIntIdHahser _intIdHasher;
         private readonly IWebHostEnvironment _env;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ServicesPool(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, IIntIdHahser intIdHasher, IWebHostEnvironment env)
+        public ServicesPool(IUnitOfWork unitOfWork, 
+                            IMapper mapper, 
+                            UserManager<User> userManager, 
+                            IIntIdHahser intIdHasher, 
+                            IWebHostEnvironment env, 
+                            IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _intIdHasher = intIdHasher;
             _env = env;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         private readonly IProfileService _profileService;
@@ -74,6 +82,9 @@ namespace Employment.Application.Services
 
         private readonly ICategoryService _categoryService;
         public ICategoryService CategoryService => _categoryService ?? new CategoryService(_unitOfWork);
+
+        private readonly ICommonService _commonService;
+        public ICommonService CommonService => _commonService ?? new CommonService(_httpContextAccessor, _userManager);
 
     }
 }

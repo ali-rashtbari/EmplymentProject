@@ -3,7 +3,9 @@ using Employment.Application.Contracts.InfrastructureContracts;
 using Employment.Application.Contracts.PersistanceContracts;
 using Employment.Application.Dtos.ApplicationServicesDtos.CityDtos;
 using Employment.Application.Dtos.CommonDto;
+using Employment.Common.Constants;
 using Employment.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,14 +42,11 @@ namespace Employment.Api.Controllers
         }
 
         [HttpPost("UploadResumeFileAsync")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile()
         {
-            var uploadFileRequestDto = new UploadFileDto()
-            {
-                File = file,
-            };
-            var uploadResult = await _fileUploader.UploadResumeFileAsync(uploadFileRequestDto, 2);
-            return Ok(uploadResult);
+            var user = User;
+            var currentUserEmail = await _servicesPool.CommonService.GetCurrentUserAsync();
+            return Ok(currentUserEmail);
         }
     }
 }

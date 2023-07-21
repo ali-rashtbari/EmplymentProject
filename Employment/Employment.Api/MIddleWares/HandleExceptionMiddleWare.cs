@@ -1,4 +1,5 @@
-﻿using Employment.Common.Exceptions;
+﻿using Employment.Common;
+using Employment.Common.Exceptions;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using System.Net.Http;
@@ -31,7 +32,11 @@ namespace Employment.Api.MIddleWares
             }
             catch (Exception ex)
             {
-                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                //if(ex.Message == ApplicationMessages.YouAreNotAuthenticated)
+                //{
+                //    httpContext.Response.Redirect("/Auth/SignIn");
+                //}
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;              
                 exception = ex;
             }
             finally

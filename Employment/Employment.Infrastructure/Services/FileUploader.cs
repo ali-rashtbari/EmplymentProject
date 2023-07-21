@@ -20,7 +20,7 @@ namespace Employment.Infrastructure.Services
             _env = webHostEnvironment;
         }
 
-        public async Task<string> UploadResumeFileAsync(UploadFileDto uploadFileDto, int userId)
+        public async Task<string> UploadResumeFileAsync(UploadFileDto uploadFileDto, string mobile)
         {
             var validationResult = await new UploadFileDtoValidator().ValidateAsync(uploadFileDto);
             if (!validationResult.IsValid)
@@ -40,7 +40,7 @@ namespace Employment.Infrastructure.Services
                 Directory.CreateDirectory(baseSavePath);
             }
 
-            var userFolderPath = Path.Combine(baseSavePath, $"User-{userId.ToString()}");
+            var userFolderPath = Path.Combine(baseSavePath, $"User-{mobile}");
             if (!Directory.Exists(userFolderPath))
             {
                 Directory.CreateDirectory(userFolderPath);

@@ -317,6 +317,10 @@
     <value>اطلاعات وارد شده نادرست است.</value>
     <comment>User Not Found</comment>
   </data>
+  <data name="YouAreNotAuthenticated" xml:space="preserve">
+    <value>شما لاگین نکرده اید.</value>
+    <comment>you are not authenticated.</comment>
+  </data>
   <data name="YouSignedUpSuccessfuly" xml:space="preserve">
     <value>عملیات ثبت نام با موفقیت انجام شد.</value>
     <comment>Successful SignUp</comment>

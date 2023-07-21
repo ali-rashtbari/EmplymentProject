@@ -9,6 +9,6 @@ namespace Employment.Application.Contracts.InfrastructureContracts
 {
     public interface IFileUploader
     {
-        Task<string> UploadResumeFileAsync(UploadFileDto uploadFileDto, int userId);
+        Task<string> UploadResumeFileAsync(UploadFileDto uploadFileDto, string mobile);
     }
 }

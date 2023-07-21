@@ -511,6 +511,15 @@ namespace Employment.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شما لاگین نکرده اید..
+        /// </summary>
+        public static string YouAreNotAuthenticated {
+            get {
+                return ResourceManager.GetString("YouAreNotAuthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to عملیات ثبت نام با موفقیت انجام شد..
         /// </summary>
         public static string YouSignedUpSuccessfuly {
